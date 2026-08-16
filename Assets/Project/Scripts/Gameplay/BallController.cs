@@ -340,8 +340,13 @@ namespace Pickleball
 
             if (rb != null)
             {
-                rb.linearVelocity = Vector3.zero;
-                rb.angularVelocity = Vector3.zero;
+                // Unity 6 cảnh báo nếu gán vận tốc cho rigidbody đang kinematic,
+                // nên phải zero TRƯỚC khi bật kinematic và bỏ qua nếu đã kinematic sẵn.
+                if (!rb.isKinematic)
+                {
+                    rb.linearVelocity = Vector3.zero;
+                    rb.angularVelocity = Vector3.zero;
+                }
                 rb.isKinematic = true;
             }
 
@@ -893,9 +898,14 @@ namespace Pickleball
 
             if (rb != null)
             {
+                // Zero vận tốc TRƯỚC khi bật kinematic — thứ tự ngược lại sẽ sinh warning
+                // "Setting linear velocity of a kinematic body is not supported" trên Unity 6.
+                if (!rb.isKinematic)
+                {
+                    rb.linearVelocity = Vector3.zero;
+                    rb.angularVelocity = Vector3.zero;
+                }
                 rb.isKinematic = true;
-                rb.linearVelocity = Vector3.zero;
-                rb.angularVelocity = Vector3.zero;
             }
 
             transform.position = position;
