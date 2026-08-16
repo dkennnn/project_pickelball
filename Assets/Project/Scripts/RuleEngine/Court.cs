@@ -35,6 +35,12 @@ namespace Pickleball
         public float kitchenDepth = 2.1336f;
 
         /// <summary>
+        /// Chiều cao lưới ở giữa sân (mét). Chuẩn pickleball: 34 inch = 0.8636 m ở giữa,
+        /// 36 inch ở hai cột. AI dùng giá trị này để quyết định cú đánh có qua được lưới không.
+        /// </summary>
+        public float netHeight = 0.8636f;
+
+        /// <summary>
         /// Khoảng lùi tối thiểu (mét) so với baseline khi hệ thống ngắm tự chọn điểm rơi,
         /// để AI/aim-assist không nhắm sát vạch cuối sân.
         /// </summary>
