@@ -3,22 +3,26 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Net
+  - Ground
+  - Ball
+  - Player
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  -
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  -
+  -
+  - Ground
+  - Ball
+  - Player
+  - CourtBounds
+  -
+  -
   - 
   - 
   - 
