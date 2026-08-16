@@ -15,8 +15,8 @@
 | 2 | — | Tag/Layer, meta files, sửa asmdef trùng reference | ✅ Xong | `chore: unity metadata, tags & layers` |
 | 3 | P01 | ScriptableObject data layer + editor generator + 14 asset số liệu thật | ✅ Xong | `feat(p01): scriptableobject data layer` |
 | 4 | P02+P05 | Court, RuleEngine, ScoreManager, GameManager, InputManager, SwipeTracer + 18 EditMode test | ✅ Xong | `feat(p02): rule engine, match flow & swipe input` |
-| 5 | P03 | BallController, EnhancedBounce, PhysicsTrajectoryHandler, SimulationBall | ⬜ Chưa | |
-| 6 | P04 | BasePlayerController + FSM 4 state + animation controller | ⬜ Chưa | |
+| 5 | P03 | BallController, EnhancedBounce, PhysicsTrajectoryHandler, SimulationBall, PickleNet | ✅ Xong | `feat(p03): ball physics & trajectory prediction` |
+| 6 | P04 | BasePlayerController + FSM 4 state + animation + CameraFollow | ✅ Xong | `feat(p04): player controller fsm` |
 | 7 | P06 | PickleballAIController + 5 strategy + 4 AI state + auto-difficulty | ⬜ Chưa | |
 | 8 | P07 | Boosters (5 loại) + BoosterManager + Energy Drink | ⬜ Chưa | |
 | 9 | P08 | SaveData + SaveGameData mã hoá + SavedDataHandler + Backend stub | ⬜ Chưa | |
