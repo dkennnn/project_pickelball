@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 940aff53728b8074eb6fefb2cc210a39, type: 3}
+  m_Name: StadiumsData
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.StadiumsData
+  stadiums:
+  - stadiumName: Gully Grounds
+    stadiumSceneName: Stadium1
+    minLevel: 0
+    maxLevel: 2
+    stadiumSprite: {fileID: 0}
+  - stadiumName: Club Arena
+    stadiumSceneName: Stadium2
+    minLevel: 3
+    maxLevel: 5
+    stadiumSprite: {fileID: 0}
+  - stadiumName: Champion's Dome
+    stadiumSceneName: Stadium3
+    minLevel: 6
+    maxLevel: 8
+    stadiumSprite: {fileID: 0}
+  - stadiumName: Purple Stadium
+    stadiumSceneName: Stadium4
+    minLevel: 9
+    maxLevel: 11
+    stadiumSprite: {fileID: 0}
+  - stadiumName: Jungle Stadium
+    stadiumSceneName: Stadium5
+    minLevel: 12
+    maxLevel: 14
+    stadiumSprite: {fileID: 0}

@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d997785c2bf0184caed30178a4c7b55, type: 3}
+  m_Name: GameSettings
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.GameSettings
+  normalMaxScore: 6
+  normalWinMargin: 2
+  normalGameBetCoins: 100
+  quickMaxScore: 3
+  quickWinMargin: 0
+  quickGameBetCoins: 50
+  ballRadius: 0.06
+  serveTimeout: 10
+  EnergyBoostMultiplier: 2
+  BoosterMaxShots: 5
+  selectedMode: 0
+  matchModeConfigs:
+  - modeType: 0
+    mainMenuButtonSprite: {fileID: 0}
+    modeSelectionSprite: {fileID: 0}
+    infoTitle: Normal Mode
+    infoDescription: "Your main career mode. First to 6 points wins \u2014 play smart,
+      climb the ranks, and own the court."
+    unlockLevel: 0
+    isComingSoon: 0
+  - modeType: 1
+    mainMenuButtonSprite: {fileID: 0}
+    modeSelectionSprite: {fileID: 0}
+    infoTitle: Quick Match
+    infoDescription: "Jump in fast! First to 3 points wins \u2014 perfect when you
+      want a quick game without the full grind."
+    unlockLevel: 0
+    isComingSoon: 0
+  - modeType: 2
+    mainMenuButtonSprite: {fileID: 0}
+    modeSelectionSprite: {fileID: 0}
+    infoTitle: LAN Mode
+    infoDescription: Play with friends on the same network. Connect locally and battle
+      it out together on the court.
+    unlockLevel: 0
+    isComingSoon: 0
+  - modeType: 3
+    mainMenuButtonSprite: {fileID: 0}
+    modeSelectionSprite: {fileID: 0}
+    infoTitle: Target Mode
+    infoDescription: "Aim for the targets and perfect your shots. This mode is coming
+      soon \u2014 stay tuned!"
+    unlockLevel: 0
+    isComingSoon: 1
+  maxScore: 6
+  winMargin: 2
+  gameBetCoins: 100
+  customStadiumSceneName: 

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e3b83ec9ba63294493b46b4eea941c1, type: 3}
+  m_Name: AI_3_Competitor
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.PlayerProfile
+  playerName: AI Player
+  height: 1.7
+  MovementSpeed: 2.7
+  Agility: 1.1
+  TrackingAccuracy: 0.3
+  shotRange: 1.2
+  volleyRange: 2.2
+  shotTakingRate: 0.95
+  maxStamina: 120
+  staminaRechargeRate: 2.4
+  staminaDepletionRate: 6.5
+  ProbablityToTakeOutShots: 0.5
+  maxShotError: 0.2
+  TrackingErrorProbablity: 0.55
+  shotPower: 0.3
+  spinAbility: 0.2
+  swingAbility: 0.6
+  swingSpinProbablity: 0.3

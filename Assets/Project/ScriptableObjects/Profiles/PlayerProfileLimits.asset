@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02cd60ddfbfcda846a55f8b152546564, type: 3}
+  m_Name: PlayerProfileLimits
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.PlayerProfileLimits
+  minHeight: 1.5
+  maxHeight: 1.8
+  minMovementSpeed: 3.5
+  maxMovementSpeed: 5
+  minAgility: 1.5
+  maxAgility: 3.5
+  minTrackingAccuracy: 0.05
+  maxTrackingAccuracy: 1
+  minShotRange: 0.5
+  maxShotRange: 2
+  minVolleyRange: 2
+  maxVolleyRange: 6
+  minShotTakingRate: 0
+  maxShotTakingRate: 1
+  minStamina: 50
+  maxStamina: 150
+  minStaminaRechargeRate: 2
+  maxStaminaRechargeRate: 4
+  minStaminaDepletionRate: 6
+  maxStaminaDepletionRate: 8
+  minProbablityToTakeOutShots: 1
+  maxProbablityToTakeOutShots: 1
+  minMaxShotError: 0
+  maxMaxShotError: 0
+  minTrackingErrorProbability: 0
+  maxTrackingErrorProbability: 1
+  minShotPower: 0
+  maxShotPower: 1
+  minSpinAbility: 0
+  maxSpinAbility: 1
+  minSwingAbility: 0
+  maxSwingAbility: 1
+  minSwingSpinProbability: 0
+  maxSwingSpinProbability: 1
