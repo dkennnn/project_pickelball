@@ -17,8 +17,8 @@
 | 4 | P02+P05 | Court, RuleEngine, ScoreManager, GameManager, InputManager, SwipeTracer + 18 EditMode test | ✅ Xong | `feat(p02): rule engine, match flow & swipe input` |
 | 5 | P03 | BallController, EnhancedBounce, PhysicsTrajectoryHandler, SimulationBall, PickleNet | ✅ Xong | `feat(p03): ball physics & trajectory prediction` |
 | 6 | P04 | BasePlayerController + FSM 4 state + animation + CameraFollow | ✅ Xong | `feat(p04): player controller fsm` |
-| 7 | P06 | PickleballAIController + 5 strategy + 4 AI state + auto-difficulty | ⬜ Chưa | |
-| 8 | P07 | Boosters (5 loại) + BoosterManager + Energy Drink | ⬜ Chưa | |
+| 7 | P06 | PickleballAIController + 5 strategy + AIHelper + 4 AI state + AINamesData | ✅ Xong | `feat(p06): ai opponent` |
+| 8 | P07 | Boosters (5 loại) + BoosterManager + AIBoosterController + VFXPlayer | ✅ Xong | `feat(p07): booster system` |
 | 9 | P08 | SaveData + SaveGameData mã hoá + SavedDataHandler + Backend stub | ⬜ Chưa | |
 | 10 | P09 | PlayerLevels, League, Stats, Stadiums, GameData hub | ⬜ Chưa | |
 | 11 | P10 | Shop, Item/Character/Grip/Paddle/Workout, PlayerLoadout, Tazo, Kitbag, Locker | ⬜ Chưa | |

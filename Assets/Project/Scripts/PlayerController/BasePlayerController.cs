@@ -264,6 +264,9 @@ namespace Pickleball
 
             if (GameManager.HasInstance) GameManager.Instance.RegisterParticipant(this);
 
+            // Đăng ký với BoosterManager ngay tại đây thay vì để nó quét scene tìm player.
+            if (BoosterManager.HasInstance) BoosterManager.Instance.RegisterPlayer(this);
+
             Subscribe();
             ChangeState(PlayerState.Idle);
         }
