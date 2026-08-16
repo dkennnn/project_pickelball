@@ -20,13 +20,15 @@
 | 7 | P06 | PickleballAIController + 5 strategy + AIHelper + 4 AI state + AINamesData | ✅ Xong | `feat(p06): ai opponent` |
 | 8 | P07 | Boosters (5 loại) + BoosterManager + AIBoosterController + VFXPlayer | ✅ Xong | `feat(p07): booster system` |
 | 9 | P08 | SaveData + SaveGameData mã hoá + SavedDataHandler + Backend stub | ⬜ Chưa | |
-| 10 | P09 | PlayerLevels, League, Stats, Stadiums, GameData hub | ⬜ Chưa | |
+| 10a | P09 | **Stats**: StatsData/GameStatsData/StatsManager + 15 EditMode test | ✅ Xong | `feat(p09): match statistics subsystem` |
+| 10b | P09 | League UI, GameData hub, PlayerProfileData (còn lại của P09) | ⬜ Chưa | |
 | 11 | P10 | Shop, Item/Character/Grip/Paddle/Workout, PlayerLoadout, Tazo, Kitbag, Locker | ⬜ Chưa | |
 | 12 | P11 | Daily Challenge, Daily Reward, Tournament | ⬜ Chưa | |
 | 13 | P12 | UI framework + 28 màn hình | ⬜ Chưa | |
 | 14 | P13 | Mirror networking + matchmaking + LAN (Phase 2) | ⬜ Chưa | |
 | 15 | P14 | Tutorial 11 bước | ⬜ Chưa | |
 | 16 | P15 | Ads/IAP/Analytics/RemoteConfig/Localization + ráp scene | ⬜ Chưa | |
+| 17 | — | **Scene greybox chạy được** + 4 PlayMode smoke test | ✅ Xong | `feat(scene): greybox playable match scene` |
 
 Chú thích: ✅ Xong · 🔄 Đang làm · ⬜ Chưa · ⚠️ Có vấn đề
 
@@ -38,6 +40,21 @@ Chú thích: ✅ Xong · 🔄 Đang làm · ⬜ Chưa · ⚠️ Có vấn đề
 - Cập nhật bảng trên (trạng thái + commit) trong CÙNG commit của bước đó.
 - Không commit `Library/`, `Temp/`, `Logs/`, `UserSettings/` (đã có trong `.gitignore`).
 - Số liệu cân bằng chỉ nằm trong ScriptableObject, không hardcode trong logic.
+
+## Chạy thử ngay
+
+1. Mở project bằng Unity 6000.4.12f1.
+2. Mở `Assets/Project/Scenes/GreyboxMatch.unity` (đã ở Build Settings index 0) rồi bấm Play.
+3. **Tap** xuống sân để di chuyển, **vuốt** để đánh bóng. Đối thủ AI ở bậc Amateur.
+4. Dựng lại scene bất cứ lúc nào: menu `Pickleball/Build Greybox Match Scene` (idempotent).
+5. Sinh lại toàn bộ asset số liệu: menu `Pickleball/Generate Balance Data` (idempotent).
+
+Kiểm tra tự động:
+```
+powershell -ExecutionPolicy Bypass -File ..\check-compile.ps1
+Unity.exe -batchmode -nographics -runTests -testPlatform EditMode -projectPath <path> -testResults r.xml
+Unity.exe -batchmode -nographics -runTests -testPlatform PlayMode -projectPath <path> -testResults r.xml
+```
 
 ## Quyết định kiến trúc
 
@@ -56,7 +73,7 @@ Chú thích: ✅ Xong · 🔄 Đang làm · ⬜ Chưa · ⚠️ Có vấn đề
 ## Việc cần làm thủ công trong Unity Editor
 
 - [x] ~~Mở project lần đầu để Unity resolve package~~ (đã chạy batchmode, package resolve xong).
-- [ ] Tạo URP Asset + gán vào Graphics Settings / Quality Settings.
+- [ ] Tạo URP Asset + gán vào Graphics Settings / Quality Settings (hiện dùng pipeline mặc định).
 - [x] ~~Chạy `Pickleball/Generate Balance Data`~~ (đã chạy bằng `-executeMethod`, sinh 14 asset).
 - [x] ~~Tạo Tag/Layer~~ (đã ghi thẳng vào `ProjectSettings/TagManager.asset`).
 - [ ] Player Settings: Portrait, Android IL2CPP ARM64, minSdk 24.

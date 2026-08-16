@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86db2731eeb6c1643861dd35137a52e1, type: 3}
+  m_Name: GameMessages
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.GameMessages
+  ruleMessages:
+  - ruleType: 1
+    localizationKey: rule.serve_in_net
+    fallbackText: Serve hit the net!
+  - ruleType: 2
+    localizationKey: rule.serve_not_in_area
+    fallbackText: Serve missed the service box!
+  - ruleType: 3
+    localizationKey: rule.serve_volley
+    fallbackText: You must let the serve bounce!
+  - ruleType: 4
+    localizationKey: rule.double_bounce
+    fallbackText: Double bounce!
+  - ruleType: 5
+    localizationKey: rule.volley_in_kitchen
+    fallbackText: Volley inside the kitchen!
+  - ruleType: 6
+    localizationKey: rule.out_of_court
+    fallbackText: Ball out of bounds!
+  - ruleType: 7
+    localizationKey: rule.wrong_turn
+    fallbackText: Not your shot!
+  - ruleType: 8
+    localizationKey: rule.serve_timeout
+    fallbackText: Serve clock expired!
+  deuceKey: Deuce!
+  matchPointKey: Match Point!
+  advantageKey: Advantage!
+  gameOverKey: Game Over!
