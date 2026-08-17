@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
+using StarterKit.UIKit;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using Scene = UnityEngine.SceneManagement.Scene;
+using Object = UnityEngine.Object;
 
 namespace Pickleball.EditorTools
 {
@@ -46,8 +49,33 @@ namespace Pickleball.EditorTools
 
         private const string GameSettingsPath = GameDataFolder + "/GameSettings.asset";
         private const string GameMessagesPath = GameDataFolder + "/GameMessages.asset";
+        private const string GameDataPath = GameDataFolder + "/GameData.asset";
         private const string ProfileLimitsPath = ProfilesFolder + "/PlayerProfileLimits.asset";
         private const string PlayerProfilePath = ProfilesFolder + "/Player_Default.asset";
+
+        // --- Tầng UI ------------------------------------------------------------------------
+        private const string UIScreenPrefabsFolder = PrefabsFolder + "/UI/Screens";
+        private const string TutorialUIPrefabPath = UIScreenPrefabsFolder + "/TutorialUI.prefab";
+        private const string TutorialConfigurationPath = ScriptableObjectsFolder + "/Tutorial/TutorialConfiguration.asset";
+        private const string TutorialKitbagExpectedPath = ScriptableObjectsFolder + "/Rewards/DynamicKitbag_Tutorial.asset";
+
+        /// <summary>Màn hình <see cref="UIController"/> mở đầu tiên sau khi mọi màn hình đăng ký xong.</summary>
+        private const ScreenType StartScreenType = ScreenType.MainMenu;
+
+        /// <summary>Sorting order của canvas màn hình thường.</summary>
+        private const int ScreenSortingOrder = 0;
+
+        /// <summary>Sorting order của canvas popup — luôn chồng lên màn hình thường.</summary>
+        private const int PopupSortingOrder = 100;
+
+        /// <summary>Sorting order của lớp phủ hướng dẫn — trên cả popup.</summary>
+        private const int TutorialSortingOrder = 200;
+
+        /// <summary>
+        /// Sorting order của các lớp phủ dịch vụ (toast, hiệu ứng UI). Chúng KHÔNG phải màn hình,
+        /// không tham gia ngăn xếp và phải luôn nhìn thấy được nên nằm trên cùng.
+        /// </summary>
+        private const int OverlaySortingOrder = 300;
 
         // ------------------------------------------------------------------ Hình học sân
 
@@ -277,7 +305,7 @@ namespace Pickleball.EditorTools
             // Ba component này sống xuyên scene (IndestructibleSingleton) nên đặt ở object riêng.
             // Thứ tự khởi động do [DefaultExecutionOrder] quyết định:
             //   SavedDataHandler (-600) -> GameBootstrap (-500) -> phần còn lại.
-            GameData gameData = AssetDatabase.LoadAssetAtPath<GameData>(GameDataFolder + "/GameData.asset");
+            GameData gameData = AssetDatabase.LoadAssetAtPath<GameData>(GameDataPath);
             Shop shop = AssetDatabase.LoadAssetAtPath<Shop>(ScriptableObjectsFolder + "/Shop/Shop.asset");
 
             GameObject metaRoot = new GameObject("--- META ---");
@@ -308,6 +336,9 @@ namespace Pickleball.EditorTools
                                  "chạy Pickleball/Generate Item Data, Generate Reward Data, Generate Shop Data rồi dựng lại scene.");
             }
 
+            // ================================================================ UI
+            BuildUILayer(gameData);
+
             // --- Lưu ------------------------------------------------------------------------
             EditorSceneManager.MarkSceneDirty(scene);
             bool saved = EditorSceneManager.SaveScene(scene, ScenePath);
@@ -321,6 +352,301 @@ namespace Pickleball.EditorTools
                 ? "[GreyboxSceneBuilder] Đã dựng và lưu scene tại " + ScenePath +
                   (UseOriginalArt ? " (chế độ ART GỐC)" : " (chế độ greybox)")
                 : "[GreyboxSceneBuilder] KHÔNG lưu được scene tại " + ScenePath);
+        }
+
+        // ------------------------------------------------------------------ UI
+
+        /// <summary>
+        /// Dựng toàn bộ tầng UI dưới node <c>--- UI ---</c>: EventSystem, <see cref="UIController"/>,
+        /// mọi prefab màn hình trong <see cref="UIScreenPrefabsFolder"/> và
+        /// <see cref="TutorialManager"/>.
+        ///
+        /// <para><b>Vì sao mọi thứ đều là con của <c>--- UI ---</c></b>: <c>IndestructibleSingleton</c>
+        /// chỉ gọi <c>DontDestroyOnLoad</c> khi <c>transform.parent == null</c>. Đặt
+        /// <see cref="UIController"/> / <see cref="TutorialManager"/> làm con nên chúng sống theo
+        /// scene — đúng như nhóm <c>--- META ---</c> đang làm — và mỗi lần nạp lại scene sẽ có một
+        /// bộ UI sạch (quan trọng cho PlayMode test chạy nhiều lần).</para>
+        /// </summary>
+        /// <param name="gameData">Hub dữ liệu đã nạp ở nhóm META; có thể null.</param>
+        private static void BuildUILayer(GameData gameData)
+        {
+            GameObject uiRoot = new GameObject("--- UI ---");
+
+            CreateEventSystem(uiRoot.transform);
+            CreateUIController(uiRoot.transform);
+
+            TutorialUI tutorialUI;
+            InstantiateScreenPrefabs(uiRoot.transform, out tutorialUI);
+
+            CreateTutorialManager(uiRoot.transform, gameData, tutorialUI);
+        }
+
+        /// <summary>
+        /// Dựng <c>EventSystem</c> + <c>StandaloneInputModule</c>.
+        /// <para>Project đặt <c>activeInputHandler: 0</c> (Input Manager cũ) nên module đúng là
+        /// <c>StandaloneInputModule</c>, KHÔNG phải <c>InputSystemUIInputModule</c>.</para>
+        /// <para><b>Thiếu EventSystem thì mọi nút bấm đều chết</b> dù UI vẫn hiện bình thường.</para>
+        /// </summary>
+        private static void CreateEventSystem(Transform parent)
+        {
+            GameObject eventSystemObject = new GameObject("EventSystem");
+            eventSystemObject.transform.SetParent(parent, false);
+
+            eventSystemObject.AddComponent<UnityEngine.EventSystems.EventSystem>();
+            eventSystemObject.AddComponent<UnityEngine.EventSystems.StandaloneInputModule>();
+        }
+
+        /// <summary>Dựng <see cref="UIController"/> và gán màn hình mở đầu qua SerializedObject.</summary>
+        private static void CreateUIController(Transform parent)
+        {
+            GameObject controllerObject = new GameObject("UIController");
+            controllerObject.transform.SetParent(parent, false);
+
+            UIController controller = controllerObject.AddComponent<UIController>();
+
+            // startScreen là [SerializeField] private -> ghi qua SerializedObject.
+            // Dùng intValue chứ KHÔNG dùng enumValueIndex: enumValueIndex là thứ tự trong bảng tên,
+            // còn ta cần đúng giá trị số của ScreenType.
+            SerializedObject serialized = new SerializedObject(controller);
+            SerializedProperty startScreen = serialized.FindProperty("startScreen");
+            if (startScreen != null)
+            {
+                startScreen.intValue = (int)StartScreenType;
+            }
+            else
+            {
+                Debug.LogWarning("[GreyboxSceneBuilder] Không tìm thấy field 'startScreen' trên UIController.");
+            }
+            serialized.ApplyModifiedPropertiesWithoutUndo();
+        }
+
+        /// <summary>
+        /// Đưa mọi prefab trong <see cref="UIScreenPrefabsFolder"/> vào scene bằng
+        /// <c>PrefabUtility.InstantiatePrefab</c> để GIỮ LIÊN KẾT PREFAB —
+        /// sửa prefab về sau là scene tự cập nhật.
+        ///
+        /// <para>Mỗi canvas được xếp tầng theo <see cref="UIScreenBase.IsPopup"/> và tắt sẵn, trừ
+        /// màn hình mở đầu. Xem chú thích trong thân hàm về việc vì sao vẫn phải tắt tay.</para>
+        /// </summary>
+        /// <param name="parent">Node <c>--- UI ---</c>.</param>
+        /// <param name="tutorialUI">Instance TutorialUI tìm được, hoặc null.</param>
+        private static void InstantiateScreenPrefabs(Transform parent, out TutorialUI tutorialUI)
+        {
+            tutorialUI = null;
+
+            if (!AssetDatabase.IsValidFolder(UIScreenPrefabsFolder))
+            {
+                Debug.LogWarning("[GreyboxSceneBuilder] Không thấy thư mục " + UIScreenPrefabsFolder +
+                                 " — scene sẽ KHÔNG có màn hình UI nào.");
+                return;
+            }
+
+            EnsureTutorialUIPrefab();
+
+            string[] guids = AssetDatabase.FindAssets("t:Prefab", new[] { UIScreenPrefabsFolder });
+            List<string> paths = new List<string>(guids.Length);
+            for (int i = 0; i < guids.Length; i++)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guids[i]);
+                if (!string.IsNullOrEmpty(path)) paths.Add(path);
+            }
+
+            // Sắp xếp để thứ tự node trong scene luôn giống nhau giữa các lần dựng.
+            paths.Sort(StringComparer.Ordinal);
+
+            int instantiated = 0;
+            int screens = 0;
+            bool startScreenFound = false;
+
+            for (int i = 0; i < paths.Count; i++)
+            {
+                GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(paths[i]);
+                if (prefab == null) continue;
+
+                GameObject instance = PrefabUtility.InstantiatePrefab(prefab, parent) as GameObject;
+                if (instance == null)
+                {
+                    Debug.LogWarning("[GreyboxSceneBuilder] Không instantiate được " + paths[i] + ".");
+                    continue;
+                }
+
+                instantiated++;
+
+                UIScreenBase screen = instance.GetComponent<UIScreenBase>();
+                if (screen != null) screens++;
+
+                if (tutorialUI == null)
+                {
+                    TutorialUI found = instance.GetComponent<TutorialUI>();
+                    if (found != null) tutorialUI = found;
+                }
+
+                bool isOverlayHandler = IsServiceOverlay(instance, screen);
+                bool isStartScreen = !startScreenFound && screen != null && !screen.IsPopup
+                                     && ResolveScreenType(screen) == StartScreenType;
+                if (isStartScreen) startScreenFound = true;
+
+                Canvas canvas = instance.GetComponent<Canvas>();
+                if (canvas == null) canvas = instance.GetComponentInChildren<Canvas>(true);
+
+                if (canvas == null)
+                {
+                    Debug.LogWarning("[GreyboxSceneBuilder] " + paths[i] +
+                                     " không có Canvas — màn hình này sẽ không vẽ được gì.");
+                    continue;
+                }
+
+                canvas.sortingOrder = ResolveSortingOrder(instance, screen, isOverlayHandler);
+
+                // Tắt sẵn mọi canvas trừ màn mở đầu và các lớp phủ dịch vụ.
+                //
+                // UIScreenBase.Awake đã tự gọi ApplyVisibility(false) nên với các prefab CÓ
+                // UIScreenBase thì bước này là thừa lúc chạy — nhưng vẫn giữ vì:
+                //   1) 5 prefab trong thư mục KHÔNG có UIScreenBase (LANCreationUI, LANLobbyUI,
+                //      LANSelectionUI, UIToast, UI VFX). Nhóm LAN* sẽ phủ kín màn hình mãi mãi
+                //      nếu không tắt tay.
+                //   2) Scene lưu ra nhìn đúng ngay trong Editor, không phải bấm Play mới sạch.
+                canvas.enabled = isStartScreen || isOverlayHandler;
+
+                // Ghi lại override lên prefab instance để scene lưu đúng hai thay đổi ở trên.
+                PrefabUtility.RecordPrefabInstancePropertyModifications(canvas);
+            }
+
+            if (!startScreenFound)
+            {
+                Debug.LogWarning("[GreyboxSceneBuilder] Không tìm thấy prefab nào mang ScreenType." +
+                                 StartScreenType + " trong " + UIScreenPrefabsFolder +
+                                 " — bấm Play sẽ không thấy màn hình nào.");
+            }
+
+            Debug.Log("[GreyboxSceneBuilder] Tầng UI: " + instantiated + " prefab đã đặt vào scene, " +
+                      screens + " trong số đó là UIScreenBase.");
+        }
+
+        /// <summary>
+        /// Dựng prefab TutorialUI nếu chưa có, để tầng UI luôn đủ bộ chỉ với một lần bấm menu.
+        /// </summary>
+        private static void EnsureTutorialUIPrefab()
+        {
+            if (AssetDatabase.LoadAssetAtPath<GameObject>(TutorialUIPrefabPath) != null) return;
+
+            Debug.Log("[GreyboxSceneBuilder] Chưa có " + TutorialUIPrefabPath +
+                      " — dựng tự động bằng TutorialUIBuilder.");
+            TutorialUIBuilder.BuildTutorialUIPrefab();
+        }
+
+        /// <summary>
+        /// True với các prefab lớp phủ dịch vụ (toast, hiệu ứng UI): chúng không phải màn hình,
+        /// không nằm trong ngăn xếp và phải luôn bật canvas thì mới hiện được nội dung sinh ra
+        /// lúc chạy.
+        /// </summary>
+        private static bool IsServiceOverlay(GameObject instance, UIScreenBase screen)
+        {
+            if (screen != null) return false;
+
+            return instance.GetComponent<ToastHandler>() != null
+                   || instance.GetComponent<UIVFXHandler>() != null;
+        }
+
+        /// <summary>
+        /// Chọn sorting order cho canvas: lớp phủ dịch vụ 300, hướng dẫn 200, popup 100,
+        /// màn hình thường 0.
+        /// <para>Prefab không có <see cref="UIScreenBase"/> thì đoán theo tên có chứa "Popup".</para>
+        /// </summary>
+        private static int ResolveSortingOrder(GameObject instance, UIScreenBase screen, bool isOverlayHandler)
+        {
+            if (isOverlayHandler) return OverlaySortingOrder;
+            if (screen is TutorialUI) return TutorialSortingOrder;
+            if (screen != null) return screen.IsPopup ? PopupSortingOrder : ScreenSortingOrder;
+
+            return instance.name.IndexOf("Popup", StringComparison.OrdinalIgnoreCase) >= 0
+                ? PopupSortingOrder
+                : ScreenSortingOrder;
+        }
+
+        /// <summary>
+        /// <see cref="ScreenType"/> thực tế của một màn hình: ưu tiên giá trị gán trên prefab,
+        /// rơi về <see cref="UIScreenBase.DefaultScreenType"/> — đúng cách
+        /// <c>UIScreenBase.Awake</c> làm lúc chạy.
+        /// </summary>
+        private static ScreenType ResolveScreenType(UIScreenBase screen)
+        {
+            if (screen == null) return ScreenType.None;
+            return screen.screenType != ScreenType.None ? screen.screenType : screen.DefaultScreenType;
+        }
+
+        /// <summary>
+        /// Dựng <see cref="TutorialManager"/> và nối 4 tham chiếu bắt buộc. Asset nào thiếu thì chỉ
+        /// cảnh báo kèm đường dẫn mong đợi — KHÔNG ném exception, để scene vẫn dựng xong.
+        /// </summary>
+        /// <param name="parent">Node <c>--- UI ---</c>.</param>
+        /// <param name="gameData">Hub dữ liệu; có thể null.</param>
+        /// <param name="tutorialUI">Instance TutorialUI trong scene; có thể null.</param>
+        private static void CreateTutorialManager(Transform parent, GameData gameData, TutorialUI tutorialUI)
+        {
+            GameObject managerObject = new GameObject("TutorialManager");
+            managerObject.transform.SetParent(parent, false);
+
+            TutorialManager manager = managerObject.AddComponent<TutorialManager>();
+
+            TutorialConfiguration configuration =
+                AssetDatabase.LoadAssetAtPath<TutorialConfiguration>(TutorialConfigurationPath);
+            if (configuration == null)
+            {
+                Debug.LogWarning("[GreyboxSceneBuilder] Không nạp được TutorialConfiguration — mong đợi tại " +
+                                 TutorialConfigurationPath + " (chạy Pickleball/Generate Tutorial Data).");
+            }
+            manager.configuration = configuration;
+
+            if (gameData == null)
+            {
+                Debug.LogWarning("[GreyboxSceneBuilder] TutorialManager.gameData để trống — mong đợi tại " +
+                                 GameDataPath + ".");
+            }
+            manager.gameData = gameData;
+
+            DynamicKitbag kitbag = FindTutorialKitbag();
+            if (kitbag == null)
+            {
+                Debug.LogWarning("[GreyboxSceneBuilder] Không tìm thấy asset DynamicKitbag nào — mong đợi tại " +
+                                 TutorialKitbagExpectedPath + "; bước thưởng tutorial sẽ tự bỏ qua.");
+            }
+
+            if (tutorialUI == null)
+            {
+                Debug.LogWarning("[GreyboxSceneBuilder] Không có TutorialUI trong scene — mong đợi prefab tại " +
+                                 TutorialUIPrefabPath + " (chạy Pickleball/UI/Build Tutorial UI Prefab).");
+            }
+
+            // tutorialKitbag / tutorialUI là [SerializeField] private -> ghi qua SerializedObject.
+            SerializedObject serialized = new SerializedObject(manager);
+            SetSerializedReference(serialized, "tutorialKitbag", kitbag);
+            SetSerializedReference(serialized, "tutorialUI", tutorialUI);
+            serialized.ApplyModifiedPropertiesWithoutUndo();
+        }
+
+        /// <summary>
+        /// Tìm túi thưởng hướng dẫn: ưu tiên asset có tên chứa "Tutorial", nếu không thì lấy
+        /// asset <c>DynamicKitbag</c> đầu tiên tìm được.
+        /// </summary>
+        private static DynamicKitbag FindTutorialKitbag()
+        {
+            string[] guids = AssetDatabase.FindAssets("t:DynamicKitbag");
+            if (guids == null || guids.Length == 0) return null;
+
+            DynamicKitbag fallback = null;
+
+            for (int i = 0; i < guids.Length; i++)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guids[i]);
+                DynamicKitbag kitbag = AssetDatabase.LoadAssetAtPath<DynamicKitbag>(path);
+                if (kitbag == null) continue;
+
+                if (kitbag.name.IndexOf("Tutorial", StringComparison.OrdinalIgnoreCase) >= 0) return kitbag;
+                if (fallback == null) fallback = kitbag;
+            }
+
+            return fallback;
         }
 
         // ------------------------------------------------------------------ Environment
