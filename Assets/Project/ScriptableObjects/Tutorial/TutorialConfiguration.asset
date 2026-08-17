@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12639ce1e2e4fc6448c2f16503457457, type: 3}
+  m_Name: TutorialConfiguration
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.TutorialConfiguration
+  tutorialSteps:
+  - tutorialType: 2
+    isEnabled: 1
+    isCompleted: 0
+    nextTutorial: 3
+    nextTutorialStartAfterDelay: 1
+    isGameplayTutorial: 0
+    requiredUIScreen: 3
+  - tutorialType: 3
+    isEnabled: 1
+    isCompleted: 0
+    nextTutorial: 4
+    nextTutorialStartAfterDelay: 1
+    isGameplayTutorial: 0
+    requiredUIScreen: 7
+  - tutorialType: 4
+    isEnabled: 1
+    isCompleted: 0
+    nextTutorial: 5
+    nextTutorialStartAfterDelay: 1
+    isGameplayTutorial: 0
+    requiredUIScreen: 7
+  - tutorialType: 5
+    isEnabled: 1
+    isCompleted: 0
+    nextTutorial: 6
+    nextTutorialStartAfterDelay: 0.5
+    isGameplayTutorial: 0
+    requiredUIScreen: 7
+  - tutorialType: 6
+    isEnabled: 1
+    isCompleted: 0
+    nextTutorial: 10
+    nextTutorialStartAfterDelay: 1
+    isGameplayTutorial: 0
+    requiredUIScreen: 7
+  - tutorialType: 10
+    isEnabled: 1
+    isCompleted: 0
+    nextTutorial: 11
+    nextTutorialStartAfterDelay: 1.5
+    isGameplayTutorial: 1
+    requiredUIScreen: 7
+  - tutorialType: 11
+    isEnabled: 1
+    isCompleted: 0
+    nextTutorial: 12
+    nextTutorialStartAfterDelay: 1.5
+    isGameplayTutorial: 1
+    requiredUIScreen: 7
+  - tutorialType: 12
+    isEnabled: 1
+    isCompleted: 0
+    nextTutorial: 13
+    nextTutorialStartAfterDelay: 1.5
+    isGameplayTutorial: 1
+    requiredUIScreen: 7
+  - tutorialType: 13
+    isEnabled: 1
+    isCompleted: 0
+    nextTutorial: 15
+    nextTutorialStartAfterDelay: 1.5
+    isGameplayTutorial: 1
+    requiredUIScreen: 7
+  - tutorialType: 15
+    isEnabled: 1
+    isCompleted: 0
+    nextTutorial: 16
+    nextTutorialStartAfterDelay: 1
+    isGameplayTutorial: 0
+    requiredUIScreen: 17
+  - tutorialType: 16
+    isEnabled: 1
+    isCompleted: 0
+    nextTutorial: 999
+    nextTutorialStartAfterDelay: 0.5
+    isGameplayTutorial: 0
+    requiredUIScreen: 12
+  enableTutorialSystem: 1
+  startingTutorial: 2

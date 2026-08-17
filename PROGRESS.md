@@ -34,7 +34,7 @@
 | 13a | P12 | UI framework (UIController, UIScreenBase, Animatable, SafeArea) + 23 màn + 10 cell view | ✅ Xong | `feat(p12): ui framework & screen scripts` |
 | 13b | P12 | **Trình sinh prefab từ JSON layout** → 50 prefab / 1638 node | ✅ Xong | `feat(p12): ui layout importer` |
 | 13c | P12 | Popup + 11 cell view + utilities còn thiếu | ✅ Xong | `feat(p12): popups, cell views & ui utilities` |
-| 14 | P14 | Tutorial 11 bước | ⬜ Chưa | |
+| 14 | P14 | Tutorial 11 bước + TutorialUI + 16 EditMode test | ✅ Xong | `feat(p14): tutorial system` |
 | 15 | — | Effect(11) / Misc(7) / Logical(2) / EventTheme(2) / Audio(2) / ProfanityFilter(4) / ReplaySystem(3) / Audience | ✅ Xong | `feat(misc): effects, theme, audio, profanity filter & replay` |
 | — | P13 | Mirror multiplayer + LAN | ⏸ **hoãn cuối** | cần cài package Mirror |
 | — | P15 | Ads / IAP / Analytics / RemoteConfig / Localization | ⏸ **hoãn cuối** | cần tài khoản thật |
