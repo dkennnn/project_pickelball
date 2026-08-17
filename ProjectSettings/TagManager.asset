@@ -12,17 +12,17 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  -
+  - 
   - Water
   - UI
-  -
-  -
+  - 
+  - 
   - Ground
   - Ball
   - Player
   - CourtBounds
-  -
-  -
+  - 
+  - 
   - 
   - 
   - 
