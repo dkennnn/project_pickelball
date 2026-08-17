@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ded482f6f2603e64187e03652181fa5d, type: 3}
+  m_Name: GameData
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.GameData
+  playerProfileData:
+    playerName: Player
+    totalMatches: 0
+    totalWins: 0
+    winRate: 0
+    avatarIndex: 0
+    trophies: 0
+    consecutiveWins: 0
+    level: 1
+    hasUsedFreeRename: 0
+  playerLevels: {fileID: 11400000, guid: f3dd0891382f2864592444115fbe04d8, type: 2}
+  totalCoins: 1000
+  totalGems: 100
+  tazoData: {fileID: 11400000, guid: fb2fa22d777d41445980aba52e0a9d84, type: 2}
+  boostersData: {fileID: 11400000, guid: b114b66fd4d3a2c47b4dc36b483f1d84, type: 2}
+  playerLoadout: {fileID: 11400000, guid: b79c0cd0511a74b45a2a6860d716e5b2, type: 2}
+  namesData: {fileID: 0}
+  avatarSprites: []
+  resultAvatarSprites: []
+  difficultySettings:
+    friendlyGamesThreshold: 5
+    friendlyWinRatioThreshold: 0.3
+    normalGamesThreshold: 15
+    normalWinRatioThreshold: 0.45
+    hardWinRatioThreshold: 0.6
+    expertWinRatioThreshold: 0.75
+  AIProfileConfigs:
+    aiProfileDataList:
+    - difficulty: 5
+      profiles:
+      - {fileID: 11400000, guid: 4ba3be85976a9394ab24201bd2d73927, type: 2}
+    - difficulty: 0
+      profiles:
+      - {fileID: 11400000, guid: 1f17176831dfd1844a47f0053f7f4e62, type: 2}
+    - difficulty: 1
+      profiles:
+      - {fileID: 11400000, guid: a476f61d14f64d94caa4dd5f8b4fb21e, type: 2}
+    - difficulty: 2
+      profiles:
+      - {fileID: 11400000, guid: 9a32f6de87e208c4c88e81b9d9b6c4c1, type: 2}
+      - {fileID: 11400000, guid: 2c2d085e62243bb41aa07aa12b3a7229, type: 2}
+    - difficulty: 3
+      profiles:
+      - {fileID: 11400000, guid: c9328854bcc9f7c4faa91edc06011792, type: 2}
+      - {fileID: 11400000, guid: 3ea8ec0bf2634b043a4d9994f9f968c6, type: 2}
+    - difficulty: 4
+      profiles:
+      - {fileID: 11400000, guid: 833ee324651d39240bbc43162d0a04fd, type: 2}
+  propertiesData: {fileID: 11400000, guid: 7da1ed9b305148e4d9feb577cd57cb77, type: 2}
+  stadiumsData: {fileID: 11400000, guid: c1f81464be820b341a4d84abfb9e0813, type: 2}
+  aiDifficultyMode: 0
+  gameMode: 1
+  handSide: 0

@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44392a43088790743a0f20fd07b26097, type: 3}
+  m_Name: VictoryPaddle
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.Paddle
+  itemType: 3
+  itemName: Victory Paddle
+  itemSprite: {fileID: 0}
+  currentLevel: 0
+  maxLevel: 4
+  isPurchased: 0
+  isActive: 1
+  purchaseCoins: 2000
+  propertiesEffectiveness: 0.2
+  tazosRequired: 19000000320000004b000000640000007d000000
+  gemsRequired: 0c0000001800000024000000300000003c000000
+  coinsRequired: 7d000000fa000000f4010000e8030000d0070000
+  propertyValues:
+  - propertyType: 5
+    value:
+    - 25
+    - 35
+    - 45
+    - 55
+    - 65
+  - propertyType: 4
+    value:
+    - 22
+    - 32
+    - 45
+    - 52
+    - 65
+  - propertyType: 1
+    value:
+    - 20
+    - 30
+    - 40
+    - 50
+    - 60
+  - propertyType: 2
+    value:
+    - 22
+    - 32
+    - 42
+    - 52
+    - 65
+  - propertyType: 3
+    value:
+    - 25
+    - 40
+    - 55
+    - 70
+    - 85
+  paddlePrefab: {fileID: 0}

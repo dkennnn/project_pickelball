@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b930e1a6fbddb3c4d8eab4863d7d9113, type: 3}
+  m_Name: TotalFitness
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.Workout
+  itemType: 4
+  itemName: Total Fitness
+  itemSprite: {fileID: 0}
+  currentLevel: 0
+  maxLevel: 4
+  isPurchased: 0
+  isActive: 1
+  purchaseCoins: 3500
+  propertiesEffectiveness: 0.2
+  tazosRequired: 0a000000140000001e0000002800000032000000
+  gemsRequired: 0a000000140000001e0000002800000032000000
+  coinsRequired: 64000000c8000000900100002003000040060000
+  propertyValues:
+  - propertyType: 5
+    value:
+    - 6
+    - 12
+    - 18
+    - 24
+    - 30
+  - propertyType: 4
+    value:
+    - 6
+    - 12
+    - 18
+    - 24
+    - 30
+  - propertyType: 1
+    value:
+    - 6
+    - 12
+    - 18
+    - 24
+    - 30
+  - propertyType: 2
+    value:
+    - 6
+    - 12
+    - 18
+    - 24
+    - 30
+  - propertyType: 3
+    value:
+    - 6
+    - 12
+    - 18
+    - 24
+    - 30
+  - propertyType: 7
+    value:
+    - 6
+    - 12
+    - 18
+    - 24
+    - 30
+  - propertyType: 6
+    value:
+    - 6
+    - 12
+    - 18
+    - 24
+    - 30

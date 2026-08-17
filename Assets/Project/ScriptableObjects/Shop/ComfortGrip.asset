@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bba021732d096b34097bb7638de5be0d, type: 3}
+  m_Name: ComfortGrip
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.Grip
+  itemType: 2
+  itemName: Comfort Grip
+  itemSprite: {fileID: 0}
+  currentLevel: 0
+  maxLevel: 4
+  isPurchased: 1
+  isActive: 1
+  purchaseCoins: 0
+  propertiesEffectiveness: 0.1
+  tazosRequired: 0a000000140000001e0000002800000032000000
+  gemsRequired: 050000000a0000000f0000001400000019000000
+  coinsRequired: 1400000064000000c80000009001000020030000
+  propertyValues:
+  - propertyType: 5
+    value:
+    - 5
+    - 10
+    - 18
+    - 28
+    - 35
+  - propertyType: 4
+    value:
+    - 7
+    - 12
+    - 20
+    - 30
+    - 38
+  - propertyType: 1
+    value:
+    - 5
+    - 10
+    - 18
+    - 28
+    - 35
+  - propertyType: 2
+    value:
+    - 10
+    - 15
+    - 25
+    - 40
+    - 50
+  - propertyType: 3
+    value:
+    - 8
+    - 18
+    - 30
+    - 45
+    - 60
+  gripMaterial: {fileID: 0}
