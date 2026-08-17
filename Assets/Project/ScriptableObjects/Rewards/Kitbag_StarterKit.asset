@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 200a7dde917624042a99c4b7d84d5247, type: 3}
+  m_Name: Kitbag_StarterKit
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.Kitbag
+  kitbagType: 4
+  kitbagName: Starter Kit
+  kitbagImage: {fileID: 0}
+  costInCoins: 0
+  costInGems: 0
+  minTazosProvided: 5
+  maxTazosProvided: 10
+  minPicks: 2
+  maxPicks: 3
+  rewards:
+  - {fileID: 11400000, guid: 440077b3302c892489ddd633654ac99a, type: 2}
+  - {fileID: 11400000, guid: 3b587075e03e37043a2894e2a35e91de, type: 2}
+  - {fileID: 11400000, guid: fceb350fec83d4e4db0b58f565967a66, type: 2}
+  - {fileID: 11400000, guid: 0ed195204fd4d354c83162e2c40e0907, type: 2}
+  - {fileID: 11400000, guid: 5e1a0d72f574b0c4fa49b6946e1e7649, type: 2}
+  - {fileID: 11400000, guid: 8fc5912056d7e324d9b01c5ca62ab0a4, type: 2}
+  totalAds: 0
+  watchedAds: 0
+  isAdAvailable: 0
+  isRewardCollected: 0
+  shouldShowInterstitial: 0
+  rewardShowcaseImages: []

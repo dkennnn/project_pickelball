@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dfc05e1531d5cb4b93f42328b40f00e, type: 3}
+  m_Name: RewardsCollection
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.RewardsCollection
+  dailyRewards:
+  - {fileID: 11400000, guid: 440077b3302c892489ddd633654ac99a, type: 2}
+  - {fileID: 11400000, guid: 3b587075e03e37043a2894e2a35e91de, type: 2}
+  - {fileID: 11400000, guid: fceb350fec83d4e4db0b58f565967a66, type: 2}
+  - {fileID: 11400000, guid: 0ed195204fd4d354c83162e2c40e0907, type: 2}
+  - {fileID: 11400000, guid: 5e1a0d72f574b0c4fa49b6946e1e7649, type: 2}
+  dailyChallengeRewards:
+  - {fileID: 11400000, guid: 8c3ef4cd657dc5141a22d90f17772d5d, type: 2}
+  - {fileID: 11400000, guid: 3f40b4d1058e1a647bc22057a14ae557, type: 2}
+  - {fileID: 11400000, guid: fceb350fec83d4e4db0b58f565967a66, type: 2}
+  - {fileID: 11400000, guid: 0ed195204fd4d354c83162e2c40e0907, type: 2}
+  - {fileID: 11400000, guid: 5e1a0d72f574b0c4fa49b6946e1e7649, type: 2}
+  - {fileID: 11400000, guid: 0462acd56400cee45bf2e9756d2e77f9, type: 2}
+  - {fileID: 11400000, guid: 8fc5912056d7e324d9b01c5ca62ab0a4, type: 2}
+  - {fileID: 11400000, guid: f672392c965a6424a8085e3ab3e8d86a, type: 2}
+  - {fileID: 11400000, guid: 13a31db2684bb05438721da701835e24, type: 2}
+  - {fileID: 11400000, guid: 6d8bb9fbd8009fc4db1ead140257ca7b, type: 2}
+  - {fileID: 11400000, guid: dc83b39101e675d4f953dbe4082fee79, type: 2}
+  kitbags:
+  - {fileID: 11400000, guid: 61244ed54a213bb428710d2fa3a9e826, type: 2}
+  - {fileID: 11400000, guid: ca4b1bbce76d9e3469ff84934da1b95a, type: 2}
+  - {fileID: 11400000, guid: 5c84adcd8b3296e46acd1b0735ed9992, type: 2}
+  - {fileID: 11400000, guid: 0fbce4a090cfcd946ad9bdd3969fecd2, type: 2}

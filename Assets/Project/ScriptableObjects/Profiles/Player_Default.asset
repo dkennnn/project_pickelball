@@ -13,20 +13,20 @@ MonoBehaviour:
   m_Name: Player_Default
   m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.PlayerProfile
   playerName: Player
-  height: 1.8
-  MovementSpeed: 4
-  Agility: 2.5
-  TrackingAccuracy: 1
-  shotRange: 1.2
-  volleyRange: 2.5
+  height: 1.7
+  MovementSpeed: 3.656
+  Agility: 1.688
+  TrackingAccuracy: 0.1336
+  shotRange: 1.5
+  volleyRange: 2
   shotTakingRate: 1
-  maxStamina: 150
-  staminaRechargeRate: 2
-  staminaDepletionRate: 6
+  maxStamina: 55.4
+  staminaRechargeRate: 3
+  staminaDepletionRate: 7
   ProbablityToTakeOutShots: 1
   maxShotError: 0
   TrackingErrorProbablity: 1
-  shotPower: 0
-  spinAbility: 1
-  swingAbility: 1
+  shotPower: 0.085999995
+  spinAbility: 0.095
+  swingAbility: 0.103
   swingSpinProbablity: 1

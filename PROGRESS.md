@@ -26,8 +26,10 @@
 | 8 | P07 | Boosters (5 loại) + BoosterManager + AIBoosterController + VFXPlayer | ✅ Xong | `feat(p07): booster system` |
 | 9 | P08 | SaveData + SaveGameData mã hoá + SavedDataHandler + Backend stub | ⬜ Chưa | |
 | 10a | P09 | **Stats**: StatsData/GameStatsData/StatsManager + 15 EditMode test | ✅ Xong | `feat(p09): match statistics subsystem` |
-| 10b | P09 | League UI, GameData hub, PlayerProfileData (còn lại của P09) | ⬜ Chưa | |
-| 11 | P10 | Shop, Item/Character/Grip/Paddle/Workout, PlayerLoadout, Tazo, Kitbag, Locker | ⬜ Chưa | |
+| 10b | P09 | League UI (GameData hub + PlayerProfileData đã xong ở P10a) | ⬜ Chưa | làm cùng P12 |
+| 11a | P10 | Item/Character/Grip/Paddle/Workout, PlayerLoadout, TazoData, **GameData hub**, PlayerProfileData | ✅ Xong | `feat(p10): item, loadout & gamedata hub` |
+| 11b | P10 | Rewards, Kitbag, DynamicKitbag, RewardsCollection, RewardManager, **SlotsData (Locker)** | ✅ Xong | `feat(p10): rewards, kitbag & locker` |
+| 11c | P10 | `Shop.cs` aggregator + luồng mua/nâng cấp nối vào UI | ⬜ Chưa | làm cùng P12 |
 | 12 | P11 | Daily Challenge, Daily Reward, Tournament | ⬜ Chưa | |
 | 13 | P12 | UI framework + 29 màn + 21 cell prefab, **dựng theo `../ui_layout/`** | ⬜ Chưa | |
 | 14 | P14 | Tutorial 11 bước | ⬜ Chưa | |

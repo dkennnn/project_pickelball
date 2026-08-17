@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f6b9de379096094fa2da65a847a9ec4, type: 3}
+  m_Name: SlotsData
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.SlotsData
+  gameData: {fileID: 11400000, guid: cd4deb04a1b6b5442bd9808f5e637961, type: 2}
+  maxSlots: 8
+  defaultUnlockedSlots: 4
+  kitbagSettings:
+  - kitbagType: 0
+    unlockTimeInSeconds: 5400
+    gemsToSkipTimer: 25
+  - kitbagType: 1
+    unlockTimeInSeconds: 7200
+    gemsToSkipTimer: 50
+  - kitbagType: 2
+    unlockTimeInSeconds: 10800
+    gemsToSkipTimer: 100
+  - kitbagType: 3
+    unlockTimeInSeconds: 0
+    gemsToSkipTimer: 10
+  - kitbagType: 4
+    unlockTimeInSeconds: 0
+    gemsToSkipTimer: 10
+  gemsToUnlockSlot: 150
+  slots:
+  - kitbagType: 5
+    isSlotLocked: 0
+    unlockTimeString: 0001-01-01T00:00:00.0000000
+  - kitbagType: 5
+    isSlotLocked: 0
+    unlockTimeString: 0001-01-01T00:00:00.0000000
+  - kitbagType: 5
+    isSlotLocked: 0
+    unlockTimeString: 0001-01-01T00:00:00.0000000
+  - kitbagType: 5
+    isSlotLocked: 0
+    unlockTimeString: 0001-01-01T00:00:00.0000000
+  - kitbagType: 5
+    isSlotLocked: 1
+    unlockTimeString: 0001-01-01T00:00:00.0000000
+  - kitbagType: 5
+    isSlotLocked: 1
+    unlockTimeString: 0001-01-01T00:00:00.0000000
+  - kitbagType: 5
+    isSlotLocked: 1
+    unlockTimeString: 0001-01-01T00:00:00.0000000
+  - kitbagType: 5
+    isSlotLocked: 1
+    unlockTimeString: 0001-01-01T00:00:00.0000000
