@@ -28,7 +28,126 @@ MonoBehaviour:
   tazoData: {fileID: 11400000, guid: fb2fa22d777d41445980aba52e0a9d84, type: 2}
   boostersData: {fileID: 11400000, guid: b114b66fd4d3a2c47b4dc36b483f1d84, type: 2}
   playerLoadout: {fileID: 11400000, guid: b79c0cd0511a74b45a2a6860d716e5b2, type: 2}
-  namesData: {fileID: 0}
+  shopData: {fileID: 11400000, guid: b8c7e1f6f866b284090bd40c846f4a75, type: 2}
+  slotsData: {fileID: 11400000, guid: 722cc747c20f27341a2c079148341a69, type: 2}
+  tournamentsData: {fileID: 11400000, guid: edd9529f9dfb87c40a4f6c2ce5dedcbf, type: 2}
+  dailyChallengeLevels:
+  - LevelName: 0
+    ranges:
+    - Type: 1
+      MinValue: 1
+      MaxValue: 2
+    - Type: 2
+      MinValue: 1
+      MaxValue: 1
+    - Type: 3
+      MinValue: 3
+      MaxValue: 6
+    - Type: 4
+      MinValue: 3
+      MaxValue: 5
+    - Type: 5
+      MinValue: 1
+      MaxValue: 2
+    - Type: 6
+      MinValue: 5
+      MaxValue: 10
+    - Type: 7
+      MinValue: 2
+      MaxValue: 4
+  - LevelName: 1
+    ranges:
+    - Type: 1
+      MinValue: 2
+      MaxValue: 3
+    - Type: 2
+      MinValue: 1
+      MaxValue: 2
+    - Type: 3
+      MinValue: 6
+      MaxValue: 10
+    - Type: 4
+      MinValue: 5
+      MaxValue: 8
+    - Type: 5
+      MinValue: 2
+      MaxValue: 3
+    - Type: 6
+      MinValue: 8
+      MaxValue: 14
+    - Type: 7
+      MinValue: 4
+      MaxValue: 7
+  - LevelName: 2
+    ranges:
+    - Type: 1
+      MinValue: 3
+      MaxValue: 4
+    - Type: 2
+      MinValue: 2
+      MaxValue: 3
+    - Type: 3
+      MinValue: 10
+      MaxValue: 15
+    - Type: 4
+      MinValue: 8
+      MaxValue: 12
+    - Type: 5
+      MinValue: 3
+      MaxValue: 4
+    - Type: 6
+      MinValue: 12
+      MaxValue: 20
+    - Type: 7
+      MinValue: 7
+      MaxValue: 11
+  - LevelName: 3
+    ranges:
+    - Type: 1
+      MinValue: 4
+      MaxValue: 6
+    - Type: 2
+      MinValue: 3
+      MaxValue: 4
+    - Type: 3
+      MinValue: 14
+      MaxValue: 22
+    - Type: 4
+      MinValue: 12
+      MaxValue: 18
+    - Type: 5
+      MinValue: 4
+      MaxValue: 5
+    - Type: 6
+      MinValue: 18
+      MaxValue: 28
+    - Type: 7
+      MinValue: 10
+      MaxValue: 16
+  - LevelName: 4
+    ranges:
+    - Type: 1
+      MinValue: 5
+      MaxValue: 8
+    - Type: 2
+      MinValue: 4
+      MaxValue: 5
+    - Type: 3
+      MinValue: 20
+      MaxValue: 30
+    - Type: 4
+      MinValue: 18
+      MaxValue: 25
+    - Type: 5
+      MinValue: 5
+      MaxValue: 7
+    - Type: 6
+      MinValue: 25
+      MaxValue: 40
+    - Type: 7
+      MinValue: 15
+      MaxValue: 24
+  namesData: {fileID: 11400000, guid: 1baeb2ce84a4bee438fc5e3861e5dd41, type: 2}
   avatarSprites: []
   resultAvatarSprites: []
   difficultySettings:

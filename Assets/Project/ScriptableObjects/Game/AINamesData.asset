@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 229b7c192e8acc84bbf7c8bb6c55beb0, type: 3}
+  m_Name: AINamesData
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.AINamesData
+  names:
+  - Alto
+  - Amber
+  - Arlo
+  - Aspen
+  - Auri
+  - Bay
+  - Bexley
+  - Blaze
+  - Bodhi
+  - Brio
+  - Cadence
+  - Calen
+  - Cedar
+  - Cielo
+  - Coby
+  - Cove
+  - Dara
+  - Delta
+  - Dune
+  - Eero
+  - Elm
+  - Ember
+  - Ezra
+  - Fable
+  - Fenn
+  - Flint
+  - Foxx
+  - Gale
+  - Halo
+  - Haven
+  - Indigo
+  - Iver
+  - Jade
+  - Juno
+  - Kai
+  - Kestrel
+  - Lark
+  - Lennox
+  - Linden
+  - Lyric
+  - Marlo
+  - Merrit
+  - Nico
+  - Nyx
+  - Onyx
+  - Orin
+  - Pike
+  - Quill
+  - Rain
+  - Reef
+  - Riven
+  - Sable
+  - Sage
+  - Shiloh
+  - Sky
+  - Sol
+  - Tamsin
+  - Teagan
+  - Vale
+  - Wren
+  - Zephyr
+  - Zuri
+  addNumbersToNames: 1
+  numberPercentage: 40
+  addSeparators: 1
+  useGamingStyle: 1
+  gamingStylePercentage: 35

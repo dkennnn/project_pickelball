@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f9e6ba14cf8cfd4eb3fc8831e394773, type: 3}
+  m_Name: TournamentsData
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.TournamentsData
+  gameData: {fileID: 11400000, guid: cd4deb04a1b6b5442bd9808f5e637961, type: 2}
+  tournament:
+    id: tournament_001
+    name: Tournament Cup
+    description: Play tournament and win exciting rewards
+    requiredLevel: 3
+    entryCost: 500
+    entryCostType: 0
+    stages:
+    - stageNumber: 0
+      stageName: Quarter Finals
+      playerMatch:
+        matchId: 1
+        opponentName: Marlo_99
+        opponentAvatarIndex: 0
+        difficulty: 1
+        opponentTrophies: 900
+        stadiumName: Gully Grounds
+      otherMatches:
+      - swapWinnerPosition: 0
+        winnerName: ZephyrAce
+        winnerAvatarIndex: 1
+        loserName: Riven.TV
+        loserAvatarIndex: 2
+      - swapWinnerPosition: 0
+        winnerName: OnyxSmash
+        winnerAvatarIndex: 3
+        loserName: SableDink
+        loserAvatarIndex: 4
+      - swapWinnerPosition: 0
+        winnerName: HaloVolley
+        winnerAvatarIndex: 5
+        loserName: Fenn_Rally
+        loserAvatarIndex: 6
+    - stageNumber: 1
+      stageName: Semi Finals
+      playerMatch:
+        matchId: 2
+        opponentName: ZephyrAce
+        opponentAvatarIndex: 1
+        difficulty: 2
+        opponentTrophies: 1400
+        stadiumName: Club Arena
+      otherMatches:
+      - swapWinnerPosition: 0
+        winnerName: OnyxSmash
+        winnerAvatarIndex: 3
+        loserName: HaloVolley
+        loserAvatarIndex: 5
+    - stageNumber: 2
+      stageName: Finals
+      playerMatch:
+        matchId: 3
+        opponentName: OnyxSmash
+        opponentAvatarIndex: 3
+        difficulty: 3
+        opponentTrophies: 1900
+        stadiumName: Champion's Dome
+      otherMatches: []
+    rewards:
+    - rewardType: 0
+      value: 2000
+    - rewardType: 1
+      value: 100
+    - rewardType: 5
+      value: 50
+    startDateString: 2025-01-01T00:00:00Z
+    endDateString: 2030-12-31T23:59:59Z
+    isActive: 1
+  currentProgress:
+    tournamentId: 
+    currentStage: 0
+    isEliminated: 0
+    isCompleted: 0
+  currentMatch:
+    matchId: 0
+    opponentName: 
+    opponentAvatarIndex: 0
+    difficulty: 0
+    opponentTrophies: 0
+    stadiumName: 

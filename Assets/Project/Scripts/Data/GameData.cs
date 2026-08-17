@@ -37,7 +37,17 @@ namespace Pickleball
         /// <summary>Trang bị đang chọn và chỉ số tổng hợp của người chơi.</summary>
         public PlayerLoadout playerLoadout;
 
-        // TODO P10b/P11: Shop shopData, SlotsData slotsData, TournamentsData tournamentsData
+        /// <summary>Tổng hợp cửa hàng: gói coin/gem, kitbag, danh mục item, bóng và vợt.</summary>
+        public Shop shopData;
+
+        /// <summary>Locker 8 ô chứa kitbag đang đếm giờ mở.</summary>
+        public SlotsData slotsData;
+
+        /// <summary>Dữ liệu giải đấu và tiến độ hiện tại của người chơi.</summary>
+        public TournamentsData tournamentsData;
+
+        /// <summary>Bảng khoảng mục tiêu của nhiệm vụ hằng ngày, scale theo trình độ người chơi.</summary>
+        public List<ExperienceLevel> dailyChallengeLevels = new List<ExperienceLevel>();
         // sẽ được bổ sung ở bước Shop/Locker/Tournament (agent khác phụ trách).
 
         /// <summary>Kho tên hiển thị cho đối thủ AI.</summary>

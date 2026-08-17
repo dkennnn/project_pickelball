@@ -1,0 +1,137 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ec1fb18fc1aff94fa5def0f61fd6fea, type: 3}
+  m_Name: Shop
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.Shop
+  selectedBallIndex: 0
+  selectedRacketIndex: 0
+  tazoData: {fileID: 11400000, guid: fb2fa22d777d41445980aba52e0a9d84, type: 2}
+  gameData: {fileID: 11400000, guid: cd4deb04a1b6b5442bd9808f5e637961, type: 2}
+  playerLoadout: {fileID: 11400000, guid: b79c0cd0511a74b45a2a6860d716e5b2, type: 2}
+  gemPacks:
+  - {fileID: 11400000, guid: 862e18d87f01eea4ea08b3b09ba91f60, type: 2}
+  - {fileID: 11400000, guid: f61c9130540f1e1468fac5bab27f8141, type: 2}
+  - {fileID: 11400000, guid: ac6492ca6ccad3046907740fb2b158cc, type: 2}
+  - {fileID: 11400000, guid: e5e35d959e7709e4da23c9477e988e9f, type: 2}
+  - {fileID: 11400000, guid: 6de4c0b2200bd0e44ada79c2df876ae7, type: 2}
+  - {fileID: 11400000, guid: 96c37adf80410ca48a8c1962730b3a70, type: 2}
+  coinPacks:
+  - {fileID: 11400000, guid: a773f82995a67d749bdc36e60fc2d1ea, type: 2}
+  - {fileID: 11400000, guid: 5966a2b79ab2a364c82e64f4df1f43cd, type: 2}
+  - {fileID: 11400000, guid: 81e01a14bc05be84b92e2335aa5331a0, type: 2}
+  - {fileID: 11400000, guid: ad8abe4a43c65554abcd8d6d2f6295cc, type: 2}
+  - {fileID: 11400000, guid: 3abd81b161cb26f4d9afffea67dbd230, type: 2}
+  - {fileID: 11400000, guid: 1a9b3958d7eb85d4aa47c483c5441d30, type: 2}
+  kitbags:
+  - {fileID: 11400000, guid: 0fbce4a090cfcd946ad9bdd3969fecd2, type: 2}
+  - {fileID: 11400000, guid: 5c84adcd8b3296e46acd1b0735ed9992, type: 2}
+  - {fileID: 11400000, guid: ca4b1bbce76d9e3469ff84934da1b95a, type: 2}
+  - {fileID: 11400000, guid: 61244ed54a213bb428710d2fa3a9e826, type: 2}
+  shopCategories:
+  - categoryType: 1
+    categoryName: Characters
+    categoryIcon: {fileID: 0}
+    items:
+    - {fileID: 11400000, guid: 7ad5e521c7d73c54c887fb8937676be7, type: 2}
+    - {fileID: 11400000, guid: 26df7452a53ce3540a5996ab03865c5d, type: 2}
+    selectedItem: {fileID: 11400000, guid: 7ad5e521c7d73c54c887fb8937676be7, type: 2}
+  - categoryType: 2
+    categoryName: Grips
+    categoryIcon: {fileID: 0}
+    items:
+    - {fileID: 11400000, guid: 163b3a3e95fa16247b8cae9062380f9a, type: 2}
+    - {fileID: 11400000, guid: 1affb54bfa4804f40957501520803ff8, type: 2}
+    - {fileID: 11400000, guid: fbf0276d91a3d814f8ee9fb937bf9f35, type: 2}
+    - {fileID: 11400000, guid: d34ee3a067e1ded409a97e6982622464, type: 2}
+    - {fileID: 11400000, guid: 07b0a9d839fe62f43b263194782a32fc, type: 2}
+    selectedItem: {fileID: 11400000, guid: 163b3a3e95fa16247b8cae9062380f9a, type: 2}
+  - categoryType: 3
+    categoryName: Paddles
+    categoryIcon: {fileID: 0}
+    items:
+    - {fileID: 11400000, guid: 457cf080869f5914c80fff576c2a30af, type: 2}
+    - {fileID: 11400000, guid: a2805271d46e9cf49a80718247235672, type: 2}
+    - {fileID: 11400000, guid: d4f702173bbe2154fbd8273b2540c54a, type: 2}
+    - {fileID: 11400000, guid: ef50fe72b3ba97d4396ce1a9b737716c, type: 2}
+    - {fileID: 11400000, guid: e74d2122037e22844b612e5a2a45b745, type: 2}
+    selectedItem: {fileID: 11400000, guid: 457cf080869f5914c80fff576c2a30af, type: 2}
+  - categoryType: 4
+    categoryName: Workouts
+    categoryIcon: {fileID: 0}
+    items:
+    - {fileID: 11400000, guid: 87b0264a5a59d8f458d0d42cfc57f24f, type: 2}
+    - {fileID: 11400000, guid: abb0b6c49a15cdd438f425d7eeaf9a3a, type: 2}
+    - {fileID: 11400000, guid: cadd4ca618d13304a94d3b7892ea57fa, type: 2}
+    - {fileID: 11400000, guid: 2f3183fb55322264fa0b99398e8b2736, type: 2}
+    - {fileID: 11400000, guid: 30b8ab38d6cf2444d94ad104d8dd2789, type: 2}
+    - {fileID: 11400000, guid: 7ad5d06eaf54fe8428a8cd8feed911f4, type: 2}
+    - {fileID: 11400000, guid: 12759f0f48eeb934eac11c76e432230f, type: 2}
+    selectedItem: {fileID: 11400000, guid: 87b0264a5a59d8f458d0d42cfc57f24f, type: 2}
+  ballsList:
+  - icon: {fileID: 0}
+    iconTexture: {fileID: 0}
+    material: {fileID: 0}
+    cost: 0
+    isPurchased: 1
+    trailColor: {r: 1, g: 1, b: 1, a: 1}
+  - icon: {fileID: 0}
+    iconTexture: {fileID: 0}
+    material: {fileID: 0}
+    cost: 500
+    isPurchased: 0
+    trailColor: {r: 1, g: 1, b: 1, a: 1}
+  - icon: {fileID: 0}
+    iconTexture: {fileID: 0}
+    material: {fileID: 0}
+    cost: 1000
+    isPurchased: 0
+    trailColor: {r: 1, g: 1, b: 1, a: 1}
+  - icon: {fileID: 0}
+    iconTexture: {fileID: 0}
+    material: {fileID: 0}
+    cost: 1500
+    isPurchased: 0
+    trailColor: {r: 1, g: 1, b: 1, a: 1}
+  - icon: {fileID: 0}
+    iconTexture: {fileID: 0}
+    material: {fileID: 0}
+    cost: 2000
+    isPurchased: 0
+    trailColor: {r: 1, g: 1, b: 1, a: 1}
+  racketsList:
+  - icon: {fileID: 0}
+    iconTexture: {fileID: 0}
+    material: {fileID: 0}
+    cost: 0
+    isPurchased: 1
+  - icon: {fileID: 0}
+    iconTexture: {fileID: 0}
+    material: {fileID: 0}
+    cost: 800
+    isPurchased: 0
+  - icon: {fileID: 0}
+    iconTexture: {fileID: 0}
+    material: {fileID: 0}
+    cost: 1600
+    isPurchased: 0
+  - icon: {fileID: 0}
+    iconTexture: {fileID: 0}
+    material: {fileID: 0}
+    cost: 2400
+    isPurchased: 0
+  - icon: {fileID: 0}
+    iconTexture: {fileID: 0}
+    material: {fileID: 0}
+    cost: 3200
+    isPurchased: 0
+  energyDrinks: 0
+  energyDrinkCost: 250
