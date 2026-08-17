@@ -302,25 +302,47 @@ namespace Pickleball.EditorTools
         public int Count => _byName.Count;
 
         /// <summary>
-        /// Quét thư mục art và dựng bảng tra. Thư mục chưa tồn tại thì trả về bảng rỗng (không phải lỗi).
+        /// Quét thư mục art chỉ định TRƯỚC, rồi quét nốt các thư mục art còn lại trong
+        /// <see cref="UIArtLookup.SearchFolders"/> (hiện là art trích từ bản gốc ở
+        /// <c>Assets/Project/ArtFromOriginal/UI/</c>). Thư mục truyền vào luôn có độ ưu tiên cao nhất
+        /// vì tên trùng thì lần thêm ĐẦU TIÊN thắng.
+        /// Thư mục chưa tồn tại thì bỏ qua (không phải lỗi).
         /// </summary>
-        /// <param name="assetFolder">Thư mục kiểu <c>Assets/...</c> chứa sprite.</param>
+        /// <param name="assetFolder">Thư mục kiểu <c>Assets/...</c> chứa sprite, được ưu tiên cao nhất.</param>
         public static UISpriteIndex Build(string assetFolder)
         {
+            var folders = new List<string> { assetFolder };
+            folders.AddRange(UIArtLookup.SearchFolders);
+            return Build(folders.ToArray());
+        }
+
+        /// <summary>
+        /// Quét nhiều thư mục art theo đúng thứ tự truyền vào (trái = ưu tiên cao nhất) và dựng bảng tra.
+        /// </summary>
+        /// <param name="assetFolders">Danh sách thư mục kiểu <c>Assets/...</c>, xếp theo ưu tiên giảm dần.</param>
+        public static UISpriteIndex Build(params string[] assetFolders)
+        {
             var index = new UISpriteIndex();
-            if (!AssetDatabase.IsValidFolder(assetFolder)) return index;
+            if (assetFolders == null) return index;
 
-            foreach (string guid in AssetDatabase.FindAssets("t:Sprite", new[] { assetFolder }))
+            var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            foreach (string assetFolder in assetFolders)
             {
-                string path = AssetDatabase.GUIDToAssetPath(guid);
-                foreach (Object asset in AssetDatabase.LoadAllAssetsAtPath(path))
-                {
-                    if (asset is Sprite sprite) index.Add(sprite.name, sprite);
-                }
+                if (string.IsNullOrEmpty(assetFolder) || !seen.Add(assetFolder)) continue;
+                if (!AssetDatabase.IsValidFolder(assetFolder)) continue;
 
-                // Sprite đơn: cho phép khớp cả theo tên file.
-                var main = AssetDatabase.LoadAssetAtPath<Sprite>(path);
-                if (main != null) index.Add(Path.GetFileNameWithoutExtension(path), main);
+                foreach (string guid in AssetDatabase.FindAssets("t:Sprite", new[] { assetFolder }))
+                {
+                    string path = AssetDatabase.GUIDToAssetPath(guid);
+                    foreach (Object asset in AssetDatabase.LoadAllAssetsAtPath(path))
+                    {
+                        if (asset is Sprite sprite) index.Add(sprite.name, sprite);
+                    }
+
+                    // Sprite đơn: cho phép khớp cả theo tên file.
+                    var main = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+                    if (main != null) index.Add(Path.GetFileNameWithoutExtension(path), main);
+                }
             }
 
             return index;
@@ -822,6 +844,8 @@ namespace Pickleball.EditorTools
             if (ctx.Sprites.TryGet(spriteName, out Sprite sprite))
             {
                 image.sprite = sprite;
+                // Sprite có 9-slice border thì phải để Sliced, nếu không nút bấm sẽ bị kéo méo góc bo.
+                UIArtLookup.ApplyNineSlice(image, sprite);
                 return;
             }
 
@@ -849,9 +873,14 @@ namespace Pickleball.EditorTools
             text.text = DecodeText((string)component["text"]);
             text.color = ReadColor(component["color"], Color.white);
 
-            // Bản gốc không lộ fontSize/alignment — đây là giá trị mặc định do importer chọn, cần căn tay.
+            // Bản gốc không lộ fontSize/alignment. Bật auto-size để chữ tự co cho vừa khung thay vì
+            // tràn ra ngoài ở cỡ cố định — nhìn sát bản gốc hơn và đỡ phải căn tay từng chỗ.
+            text.enableAutoSizing = true;
+            text.fontSizeMin = 10f;
+            text.fontSizeMax = 72f;
             text.fontSize = DefaultFontSize;
             text.alignment = TextAlignmentOptions.Center;
+            text.overflowMode = TextOverflowModes.Ellipsis;
             SetWordWrapping(text, true);
         }
 

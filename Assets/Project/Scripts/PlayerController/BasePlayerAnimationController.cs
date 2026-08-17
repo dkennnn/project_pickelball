@@ -26,12 +26,18 @@ namespace Pickleball
         /// <summary>Tỉ lệ chiều cao hông — bóng thấp hơn mức này phải dùng cú đánh cúi người.</summary>
         [Range(0.1f, 0.8f)] public float hipHeightRatio = 0.45f;
 
-        private static readonly int SpeedHash = Animator.StringToHash(StringConstants.AnimSpeed);
+        private static readonly int XSpeedHash = Animator.StringToHash(StringConstants.AnimXSpeed);
+        private static readonly int ZSpeedHash = Animator.StringToHash(StringConstants.AnimZSpeed);
         private static readonly int ShotTriggerHash = Animator.StringToHash(StringConstants.AnimShotTrigger);
         private static readonly int PreShotTriggerHash = Animator.StringToHash(StringConstants.AnimPreShotTrigger);
-        private static readonly int ServeTriggerHash = Animator.StringToHash(StringConstants.AnimServeTrigger);
-        private static readonly int VictoryTriggerHash = Animator.StringToHash(StringConstants.AnimVictoryTrigger);
+        private static readonly int MissTriggerHash = Animator.StringToHash(StringConstants.AnimMissTrigger);
+        private static readonly int ResetTriggerHash = Animator.StringToHash(StringConstants.AnimResetTrigger);
+        private static readonly int WinTriggerHash = Animator.StringToHash(StringConstants.AnimWinTrigger);
+        private static readonly int LoseTriggerHash = Animator.StringToHash(StringConstants.AnimLoseTrigger);
         private static readonly int ShotTypeIndexHash = Animator.StringToHash(StringConstants.AnimShotTypeIndex);
+        private static readonly int IsRightSideHash = Animator.StringToHash(StringConstants.AnimIsRightSide);
+        private static readonly int IsGameplayActiveHash = Animator.StringToHash(StringConstants.AnimIsGameplayActive);
+        private static readonly int MirrorHandSideHash = Animator.StringToHash(StringConstants.AnimMirrorHandSide);
 
         /// <summary>True khi đã có Animator hợp lệ để điều khiển.</summary>
         public bool HasAnimator => animator != null;
@@ -111,23 +117,72 @@ namespace Pickleball
         {
             if (animator == null) return;
 
+            // Controller gốc KHÔNG có trigger "Serve" riêng. Giao bóng = HitType 4 + trigger Hit,
+            // còn bool IsRightSide quyết định state "Serve Right" hay "Serve Left".
             animator.SetInteger(ShotTypeIndexHash, (int)ShotAnimationType.Serve);
-            animator.SetTrigger(ServeTriggerHash);
+            animator.SetTrigger(ShotTriggerHash);
         }
 
         /// <summary>Phát clip ăn mừng chiến thắng.</summary>
         public void PlayVictory()
         {
             if (animator == null) return;
-            animator.SetTrigger(VictoryTriggerHash);
+            animator.SetTrigger(WinTriggerHash);
         }
 
-        /// <summary>Cập nhật tốc độ di chuyển đã chuẩn hoá cho blend tree chạy/đứng.</summary>
-        /// <param name="normalizedSpeed">Tốc độ 0..1.</param>
+        /// <summary>
+        /// Cập nhật tốc độ di chuyển cho blend tree.
+        /// <para>Controller gốc dùng blend tree <b>2D</b> trên hai trục XSpeed/ZSpeed chứ không phải
+        /// một tham số "Speed" duy nhất, nên phải truyền vector chứ không phải độ lớn.</para>
+        /// </summary>
+        /// <param name="normalizedSpeed">Tốc độ 0..1 (giữ lại cho tương thích ngược, map vào trục Z).</param>
         public void SetMoveSpeed(float normalizedSpeed)
         {
+            SetMoveSpeed(new Vector2(0f, Mathf.Clamp01(normalizedSpeed)));
+        }
+
+        /// <summary>Cập nhật blend tree 2D di chuyển bằng vận tốc cục bộ đã chuẩn hoá.</summary>
+        /// <param name="normalizedLocalVelocity">x = ngang, y = dọc, mỗi trục trong [-1, 1].</param>
+        public void SetMoveSpeed(Vector2 normalizedLocalVelocity)
+        {
             if (animator == null) return;
-            animator.SetFloat(SpeedHash, Mathf.Clamp01(normalizedSpeed));
+            animator.SetFloat(XSpeedHash, Mathf.Clamp(normalizedLocalVelocity.x, -1f, 1f));
+            animator.SetFloat(ZSpeedHash, Mathf.Clamp(normalizedLocalVelocity.y, -1f, 1f));
+        }
+
+        /// <summary>Đặt bên sân đang đứng — quyết định state giao bóng trái/phải của controller gốc.</summary>
+        public void SetRightSide(bool isRightSide)
+        {
+            if (animator == null) return;
+            animator.SetBool(IsRightSideHash, isRightSide);
+        }
+
+        /// <summary>Bật/tắt lớp animation trong trận.</summary>
+        public void SetGameplayActive(bool active)
+        {
+            if (animator == null) return;
+            animator.SetBool(IsGameplayActiveHash, active);
+        }
+
+        /// <summary>Lật animation cho tay thuận trái.</summary>
+        public void SetHandSide(HandSide handSide)
+        {
+            if (animator == null) return;
+            animator.SetBool(MirrorHandSideHash, handSide == HandSide.Left);
+        }
+
+        /// <summary>Phát clip đánh hụt.</summary>
+        public void PlayMiss()
+        {
+            if (animator == null) return;
+            animator.SetTrigger(MissTriggerHash);
+        }
+
+        /// <summary>Phát clip thua trận.</summary>
+        public void PlayLose()
+        {
+            if (animator == null) return;
+            animator.SetTrigger(LoseTriggerHash);
         }
 
         /// <summary>Xoá mọi trigger đang treo (gọi khi reset pha bóng để tránh clip chạy trễ).</summary>
@@ -137,8 +192,10 @@ namespace Pickleball
 
             animator.ResetTrigger(ShotTriggerHash);
             animator.ResetTrigger(PreShotTriggerHash);
-            animator.ResetTrigger(ServeTriggerHash);
-            animator.ResetTrigger(VictoryTriggerHash);
+            animator.ResetTrigger(MissTriggerHash);
+            animator.ResetTrigger(WinTriggerHash);
+            animator.ResetTrigger(LoseTriggerHash);
+            animator.SetTrigger(ResetTriggerHash);
         }
     }
 }

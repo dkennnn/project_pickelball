@@ -148,7 +148,6 @@ GameObject:
   - component: {fileID: 4098708210650616904}
   - component: {fileID: 8633362838815409339}
   - component: {fileID: 2069547449503267195}
-  - component: {fileID: 3809415104215260070}
   - component: {fileID: 8120456099420436032}
   - component: {fileID: 4470424110382252103}
   - component: {fileID: 1005556664489439362}
@@ -209,7 +208,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 9bd0fc5f9bd594d438ec5a6da3ea7c56, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -219,20 +218,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3809415104215260070
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2981779067700378097}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b341a676b99a64b43b7b4a9ca2b9aeee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.SpritePlaceholder
-  originalSpriteName: Power-Button-1
-  fallbackColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &8120456099420436032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -344,7 +329,6 @@ GameObject:
   - component: {fileID: 4642059494179526514}
   - component: {fileID: 4943037967338523947}
   - component: {fileID: 1570493032480027035}
-  - component: {fileID: 1598821439194149464}
   m_Layer: 0
   m_Name: ProgressImg
   m_TagString: Untagged
@@ -399,7 +383,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: cf6ae808db7827a41b63fb538ea67b95, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -409,17 +393,3 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1598821439194149464
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3400333432632503204}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b341a676b99a64b43b7b4a9ca2b9aeee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.SpritePlaceholder
-  originalSpriteName: PowerupProgressImage
-  fallbackColor: {r: 0, g: 0, b: 0, a: 0.6863}

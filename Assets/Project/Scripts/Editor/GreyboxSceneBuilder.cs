@@ -27,6 +27,16 @@ namespace Pickleball.EditorTools
         private const string GameplayPrefabsFolder = PrefabsFolder + "/Gameplay";
         private const string SimulationBallPrefabPath = GameplayPrefabsFolder + "/SimulationBall.prefab";
 
+        // --- Art gốc (tuỳ chọn) --------------------------------------------------------------
+        private const string CharacterPrefabsFolder = PrefabsFolder + "/Characters";
+        private const string PlayerMalePrefabPath = CharacterPrefabsFolder + "/Player_Male.prefab";
+        private const string AIOpponentPrefabPath = CharacterPrefabsFolder + "/AI_Opponent.prefab";
+
+        private const string OriginalArtPrefabsFolder = "Assets/Project/ArtFromOriginal/Prefabs";
+        private const string OriginalPaddlePrefabPath = OriginalArtPrefabsFolder + "/Paddle 1.prefab";
+        private const string OriginalBallPrefabPath = OriginalArtPrefabsFolder + "/Ball.prefab";
+        private const string OriginalNetPrefabPath = OriginalArtPrefabsFolder + "/Net.prefab";
+
         private const string MaterialsFolder = "Assets/Project/Materials";
         private const string BallPhysicsMaterialPath = MaterialsFolder + "/GreyboxBallPhysics.asset";
 
@@ -59,11 +69,42 @@ namespace Pickleball.EditorTools
         private static readonly Vector3 Player1Position = new Vector3(0f, 0f, -6.0f);
         private static readonly Vector3 Player2Position = new Vector3(0f, 0f, 6.0f);
 
+        // ------------------------------------------------------------------ Cờ chọn art
+
+        /// <summary>
+        /// Khi bật, builder sẽ dùng prefab nhân vật art gốc trong
+        /// <c>Assets/Project/Prefabs/Characters</c> thay cho capsule primitive — với ĐÚNG vị trí,
+        /// góc quay và <c>teamID</c> như bản greybox.
+        /// <para>Không tìm thấy prefab thì tự động rơi về capsule, nên luồng greybox luôn chạy được.</para>
+        /// <para>Hai menu item tự đặt cờ này trước khi dựng, nên giá trị mặc định chỉ ảnh hưởng
+        /// khi có script khác gọi thẳng <see cref="BuildInternal"/>.</para>
+        /// </summary>
+        public static bool UseOriginalArt = true;
+
         // ------------------------------------------------------------------ Entry point
 
-        /// <summary>Dựng lại toàn bộ scene greybox và lưu vào <see cref="ScenePath"/>.</summary>
+        /// <summary>Dựng scene greybox thuần primitive (không đụng tới art gốc).</summary>
         [MenuItem("Pickleball/Build Greybox Match Scene")]
         public static void Build()
+        {
+            UseOriginalArt = false;
+            BuildInternal();
+        }
+
+        /// <summary>
+        /// Dựng cùng một scene nhưng thay tay vợt capsule bằng prefab nhân vật art gốc
+        /// (<c>Player_Male</c>, <c>AI_Opponent</c>) nếu đã sinh ra bằng
+        /// <c>Pickleball/Art/Build Playable Character Prefabs</c>.
+        /// </summary>
+        [MenuItem("Pickleball/Build Match Scene (Original Art)")]
+        public static void BuildWithOriginalArt()
+        {
+            UseOriginalArt = true;
+            BuildInternal();
+        }
+
+        /// <summary>Dựng lại toàn bộ scene và lưu vào <see cref="ScenePath"/>.</summary>
+        private static void BuildInternal()
         {
             EnsureFolder(ScenesFolder);
             EnsureFolder(GameplayPrefabsFolder);
@@ -158,11 +199,18 @@ namespace Pickleball.EditorTools
             GameObject ball = BuildBall(gameplay.transform, ballMaterial, trailMaterial, ballPhysics,
                 simulationBallPrefab);
 
-            GameObject player = BuildPlayer(gameplay.transform, "Player", Player1Position, false, playerMaterial,
-                paddleMaterial, indicatorMaterial, "P1", playerProfile, profileLimits, null);
+            TryReplaceVisualWithOriginalArt(ball, OriginalBallPrefabPath, "bóng");
+            TryReplaceVisualWithOriginalArt(net, OriginalNetPrefabPath, "lưới");
 
-            GameObject aiPlayer = BuildPlayer(gameplay.transform, "AIPlayer", Player2Position, true, aiMaterial,
-                paddleMaterial, indicatorMaterial, "P2", aiProfile, profileLimits, aiProfile);
+            GameObject player = TryBuildPlayerFromOriginalArt(gameplay.transform, "Player", Player1Position, false,
+                                    PlayerMalePrefabPath, "P1", playerProfile, profileLimits)
+                                ?? BuildPlayer(gameplay.transform, "Player", Player1Position, false, playerMaterial,
+                                    paddleMaterial, indicatorMaterial, "P1", playerProfile, profileLimits, null);
+
+            GameObject aiPlayer = TryBuildPlayerFromOriginalArt(gameplay.transform, "AIPlayer", Player2Position, true,
+                                      AIOpponentPrefabPath, "P2", aiProfile, profileLimits)
+                                  ?? BuildPlayer(gameplay.transform, "AIPlayer", Player2Position, true, aiMaterial,
+                                      paddleMaterial, indicatorMaterial, "P2", aiProfile, profileLimits, aiProfile);
 
             CameraFollow cameraFollow = cameraObject.GetComponent<CameraFollow>();
             cameraFollow.target = player.transform;
@@ -270,7 +318,8 @@ namespace Pickleball.EditorTools
             RegisterSceneInBuildSettings();
 
             Debug.Log(saved
-                ? "[GreyboxSceneBuilder] Đã dựng và lưu scene tại " + ScenePath
+                ? "[GreyboxSceneBuilder] Đã dựng và lưu scene tại " + ScenePath +
+                  (UseOriginalArt ? " (chế độ ART GỐC)" : " (chế độ greybox)")
                 : "[GreyboxSceneBuilder] KHÔNG lưu được scene tại " + ScenePath);
         }
 
@@ -433,7 +482,150 @@ namespace Pickleball.EditorTools
             return prefab != null ? prefab.GetComponent<SimulationBall>() : null;
         }
 
-        // ------------------------------------------------------------------ Players
+        // ------------------------------------------------------------------ Players (art gốc)
+
+        /// <summary>
+        /// Đặt một tay vợt vào scene bằng prefab nhân vật art gốc đã dựng sẵn ở
+        /// <c>Assets/Project/Prefabs/Characters</c>.
+        /// <para>
+        /// Prefab đó ĐÃ mang sẵn <see cref="BasePlayerController"/>, <see cref="PlayerAvatar"/>,
+        /// <see cref="RacquetAnimator"/>… (do <c>CharacterPrefabBuilder</c> gắn), nên ở đây chỉ cần
+        /// đặt vị trí / góc quay / <c>teamID</c> / profile — giống hệt bản greybox đang làm.
+        /// </para>
+        /// </summary>
+        /// <returns><c>null</c> khi tắt cờ <see cref="UseOriginalArt"/> hoặc chưa có prefab —
+        /// người gọi sẽ rơi về <see cref="BuildPlayer"/>.</returns>
+        private static GameObject TryBuildPlayerFromOriginalArt(Transform parent, string name, Vector3 position,
+            bool isAI, string prefabPath, string teamID, PlayerProfile profile, PlayerProfileLimits limits)
+        {
+            if (!UseOriginalArt) return null;
+
+            GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+            if (prefab == null)
+            {
+                Debug.Log("[GreyboxSceneBuilder] Chưa có " + prefabPath + " — dùng capsule greybox cho " + name + ".");
+                return null;
+            }
+
+            GameObject root = (GameObject)PrefabUtility.InstantiatePrefab(prefab, parent);
+            if (root == null)
+            {
+                Debug.LogWarning("[GreyboxSceneBuilder] Không instantiate được " + prefabPath + ".");
+                return null;
+            }
+
+            root.name = name;
+            root.transform.SetPositionAndRotation(position, Quaternion.Euler(0f, isAI ? 180f : 0f, 0f));
+            SetLayerRecursively(root, SafeLayer(StringConstants.PlayerLayer));
+
+            BasePlayerController controller = root.GetComponent<BasePlayerController>();
+            if (controller == null)
+            {
+                Debug.LogWarning("[GreyboxSceneBuilder] " + prefabPath +
+                                 " không có BasePlayerController — huỷ, quay về capsule greybox.");
+                Object.DestroyImmediate(root);
+                return null;
+            }
+
+            controller.teamID = teamID;
+            controller.playerProfile = profile;
+            controller.profileLimits = limits;
+            controller.SetCourtSide(position.z >= 0f);
+
+            AttachOriginalPaddle(controller, name);
+
+            Debug.Log("[GreyboxSceneBuilder] " + name + " dùng art gốc: " + prefabPath);
+            return root;
+        }
+
+        /// <summary>
+        /// Gắn prefab vợt gốc vào <c>paddleHolder</c> — CHỈ khi nút gắn chưa có sẵn mesh vợt.
+        /// Prefab nhân vật gốc đã kèm mẫu vợt <c>Paddle_V2</c>, nên thường bước này bị bỏ qua và
+        /// đó là điều mong muốn (tránh hai cây vợt chồng lên nhau).
+        /// </summary>
+        private static void AttachOriginalPaddle(BasePlayerController controller, string ownerName)
+        {
+            Transform holder = controller.paddleHolder;
+            if (holder == null)
+            {
+                Debug.LogWarning("[GreyboxSceneBuilder] " + ownerName + ": paddleHolder trống, không gắn được vợt.");
+                return;
+            }
+
+            if (holder.GetComponentInChildren<Renderer>(true) != null)
+            {
+                if (controller.paddleRenderer == null)
+                {
+                    controller.paddleRenderer = holder.GetComponentInChildren<Renderer>(true);
+                }
+
+                return;
+            }
+
+            GameObject paddlePrefab = AssetDatabase.LoadAssetAtPath<GameObject>(OriginalPaddlePrefabPath);
+            if (paddlePrefab == null)
+            {
+                Debug.LogWarning("[GreyboxSceneBuilder] " + ownerName + ": không có " + OriginalPaddlePrefabPath + ".");
+                return;
+            }
+
+            GameObject paddle = (GameObject)PrefabUtility.InstantiatePrefab(paddlePrefab, holder);
+            paddle.transform.localPosition = Vector3.zero;
+            paddle.transform.localRotation = Quaternion.identity;
+
+            controller.paddleRenderer = paddle.GetComponentInChildren<Renderer>(true);
+            Debug.Log("[GreyboxSceneBuilder] " + ownerName + ": đã gắn " + OriginalPaddlePrefabPath + ".");
+        }
+
+        /// <summary>
+        /// Thay phần NHÌN của một object primitive (bóng / lưới) bằng prefab art gốc nếu có:
+        /// prefab được gắn làm con và renderer primitive bị tắt, còn collider + component gameplay
+        /// giữ nguyên trên object cha.
+        /// </summary>
+        /// <param name="target">Object primitive đang mang logic (Ball, Net).</param>
+        /// <param name="prefabPath">Đường dẫn prefab art gốc.</param>
+        /// <param name="label">Nhãn tiếng Việt dùng trong log.</param>
+        private static void TryReplaceVisualWithOriginalArt(GameObject target, string prefabPath, string label)
+        {
+            if (!UseOriginalArt || target == null) return;
+
+            GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+            if (prefab == null)
+            {
+                Debug.Log("[GreyboxSceneBuilder] Không có prefab art gốc cho " + label + " (" + prefabPath +
+                          ") — giữ primitive greybox.");
+                return;
+            }
+
+            GameObject visual = (GameObject)PrefabUtility.InstantiatePrefab(prefab, target.transform);
+            visual.transform.localPosition = Vector3.zero;
+            visual.transform.localRotation = Quaternion.identity;
+
+            MeshRenderer primitiveRenderer = target.GetComponent<MeshRenderer>();
+            if (primitiveRenderer != null) primitiveRenderer.enabled = false;
+
+            // BallController bật/tắt ball renderer để giấu bóng — phải trỏ sang renderer MỚI,
+            // nếu không quả bóng sẽ vô hình vĩnh viễn.
+            BallController ballController = target.GetComponent<BallController>();
+            if (ballController != null)
+            {
+                Renderer replacement = visual.GetComponentInChildren<Renderer>(true);
+                if (replacement != null) ballController.ballRenderer = replacement;
+            }
+
+            Debug.Log("[GreyboxSceneBuilder] " + label + " dùng art gốc: " + prefabPath);
+        }
+
+        /// <summary>Đặt layer cho một object và toàn bộ con cháu.</summary>
+        private static void SetLayerRecursively(GameObject root, int layer)
+        {
+            foreach (Transform node in root.GetComponentsInChildren<Transform>(true))
+            {
+                if (node != null) node.gameObject.layer = layer;
+            }
+        }
+
+        // ------------------------------------------------------------------ Players (greybox)
 
         /// <summary>
         /// Dựng một tay vợt greybox.

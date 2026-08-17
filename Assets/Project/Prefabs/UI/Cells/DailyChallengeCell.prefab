@@ -48,7 +48,6 @@ GameObject:
   - component: {fileID: 8812822741993658915}
   - component: {fileID: 1677066564981368147}
   - component: {fileID: 6288955683091912214}
-  - component: {fileID: 4370533918233634571}
   - component: {fileID: 3054871650867726440}
   - component: {fileID: 5065342166310676193}
   m_Layer: 0
@@ -106,7 +105,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: d85fd711407961548b4489c1582f1a4b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -116,20 +115,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4370533918233634571
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1179182961948015977}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b341a676b99a64b43b7b4a9ca2b9aeee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.SpritePlaceholder
-  originalSpriteName: Buy-Button
-  fallbackColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &3054871650867726440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,7 +185,6 @@ GameObject:
   - component: {fileID: 7887567343204159438}
   - component: {fileID: 6089049065193259762}
   - component: {fileID: 5316639492383051835}
-  - component: {fileID: 5130146857918556196}
   m_Layer: 0
   m_Name: Icon
   m_TagString: Untagged
@@ -255,7 +239,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: d1dde3f636853db4eb44d523043ac094, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -265,20 +249,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5130146857918556196
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1654066617255779140}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b341a676b99a64b43b7b4a9ca2b9aeee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.SpritePlaceholder
-  originalSpriteName: Coin-4
-  fallbackColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &2546707239897695250
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,7 +260,6 @@ GameObject:
   - component: {fileID: 1689145654720565023}
   - component: {fileID: 2130006371193744949}
   - component: {fileID: 8886805499147765126}
-  - component: {fileID: 266970010816119370}
   m_Layer: 0
   m_Name: Filler
   m_TagString: Untagged
@@ -345,7 +314,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 2b88fbb1d2ad82d4d859e327866679a2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -355,20 +324,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &266970010816119370
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2546707239897695250}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b341a676b99a64b43b7b4a9ca2b9aeee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.SpritePlaceholder
-  originalSpriteName: Progress-fill
-  fallbackColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &2780876382770785987
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,7 +373,6 @@ GameObject:
   - component: {fileID: 785650911762672552}
   - component: {fileID: 2772469640550651984}
   - component: {fileID: 6398878381502439270}
-  - component: {fileID: 5954717492890123038}
   - component: {fileID: 8587666926907749148}
   m_Layer: 0
   m_Name: Glow
@@ -474,7 +428,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 2469bd4ab70cb144489151e0a5c9b6c8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -484,20 +438,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5954717492890123038
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3111568856228532636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b341a676b99a64b43b7b4a9ca2b9aeee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.SpritePlaceholder
-  originalSpriteName: Round-Glow
-  fallbackColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &8587666926907749148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -663,7 +603,6 @@ GameObject:
   - component: {fileID: 7407289185790939287}
   - component: {fileID: 6780392509500716208}
   - component: {fileID: 1126658563928651125}
-  - component: {fileID: 488198474891050609}
   - component: {fileID: 4175917358087125280}
   - component: {fileID: 7041130959726842428}
   - component: {fileID: 6775476322388505211}
@@ -722,7 +661,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: d85fd711407961548b4489c1582f1a4b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -732,20 +671,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &488198474891050609
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3537159995466673701}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b341a676b99a64b43b7b4a9ca2b9aeee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.SpritePlaceholder
-  originalSpriteName: Buy-Button
-  fallbackColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &4175917358087125280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -971,7 +896,6 @@ GameObject:
   - component: {fileID: 2723028953338544598}
   - component: {fileID: 2428699653402361858}
   - component: {fileID: 9166061214433742237}
-  - component: {fileID: 5850942628129676006}
   m_Layer: 0
   m_Name: CurrentProgress
   m_TagString: Untagged
@@ -1026,7 +950,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: b5bc993f7c6fd9e45a3230aca6d55dad, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1036,20 +960,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5850942628129676006
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4489944752571253385}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b341a676b99a64b43b7b4a9ca2b9aeee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.SpritePlaceholder
-  originalSpriteName: Bar-Colorpng
-  fallbackColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &4493181539750135482
 GameObject:
   m_ObjectHideFlags: 0
@@ -1061,7 +971,6 @@ GameObject:
   - component: {fileID: 8349620819766805370}
   - component: {fileID: 5961987787755922229}
   - component: {fileID: 1821115312537163067}
-  - component: {fileID: 6460776916760214379}
   m_Layer: 0
   m_Name: ProgressBG
   m_TagString: Untagged
@@ -1116,7 +1025,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 15200cfbcf3c80147ad6149cf330ca1e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1126,20 +1035,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6460776916760214379
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4493181539750135482}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b341a676b99a64b43b7b4a9ca2b9aeee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.SpritePlaceholder
-  originalSpriteName: Bar-Back
-  fallbackColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &4640746234390019465
 GameObject:
   m_ObjectHideFlags: 0
@@ -1288,7 +1183,6 @@ GameObject:
   - component: {fileID: 2675167690785370047}
   - component: {fileID: 4459360507430034637}
   - component: {fileID: 2276164854547803002}
-  - component: {fileID: 1072832897701175667}
   m_Layer: 0
   m_Name: BG_L2
   m_TagString: Untagged
@@ -1343,7 +1237,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: e68a2f65e5139464eb789b776784cfae, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1353,20 +1247,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1072832897701175667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5338041704377014175}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b341a676b99a64b43b7b4a9ca2b9aeee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.SpritePlaceholder
-  originalSpriteName: Chips-BAck
-  fallbackColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &5473237150658226257
 GameObject:
   m_ObjectHideFlags: 0
@@ -1378,7 +1258,6 @@ GameObject:
   - component: {fileID: 195163627748135054}
   - component: {fileID: 8996362223188489964}
   - component: {fileID: 6889358774260667728}
-  - component: {fileID: 8149093209395887617}
   m_Layer: 0
   m_Name: FillerBG
   m_TagString: Untagged
@@ -1433,7 +1312,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 83d323ada63cf994285b2ac51e3459ad, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1443,20 +1322,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8149093209395887617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5473237150658226257}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b341a676b99a64b43b7b4a9ca2b9aeee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.SpritePlaceholder
-  originalSpriteName: Progress-back
-  fallbackColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &5561492737455496142
 GameObject:
   m_ObjectHideFlags: 0
@@ -1742,7 +1607,6 @@ GameObject:
   - component: {fileID: 1378744062653698609}
   - component: {fileID: 9092406728746299083}
   - component: {fileID: 408454521806627623}
-  - component: {fileID: 4375098820343985497}
   m_Layer: 0
   m_Name: UpgradeProgress
   m_TagString: Untagged
@@ -1797,7 +1661,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: b5bc993f7c6fd9e45a3230aca6d55dad, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1807,20 +1671,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4375098820343985497
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6842464354568505720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b341a676b99a64b43b7b4a9ca2b9aeee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.SpritePlaceholder
-  originalSpriteName: Bar-Colorpng
-  fallbackColor: {r: 0.6415, g: 0.6415, b: 0.6415, a: 1}
 --- !u!1 &7371212246176484246
 GameObject:
   m_ObjectHideFlags: 0
@@ -1832,7 +1682,6 @@ GameObject:
   - component: {fileID: 1206640281442957478}
   - component: {fileID: 6563322083877973286}
   - component: {fileID: 3033962732761419882}
-  - component: {fileID: 1383623858023312652}
   m_Layer: 0
   m_Name: Corners2
   m_TagString: Untagged
@@ -1887,7 +1736,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 043ee811dc2e8424e9682d0a5e7dde9f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1897,20 +1746,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1383623858023312652
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7371212246176484246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b341a676b99a64b43b7b4a9ca2b9aeee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.SpritePlaceholder
-  originalSpriteName: Shadow_layer
-  fallbackColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &7387009593953138866
 GameObject:
   m_ObjectHideFlags: 0
@@ -2240,7 +2075,6 @@ GameObject:
   - component: {fileID: 6030587012435096565}
   - component: {fileID: 1665820200945198296}
   - component: {fileID: 5580411413515976797}
-  - component: {fileID: 2714163807043088659}
   m_Layer: 0
   m_Name: Corners
   m_TagString: Untagged
@@ -2295,7 +2129,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 043ee811dc2e8424e9682d0a5e7dde9f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2305,17 +2139,3 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2714163807043088659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9073524315584117252}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b341a676b99a64b43b7b4a9ca2b9aeee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.SpritePlaceholder
-  originalSpriteName: Shadow_layer
-  fallbackColor: {r: 1, g: 1, b: 1, a: 1}

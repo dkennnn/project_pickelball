@@ -38,11 +38,51 @@ namespace Pickleball
         public const string MatchmakingMatchFoundWithAI = "MatchmakingMatchFoundWithAI";
 
         // --- Animator parameters ---
-        public const string AnimSpeed = "Speed";
-        public const string AnimShotTrigger = "Shot";
-        public const string AnimPreShotTrigger = "PreShot";
-        public const string AnimServeTrigger = "Serve";
-        public const string AnimVictoryTrigger = "Victory";
-        public const string AnimShotTypeIndex = "ShotTypeIndex";
+        // Tên parameter LẤY TỪ ANIMATOR CONTROLLER GỐC (PlayerAnimationControllerv3 và
+        // FemaleAnimationControllerv3 dùng bộ parameter giống hệt nhau). Sáu hằng số cũ
+        // (Speed/Shot/PreShot/Serve/Victory/ShotTypeIndex) là tên tôi tự đặt và ĐỀU SAI —
+        // nhân vật sẽ đứng im ở Idle vì mọi lệnh SetTrigger/SetFloat rơi vào hư không.
+
+        /// <summary>Vận tốc ngang, dùng cho blend tree 2D di chuyển.</summary>
+        public const string AnimXSpeed = "XSpeed";
+
+        /// <summary>Vận tốc dọc, dùng cho blend tree 2D di chuyển.</summary>
+        public const string AnimZSpeed = "ZSpeed";
+
+        /// <summary>Int chọn kiểu đánh — giá trị khớp chính xác enum <c>ShotAnimationType</c>.</summary>
+        public const string AnimShotTypeIndex = "HitType";
+
+        /// <summary>Trigger vào tư thế chuẩn bị đánh.</summary>
+        public const string AnimPreShotTrigger = "PreHit";
+
+        /// <summary>Trigger đánh bóng.</summary>
+        public const string AnimShotTrigger = "Hit";
+
+        /// <summary>Trigger đánh hụt.</summary>
+        public const string AnimMissTrigger = "Miss";
+
+        /// <summary>Trigger đưa animator về trạng thái nghỉ.</summary>
+        public const string AnimResetTrigger = "Reset";
+
+        /// <summary>Bool chọn bên phải/trái — quyết định state giao bóng và hướng đánh.</summary>
+        public const string AnimIsRightSide = "IsRightSide";
+
+        /// <summary>Bool bật/tắt lớp animation khi đang trong trận.</summary>
+        public const string AnimIsGameplayActive = "IsGameplayActive";
+
+        /// <summary>Trigger ăn mừng thắng trận.</summary>
+        public const string AnimWinTrigger = "Win";
+
+        /// <summary>Trigger thua trận.</summary>
+        public const string AnimLoseTrigger = "Lose";
+
+        /// <summary>Trigger thắng một pha bóng.</summary>
+        public const string AnimRallyWinTrigger = "RallyWin";
+
+        /// <summary>Trigger thua một pha bóng.</summary>
+        public const string AnimRallyLoseTrigger = "RallyLose";
+
+        /// <summary>Bool lật animation cho tay thuận trái.</summary>
+        public const string AnimMirrorHandSide = "MirrorHandSide";
     }
 }
