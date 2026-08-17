@@ -2,6 +2,7 @@
     "name": "Pickleball.Runtime",
     "rootNamespace": "Pickleball",
     "references": [
+        "UnityEngine.UI",
         "Unity.TextMeshPro"
     ],
     "includePlatforms": [],

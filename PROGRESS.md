@@ -26,12 +26,14 @@
 | 8 | P07 | Boosters (5 loại) + BoosterManager + AIBoosterController + VFXPlayer | ✅ Xong | `feat(p07): booster system` |
 | 9 | P08 | SaveData + AES + SavedDataHandler + GameBootstrap (bỏ backend) | ✅ Xong | `feat(p08): local encrypted save & persistence` |
 | 10a | P09 | **Stats**: StatsData/GameStatsData/StatsManager + 15 EditMode test | ✅ Xong | `feat(p09): match statistics subsystem` |
-| 10b | P09 | League UI (GameData hub + PlayerProfileData đã xong ở P10a) | ⬜ Chưa | làm cùng P12 |
+| 10b | P09 | League UI | ✅ Xong | gộp trong `feat(p12)` |
 | 11a | P10 | Item/Character/Grip/Paddle/Workout, PlayerLoadout, TazoData, **GameData hub**, PlayerProfileData | ✅ Xong | `feat(p10): item, loadout & gamedata hub` |
 | 11b | P10 | Rewards, Kitbag, DynamicKitbag, RewardsCollection, RewardManager, **SlotsData (Locker)** | ✅ Xong | `feat(p10): rewards, kitbag & locker` |
 | 11c | P10 | `Shop.cs` aggregator + `MatchRewardHandler` + `GameBootstrap` | ✅ Xong | `feat(p10): shop aggregator & match reward loop` |
 | 12 | P11 | Daily Challenge (tự cắm event), Daily Reward, Tournament 3 vòng | ✅ Xong | `feat(p11): daily challenge, daily reward & tournament` |
-| 13 | P12 | UI framework + 29 màn + 21 cell prefab, **dựng theo `../ui_layout/`** | ⬜ Chưa | |
+| 13a | P12 | UI framework (UIController, UIScreenBase, Animatable, SafeArea) + 23 màn + 10 cell view | ✅ Xong | `feat(p12): ui framework & screen scripts` |
+| 13b | P12 | **Trình sinh prefab từ JSON layout** → 50 prefab / 1638 node | ✅ Xong | `feat(p12): ui layout importer` |
+| 13c | P12 | 34 class còn thiếu (Effect/EventTheme/Misc/popup/cell view) | 🔄 Đang làm | gộp vào mục 16 |
 | 14 | P14 | Tutorial 11 bước | ⬜ Chưa | |
 | 15 | — | Effect / Managers / Misc / ReplaySystem / ProfanityFilter | ⬜ Chưa | |
 | — | P13 | Mirror multiplayer + LAN | ⏸ **hoãn cuối** | cần cài package Mirror |
