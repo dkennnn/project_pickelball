@@ -39,6 +39,10 @@ Chú thích: ✅ Xong · 🔄 Đang làm · ⬜ Chưa · ⚠️ Có vấn đề
 - Trước khi commit: mở Unity một lần để chắc chắn **compile sạch, 0 error**.
 - Cập nhật bảng trên (trạng thái + commit) trong CÙNG commit của bước đó.
 - Không commit `Library/`, `Temp/`, `Logs/`, `UserSettings/` (đã có trong `.gitignore`).
+- **KHÔNG chạy hai tiến trình Unity batchmode cùng lúc trên project này.** Unity khoá project
+  bằng `Temp/UnityLockfile`; chạy song song thì tiến trình thứ hai thoát sớm không sinh
+  kết quả, và mỗi instance chiếm ~700 MB - 1.2 GB commit memory. Nếu chia việc cho nhiều
+  agent thì để chúng CHỈ viết code, còn compile/test do một tiến trình duy nhất chạy tuần tự.
 - Số liệu cân bằng chỉ nằm trong ScriptableObject, không hardcode trong logic.
 
 ## Chạy thử ngay
@@ -55,6 +59,34 @@ powershell -ExecutionPolicy Bypass -File ..\check-compile.ps1
 Unity.exe -batchmode -nographics -runTests -testPlatform EditMode -projectPath <path> -testResults r.xml
 Unity.exe -batchmode -nographics -runTests -testPlatform PlayMode -projectPath <path> -testResults r.xml
 ```
+
+## Sự cố đã gặp & cách xử lý
+
+### `Unexpected transport error from import worker ... code=10054`
+
+**Triệu chứng**: 3 import worker chết cùng lúc khi mở project lần đầu trong Editor.
+
+**Nguyên nhân thật**: hết bộ nhớ ở mức *commit* của Windows, KHÔNG phải Library hỏng.
+Bằng chứng trong `Logs/AssetImportWorker0.log`:
+- Allocation thất bại chỉ **87.520 byte (85 KB)**, trong khi Unity mới dùng 78 MB
+  → không phải project quá nặng.
+- Stack: `LoadAndRegisterAllKnownShaders` → `SerializedFile::ReadMetadata` → OOM,
+  tức là chết lúc nạp shader URP khi khởi động worker.
+- Máy: 32 GB RAM nhưng **commit limit chỉ 40.7 GB** (pagefile nhỏ), commit còn trống 7.9 GB.
+
+**Unity tự phục hồi**: worker 3/4/5 sinh lại sau đó 1 phút, `grep -c "Crash!!!"` = 0 trên cả ba;
+`Library/ScriptAssemblies/` có đủ 4 assembly (Runtime 158 KB, Editor 34 KB, 2 assembly test);
+`Editor.log` chạy refresh bình thường ở 282 MB. **Không cần làm gì, project vẫn dùng được.**
+
+**Giảm khả năng tái diễn**:
+1. `Edit > Preferences > Asset Pipeline > Desired Import Worker Count` → đặt **2** (mặc định
+   theo số nhân CPU, mỗi worker là một tiến trình Unity đầy đủ).
+2. Tăng pagefile Windows (Control Panel > System > Advanced > Performance > Virtual Memory),
+   đặt tối thiểu bằng dung lượng RAM.
+3. Đóng bớt ứng dụng nặng trước khi mở Unity.
+
+**Nếu về sau thực sự hỏng Library** (hiếm): đóng Unity, xoá thư mục `Library/` và `Temp/`,
+mở lại — Unity dựng lại từ đầu. Cả hai đều nằm trong `.gitignore` nên không mất gì.
 
 ## Quyết định kiến trúc
 
