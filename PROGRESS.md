@@ -88,6 +88,22 @@ Bằng chứng trong `Logs/AssetImportWorker0.log`:
 **Nếu về sau thực sự hỏng Library** (hiếm): đóng Unity, xoá thư mục `Library/` và `Temp/`,
 mở lại — Unity dựng lại từ đầu. Cả hai đều nằm trong `.gitignore` nên không mất gì.
 
+### Toàn bộ scene màu hồng (magenta)
+
+**Nguyên nhân**: project được tạo bằng `-createProject` (template Built-in) rồi mới thêm package
+URP. Unity chỉ tự sinh `UniversalRenderPipelineGlobalSettings.asset`, KHÔNG tạo URP Asset và
+không gán vào Graphics Settings — kiểm chứng bằng `ProjectSettings/GraphicsSettings.asset`:
+`m_CustomRenderPipeline: {fileID: 0}`. Pipeline đang chạy vẫn là Built-in, nên mọi material
+dùng shader `Universal Render Pipeline/Lit` không có subshader hợp lệ → Unity vẽ màu hồng.
+
+**Cách sửa**: menu `Pickleball/Setup URP Pipeline` (script `Editor/UrpPipelineSetup.cs`).
+Tạo `Assets/Project/Settings/PickleballUniversalRP.asset` + `PickleballUniversalRenderer.asset`
+rồi gán vào `GraphicsSettings.defaultRenderPipeline` **và cả 6 quality level**
+(bỏ sót một level thì đổi Quality lại ra màu hồng). Script idempotent.
+
+**Lưu ý khi tự kiểm tra bằng grep**: trong `ProjectSettings/QualitySettings.asset` khoá là
+`customRenderPipeline`, KHÔNG phải `renderPipeline` — grep sai tên sẽ tưởng chưa gán.
+
 ## Quyết định kiến trúc
 
 1. **Không dùng Mirror ở Phase 1.** Code gốc là server-authoritative, nhưng để project compile
@@ -105,7 +121,7 @@ mở lại — Unity dựng lại từ đầu. Cả hai đều nằm trong `.git
 ## Việc cần làm thủ công trong Unity Editor
 
 - [x] ~~Mở project lần đầu để Unity resolve package~~ (đã chạy batchmode, package resolve xong).
-- [ ] Tạo URP Asset + gán vào Graphics Settings / Quality Settings (hiện dùng pipeline mặc định).
+- [x] ~~Tạo URP Asset + gán vào Graphics Settings / Quality Settings~~ (menu `Pickleball/Setup URP Pipeline`, đã chạy).
 - [x] ~~Chạy `Pickleball/Generate Balance Data`~~ (đã chạy bằng `-executeMethod`, sinh 14 asset).
 - [x] ~~Tạo Tag/Layer~~ (đã ghi thẳng vào `ProjectSettings/TagManager.asset`).
 - [ ] Player Settings: Portrait, Android IL2CPP ARM64, minSdk 24.

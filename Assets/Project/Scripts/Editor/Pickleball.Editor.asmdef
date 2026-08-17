@@ -1,7 +1,11 @@
 {
     "name": "Pickleball.Editor",
     "rootNamespace": "Pickleball.EditorTools",
-    "references": [ "Pickleball.Runtime" ],
+    "references": [
+        "Pickleball.Runtime",
+        "Unity.RenderPipelines.Core.Runtime",
+        "Unity.RenderPipelines.Universal.Runtime"
+    ],
     "includePlatforms": [ "Editor" ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
