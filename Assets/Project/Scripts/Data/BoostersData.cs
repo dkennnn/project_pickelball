@@ -46,6 +46,33 @@ namespace Pickleball.Data
         }
 
         /// <summary>
+        /// Ghi đè toàn bộ kho booster bằng dữ liệu đã lưu.
+        /// Đối xứng với <see cref="TazoData.ApplyTazoCounts"/>; hệ save dùng hàm này khi nạp file.
+        /// </summary>
+        /// <param name="savedCounts">Danh sách đã lưu; <c>null</c> thì giữ nguyên kho hiện tại.</param>
+        public void ApplyBoosterCounts(List<BoosterCountData> savedCounts)
+        {
+            if (savedCounts == null) return;
+
+            if (boosters == null) boosters = new List<BoosterCountData>();
+            for (int i = 0; i < boosters.Count; i++) boosters[i].count = 0;
+
+            for (int i = 0; i < savedCounts.Count; i++)
+            {
+                BoosterCountData saved = savedCounts[i];
+                if (saved == null || saved.boosterType == BoosterType.None) continue;
+
+                BoosterCountData entry = FindEntry(saved.boosterType);
+                if (entry == null)
+                {
+                    entry = new BoosterCountData { boosterType = saved.boosterType };
+                    boosters.Add(entry);
+                }
+                entry.count = Mathf.Max(0, saved.count);
+            }
+        }
+
+        /// <summary>
         /// Tiêu thụ booster nếu đủ số lượng.
         /// Trả về <c>true</c> và trừ kho khi thành công, <c>false</c> khi không đủ.
         /// </summary>

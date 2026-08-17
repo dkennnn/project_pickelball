@@ -225,6 +225,41 @@ namespace Pickleball.EditorTools
             boosterManagerObject.transform.SetParent(managers.transform, false);
             boosterManagerObject.AddComponent<BoosterManager>();
 
+            // --- Meta layer: save, bootstrap, thưởng sau trận ---------------------------------
+            // Ba component này sống xuyên scene (IndestructibleSingleton) nên đặt ở object riêng.
+            // Thứ tự khởi động do [DefaultExecutionOrder] quyết định:
+            //   SavedDataHandler (-600) -> GameBootstrap (-500) -> phần còn lại.
+            GameData gameData = AssetDatabase.LoadAssetAtPath<GameData>(GameDataFolder + "/GameData.asset");
+            Shop shop = AssetDatabase.LoadAssetAtPath<Shop>(ScriptableObjectsFolder + "/Shop/Shop.asset");
+
+            GameObject metaRoot = new GameObject("--- META ---");
+
+            GameObject saveObject = new GameObject("SavedDataHandler");
+            saveObject.transform.SetParent(metaRoot.transform, false);
+            SavedDataHandler savedDataHandler = saveObject.AddComponent<SavedDataHandler>();
+            savedDataHandler._gameData = gameData;
+            savedDataHandler._shop = shop;
+
+            GameObject bootstrapObject = new GameObject("GameBootstrap");
+            bootstrapObject.transform.SetParent(metaRoot.transform, false);
+            GameBootstrap bootstrap = bootstrapObject.AddComponent<GameBootstrap>();
+            bootstrap.gameData = gameData;
+            bootstrap.shop = shop;
+            bootstrap.gameSettings = gameSettings;
+            bootstrap.savedDataHandler = savedDataHandler;
+
+            GameObject rewardObject = new GameObject("MatchRewardHandler");
+            rewardObject.transform.SetParent(metaRoot.transform, false);
+            MatchRewardHandler rewardHandler = rewardObject.AddComponent<MatchRewardHandler>();
+            rewardHandler.gameData = gameData;
+            rewardHandler.settings = gameSettings;
+
+            if (gameData == null || shop == null)
+            {
+                Debug.LogWarning("[GreyboxSceneBuilder] Chưa có GameData.asset hoặc Shop.asset — " +
+                                 "chạy Pickleball/Generate Item Data, Generate Reward Data, Generate Shop Data rồi dựng lại scene.");
+            }
+
             // --- Lưu ------------------------------------------------------------------------
             EditorSceneManager.MarkSceneDirty(scene);
             bool saved = EditorSceneManager.SaveScene(scene, ScenePath);

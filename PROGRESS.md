@@ -24,7 +24,7 @@
 | 6 | P04 | BasePlayerController + FSM 4 state + animation + CameraFollow | ✅ Xong | `feat(p04): player controller fsm` |
 | 7 | P06 | PickleballAIController + 5 strategy + AIHelper + 4 AI state + AINamesData | ✅ Xong | `feat(p06): ai opponent` |
 | 8 | P07 | Boosters (5 loại) + BoosterManager + AIBoosterController + VFXPlayer | ✅ Xong | `feat(p07): booster system` |
-| 9 | P08 | SaveData + SaveGameData mã hoá + SavedDataHandler + Backend stub | ⬜ Chưa | |
+| 9 | P08 | SaveData + AES + SavedDataHandler + GameBootstrap (bỏ backend) | ✅ Xong | `feat(p08): local encrypted save & persistence` |
 | 10a | P09 | **Stats**: StatsData/GameStatsData/StatsManager + 15 EditMode test | ✅ Xong | `feat(p09): match statistics subsystem` |
 | 10b | P09 | League UI (GameData hub + PlayerProfileData đã xong ở P10a) | ⬜ Chưa | làm cùng P12 |
 | 11a | P10 | Item/Character/Grip/Paddle/Workout, PlayerLoadout, TazoData, **GameData hub**, PlayerProfileData | ✅ Xong | `feat(p10): item, loadout & gamedata hub` |
@@ -134,3 +134,18 @@ rồi gán vào `GraphicsSettings.defaultRenderPipeline` **và cả 6 quality le
 - [x] ~~Chạy `Pickleball/Generate Balance Data`~~ (đã chạy bằng `-executeMethod`, sinh 14 asset).
 - [x] ~~Tạo Tag/Layer~~ (đã ghi thẳng vào `ProjectSettings/TagManager.asset`).
 - [ ] Player Settings: Portrait, Android IL2CPP ARM64, minSdk 24.
+
+## Vòng lặp hiện đã khép kín (chưa cần UI)
+
+Mở `GreyboxMatch.unity` → Play → đấu với AI → thắng/thua:
+1. `MatchRewardHandler` cộng/trừ coin, trophy, tính lại level
+2. Thắng → kitbag vào locker theo chuỗi thắng (>=5 Level3, >=3 Level2, còn lại Level1)
+3. `SavedDataHandler` tự lưu (debounce 1s) — file `pickleball.sav` mã hoá AES trong
+   `Application.persistentDataPath`
+4. Thoát Play rồi vào lại → `GameBootstrap` nạp save, `Shop.SetupLoadout()`,
+   `PlayerLoadout.UpdateProfile()` → chỉ số nhân vật khớp đồ đã nâng cấp
+
+Test nhanh không cần đánh: chọn object `MatchRewardHandler` trong scene → context menu
+"Debug Award Win" / "Debug Award Loss".
+Nâng cấp đồ để thử: chọn asset item trong `ScriptableObjects/Shop/`, tăng `currentLevel`,
+hoặc gọi `Shop.MaxAllItems()`.

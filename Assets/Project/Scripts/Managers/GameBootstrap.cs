@@ -24,6 +24,12 @@ namespace Pickleball
         /// <summary>Cấu hình trận đấu, được áp dụng tham số theo chế độ đang chọn.</summary>
         public GameSettings gameSettings;
 
+        /// <summary>
+        /// Bộ nạp/lưu tiến trình cục bộ. Bỏ trống thì sẽ tự tìm trong scene;
+        /// vẫn không có thì game chạy tiếp nhưng KHÔNG lưu được tiến trình.
+        /// </summary>
+        public SavedDataHandler savedDataHandler;
+
         /// <summary>Phát ngay sau khi khởi động xong; UI nên chờ sự kiện này trước khi vẽ.</summary>
         public static event Action OnBootstrapped;
 
@@ -35,7 +41,25 @@ namespace Pickleball
         {
             base.OnAwake();
 
-            // TODO P08: nạp SaveData tại đây trước khi UpdateProfile
+            // Nạp tiến trình đã lưu TRƯỚC khi dựng trang bị và tính chỉ số, nếu không
+            // người chơi sẽ vào trận với chỉ số của đồ mặc định thay vì đồ đã nâng cấp.
+            if (savedDataHandler == null) savedDataHandler = SavedDataHandler.Instance;
+            if (savedDataHandler == null) savedDataHandler = FindAnyObjectByType<SavedDataHandler>();
+
+            if (savedDataHandler != null)
+            {
+                if (savedDataHandler._gameData == null) savedDataHandler._gameData = gameData;
+                if (savedDataHandler._shop == null)
+                {
+                    savedDataHandler._shop = shop != null ? shop : (gameData != null ? gameData.shopData : null);
+                }
+
+                savedDataHandler.LoadOrCreate();
+            }
+            else
+            {
+                Debug.LogWarning("[GameBootstrap] Không tìm thấy SavedDataHandler — game vẫn chạy nhưng tiến trình sẽ KHÔNG được lưu.");
+            }
 
             if (gameData != null && gameData.shopData == null) gameData.shopData = shop;
 
