@@ -389,6 +389,7 @@ GameObject:
   - component: {fileID: 8835525100761321777}
   - component: {fileID: 2512986566846084530}
   - component: {fileID: 5809218588173175356}
+  - component: {fileID: 4070709368593692349}
   m_Layer: 0
   m_Name: NoInternetPopup
   m_TagString: Untagged
@@ -481,6 +482,27 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &4070709368593692349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5760862283079342620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c77c22cac368f804e83a1f05e8d58d61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.NoInternetPopup
+  screenType: 0
+  canvas: {fileID: 0}
+  titleText: {fileID: 0}
+  text: {fileID: 0}
+  icon: {fileID: 0}
+  retryButton: {fileID: 0}
+  quitButton: {fileID: 0}
+  defaultTitle: NO INTERNET
+  defaultMessage: Please check your connection and try again.
 --- !u!1 &6914531542151805540
 GameObject:
   m_ObjectHideFlags: 0

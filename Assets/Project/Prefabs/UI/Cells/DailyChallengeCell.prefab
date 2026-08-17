@@ -419,6 +419,7 @@ GameObject:
   - component: {fileID: 2772469640550651984}
   - component: {fileID: 6398878381502439270}
   - component: {fileID: 5954717492890123038}
+  - component: {fileID: 8587666926907749148}
   m_Layer: 0
   m_Name: Glow
   m_TagString: Untagged
@@ -497,6 +498,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.SpritePlaceholder
   originalSpriteName: Round-Glow
   fallbackColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &8587666926907749148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3111568856228532636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6463f5f035205943b83adc5cf3bad12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.RotateAndScaleEffect
+  rotateSpeed: 45
+  rotationAxis: {x: 0, y: 0, z: 1}
+  scaleAmount: 0.1
+  scaleSpeed: 2
+  useUnscaledTime: 1
 --- !u!1 &3303823690212833004
 GameObject:
   m_ObjectHideFlags: 0
@@ -648,6 +666,7 @@ GameObject:
   - component: {fileID: 488198474891050609}
   - component: {fileID: 4175917358087125280}
   - component: {fileID: 7041130959726842428}
+  - component: {fileID: 6775476322388505211}
   m_Layer: 0
   m_Name: ClaimButton
   m_TagString: Untagged
@@ -786,6 +805,24 @@ MonoBehaviour:
   clickClip: {fileID: 0}
   volume: 1
   audioSource: {fileID: 0}
+--- !u!114 &6775476322388505211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3537159995466673701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b4be598e0f2b0644aacfa7075174452, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.PopEffect
+  scaleAmount: 0.15
+  duration: 0.35
+  playOnEnable: 1
+  loop: 1
+  delayBetweenLoops: 0
+  useUnscaledTime: 1
 --- !u!1 &3868870316586702158
 GameObject:
   m_ObjectHideFlags: 0

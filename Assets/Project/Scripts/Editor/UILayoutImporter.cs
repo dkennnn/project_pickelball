@@ -145,9 +145,22 @@ namespace Pickleball.EditorTools
         /// </summary>
         /// <param name="className">Tên class đọc từ JSON, ví dụ <c>StarterKit.UI.MainMenuUI</c>.</param>
         /// <returns>Type kế thừa <see cref="Component"/>, hoặc null nếu không tra được.</returns>
+        /// <summary>
+        /// Bảng đổi tên: class trong bản gốc → class tương ứng của dự án này.
+        /// Dùng khi bản gốc gắn thẳng một class mà ở đây là <c>abstract</c> (lớp cơ sở),
+        /// hoặc khi ta cố ý đặt tên khác.
+        /// </summary>
+        private static readonly Dictionary<string, string> Aliases = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            // Bản gốc gắn PopupUI (concrete) lên prefab "CommonPopupUI"; ở đây PopupUI là lớp
+            // cơ sở abstract nên importer bỏ qua — trỏ sang class cụ thể tương đương.
+            { "PopupUI", "CommonPopupUI" },
+        };
+
         public static Type Resolve(string className)
         {
             if (string.IsNullOrEmpty(className)) return null;
+            if (Aliases.TryGetValue(className, out string alias)) className = alias;
             if (Cache.TryGetValue(className, out Type cached)) return cached;
 
             Type found = ResolveUncached(className);

@@ -210,7 +210,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2364206188324000754}
+  m_Father: {fileID: 2070414635953675623}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -454,6 +454,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2364206188324000754}
+  - component: {fileID: 3049464327129605372}
+  - component: {fileID: 6182537324478516885}
+  - component: {fileID: 624479005627163509}
   m_Layer: 0
   m_Name: Top
   m_TagString: Untagged
@@ -472,17 +475,66 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4804994195939001831}
-  - {fileID: 8007538646551657929}
-  - {fileID: 6272814706481177473}
-  m_Father: {fileID: 356904837979610769}
+  m_Children: []
+  m_Father: {fileID: 2188783299668801759}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -121.03}
-  m_SizeDelta: {x: 0, y: 242.05}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 512}
+  m_Pivot: {x: 0.5, y: 1}
+--- !u!222 &3049464327129605372
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1627148811397123948}
+  m_CullTransparentMesh: 1
+--- !u!114 &6182537324478516885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1627148811397123948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &624479005627163509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1627148811397123948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b341a676b99a64b43b7b4a9ca2b9aeee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.SpritePlaceholder
+  originalSpriteName: Upper-bg-shadow-layer
+  fallbackColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &2277186248111648996
 GameObject:
   m_ObjectHideFlags: 0
@@ -584,6 +636,7 @@ GameObject:
   - component: {fileID: 6848791206570276244}
   - component: {fileID: 2522294537911334093}
   - component: {fileID: 4489236938300401533}
+  - component: {fileID: 7431073864308508249}
   m_Layer: 0
   m_Name: Parallax
   m_TagString: Untagged
@@ -645,6 +698,22 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &7431073864308508249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2507431843090771364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74522f0b3ce54c54ab8f6dbe78547303, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.ParallaxUVScroller
+  speed: {x: 0.03, y: 0}
+  layers: []
+  playOnEnable: 1
+  useUnscaledTime: 1
 --- !u!1 &2668066738579055995
 GameObject:
   m_ObjectHideFlags: 0
@@ -814,7 +883,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7773819038947455980}
+  - {fileID: 2364206188324000754}
   - {fileID: 6848791206570276244}
   - {fileID: 9116398845691951633}
   m_Father: {fileID: 114792876076765865}
@@ -1029,7 +1098,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2364206188324000754}
+  m_Father: {fileID: 2070414635953675623}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.79, y: 0.2105}
   m_AnchorMax: {x: 0.9401, y: 0.8825}
@@ -1174,6 +1243,7 @@ GameObject:
   - component: {fileID: 8544804840036190564}
   - component: {fileID: 3399775003717425756}
   - component: {fileID: 4317782793034832098}
+  - component: {fileID: 677934999507052859}
   m_Layer: 0
   m_Name: EventThemeImg
   m_TagString: Untagged
@@ -1252,6 +1322,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.SpritePlaceholder
   originalSpriteName: Uper-Header
   fallbackColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &677934999507052859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4823760335739474606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cad1dfd1d7324514989081d27d8de594, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.ThemeObject
+  themeId: 
+  normalVisual: {fileID: 0}
+  eventVisual: {fileID: 0}
+  targetImage: {fileID: 0}
+  normalSprite: {fileID: 0}
+  eventSprite: {fileID: 0}
 --- !u!1 &5095365393520359915
 GameObject:
   m_ObjectHideFlags: 0
@@ -1393,96 +1481,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!1 &5266918729500073207
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7773819038947455980}
-  - component: {fileID: 834516577880320582}
-  - component: {fileID: 944093996976039136}
-  - component: {fileID: 5877189791355244948}
-  m_Layer: 0
-  m_Name: Top
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &7773819038947455980
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5266918729500073207}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2188783299668801759}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 512}
-  m_Pivot: {x: 0.5, y: 1}
---- !u!222 &834516577880320582
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5266918729500073207}
-  m_CullTransparentMesh: 1
---- !u!114 &944093996976039136
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5266918729500073207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!114 &5877189791355244948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5266918729500073207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b341a676b99a64b43b7b4a9ca2b9aeee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.SpritePlaceholder
-  originalSpriteName: Upper-bg-shadow-layer
-  fallbackColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &5402466953640601639
 GameObject:
   m_ObjectHideFlags: 0
@@ -1594,7 +1592,7 @@ RectTransform:
   m_Children:
   - {fileID: 940909800187387577}
   - {fileID: 796332870274552816}
-  m_Father: {fileID: 2364206188324000754}
+  m_Father: {fileID: 2070414635953675623}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.0827}
   m_AnchorMax: {x: 0.6019, y: 0.7603}
@@ -1670,6 +1668,44 @@ MonoBehaviour:
   direction: 3
   distanceMultiplier: 1
   targetTransform: {fileID: 0}
+--- !u!1 &6187420080622853751
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2070414635953675623}
+  m_Layer: 0
+  m_Name: Top
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2070414635953675623
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6187420080622853751}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4804994195939001831}
+  - {fileID: 8007538646551657929}
+  - {fileID: 6272814706481177473}
+  m_Father: {fileID: 356904837979610769}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -121.03}
+  m_SizeDelta: {x: 0, y: 242.05}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6637186748427732524
 GameObject:
   m_ObjectHideFlags: 0
@@ -1699,7 +1735,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2364206188324000754}
+  - {fileID: 2070414635953675623}
   - {fileID: 2535730435449536617}
   m_Father: {fileID: 114792876076765865}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

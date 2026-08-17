@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 1156062631279269952}
   - component: {fileID: 1741219200532161517}
   - component: {fileID: 8848430716171298011}
+  - component: {fileID: 8205143302636663690}
   m_Layer: 0
   m_Name: EventThemeImg
   m_TagString: Untagged
@@ -180,6 +181,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.SpritePlaceholder
   originalSpriteName: Uper-Header
   fallbackColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &8205143302636663690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649076314116752308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cad1dfd1d7324514989081d27d8de594, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.ThemeObject
+  themeId: 
+  normalVisual: {fileID: 0}
+  eventVisual: {fileID: 0}
+  targetImage: {fileID: 0}
+  normalSprite: {fileID: 0}
+  eventSprite: {fileID: 0}
 --- !u!1 &1204757590449060916
 GameObject:
   m_ObjectHideFlags: 0

@@ -464,6 +464,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5995031996516055908}
+  - component: {fileID: 3467611737319741479}
   m_Layer: 0
   m_Name: LoserPanelCellView
   m_TagString: Untagged
@@ -495,6 +496,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3467611737319741479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4910378212308510397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4c5ec01d9fe20d43819c12a11543f3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.ResultLoserCard
+  playerIcon: {fileID: 0}
+  playerNamePanel: {fileID: 0}
+  scoreTxt: {fileID: 0}
+  defeatTxt: {fileID: 0}
+  trophyText: {fileID: 0}
+  defeatLabel: DEFEAT
 --- !u!1 &4943026650923390894
 GameObject:
   m_ObjectHideFlags: 0

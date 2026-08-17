@@ -112,6 +112,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8068558542243915581}
+  - component: {fileID: 5526916982996596863}
   - component: {fileID: 6014529013450323881}
   - component: {fileID: 6636563261185103406}
   - component: {fileID: 3238375854894268006}
@@ -142,6 +143,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 90, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5526916982996596863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5220940176325491320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8c4c5f25dc209c41898ed62b35eaadd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.TutorialSuccessBallCellView
+  successTick: {fileID: 0}
+  fadeDuration: 0.2
 --- !u!222 &6014529013450323881
 CanvasRenderer:
   m_ObjectHideFlags: 0

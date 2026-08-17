@@ -387,6 +387,7 @@ GameObject:
   - component: {fileID: 3431603597672786965}
   - component: {fileID: 2826951172226796538}
   - component: {fileID: 5959827321461951640}
+  - component: {fileID: 1685912046954786395}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -480,6 +481,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.AspectRatioFitter
   m_AspectMode: 0
   m_AspectRatio: NaN
+--- !u!114 &1685912046954786395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2422558641054654321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cad1dfd1d7324514989081d27d8de594, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.ThemeObject
+  themeId: 
+  normalVisual: {fileID: 0}
+  eventVisual: {fileID: 0}
+  targetImage: {fileID: 0}
+  normalSprite: {fileID: 0}
+  eventSprite: {fileID: 0}
 --- !u!1 &2655276890455531740
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,6 +601,7 @@ GameObject:
   - component: {fileID: 4693335701924178850}
   - component: {fileID: 3643956114812304746}
   - component: {fileID: 8724569940843042521}
+  - component: {fileID: 6520165917551769339}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -660,6 +680,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.SpritePlaceholder
   originalSpriteName: Character 2
   fallbackColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &6520165917551769339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3415422285955573364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cad1dfd1d7324514989081d27d8de594, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.ThemeObject
+  themeId: 
+  normalVisual: {fileID: 0}
+  eventVisual: {fileID: 0}
+  targetImage: {fileID: 0}
+  normalSprite: {fileID: 0}
+  eventSprite: {fileID: 0}
 --- !u!1 &6036983108995747361
 GameObject:
   m_ObjectHideFlags: 0
@@ -671,6 +709,7 @@ GameObject:
   - component: {fileID: 7767723515846135454}
   - component: {fileID: 413532141667186522}
   - component: {fileID: 4573442414084802859}
+  - component: {fileID: 6174675517390941092}
   m_Layer: 0
   m_Name: Text (TMP) - Loading
   m_TagString: Untagged
@@ -797,6 +836,24 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6174675517390941092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6036983108995747361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c2cb60d4d542e4085e535f35c3c357, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.WaveTextEffect
+  amplitude: 6
+  frequency: 0.5
+  speed: 4
+  autoStart: 1
+  useUnscaledTime: 1
+  textComponent: {fileID: 0}
 --- !u!1 &6056477504051303861
 GameObject:
   m_ObjectHideFlags: 0
@@ -1094,6 +1151,7 @@ GameObject:
   - component: {fileID: 7148687053758874274}
   - component: {fileID: 2431174080624344704}
   - component: {fileID: 5501109997765012255}
+  - component: {fileID: 9065580995848721721}
   m_Layer: 0
   m_Name: Handle
   m_TagString: Untagged
@@ -1172,6 +1230,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.SpritePlaceholder
   originalSpriteName: Loading-Ball
   fallbackColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &9065580995848721721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8062705080313468875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdfbd1f7932db844fad3c9657b674e40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.UIObjectRotator
+  objectCanvas: {fileID: 0}
+  objectToRotate: {fileID: 0}
+  rotationPerSecond: {x: 0, y: 0, z: -120}
+  useLocalSpace: 1
+  playOnEnable: 1
+  useUnscaledTime: 1
 --- !u!1 &8107795847186912254
 GameObject:
   m_ObjectHideFlags: 0

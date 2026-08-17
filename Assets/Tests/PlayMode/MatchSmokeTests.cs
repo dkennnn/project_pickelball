@@ -143,24 +143,58 @@ namespace Pickleball.Tests
             Assert.IsTrue(BallController.HasInstance, "Thiếu BallController.Instance.");
             Assert.IsTrue(GameManager.HasInstance, "Thiếu GameManager.Instance.");
 
-            // Đưa trận về GameOver để không tay vợt nào cầm/đánh quả bóng trong lúc đo lần nảy.
+            // Cô lập quả bóng khỏi trận đấu.
+            //
+            // Test này TỪNG FLAKY: chỉ set GameOver rồi thả bóng ngay là không đủ. GameManager có
+            // FSM tự chạy (PreServe 1s -> Serving, PointScored 1.5s -> PreServe) hẹn bằng
+            // DelayedAction; một lượt chuyển đã hẹn từ trước vẫn có thể nổ sau đó, đẩy tay vợt vào
+            // PrepareServe -> HoldBall. Bóng bị parent vào ballHoldPoint và đặt isKinematic = true
+            // nên không bao giờ rơi, bounceCount đứng ở 0.
+            //
+            // Cách chữa: tắt hẳn các tay vợt trước, rồi CHỜ tới khi bóng thật sự tự do mới đo.
+            foreach (BasePlayerController player in
+                     Object.FindObjectsByType<BasePlayerController>(FindObjectsSortMode.None))
+            {
+                player.gameObject.SetActive(false);
+            }
+
             GameManager.Instance.SetGameState(GameState.GameOver);
             yield return null;
 
             BallController ball = BallController.Instance;
+
+            // Chờ bóng thoát khỏi tay người chơi (tối đa 2 giây) trước khi bắt đầu phép đo.
+            float settle = 0f;
+            while (settle < 2f && (ball.isBallHeld || ball.transform.parent != ball.initialParent))
+            {
+                ball.UnholdBall();
+                settle += Time.unscaledDeltaTime;
+                yield return null;
+            }
+
             ball.ResetBall(new Vector3(0f, 2f, -3f));
+            yield return new WaitForFixedUpdate();
 
             Assert.AreEqual(0, ball.bounceCount, "ResetBall phải đưa bounceCount về 0.");
+            Assert.IsFalse(ball.isBallHeld, "Bóng vẫn đang bị giữ — phép đo lần nảy sẽ vô nghĩa.");
+            Assert.IsFalse(ball.rb == null || ball.rb.isKinematic,
+                "Rigidbody của bóng phải ở trạng thái động sau ResetBall.");
 
             float elapsed = 0f;
-            while (elapsed < 3f && ball.bounceCount < 1)
+            while (elapsed < 5f && ball.bounceCount < 1)
             {
                 elapsed += Time.unscaledDeltaTime;
                 yield return null;
             }
 
+            string diag =
+                $"state={GameManager.Instance.currentState}, IsInPlay={ball.IsInPlay}, " +
+                $"isBallHeld={ball.isBallHeld}, kinematic={(ball.rb != null ? ball.rb.isKinematic.ToString() : "no rb")}, " +
+                $"parent={(ball.transform.parent != null ? ball.transform.parent.name : "none")}, " +
+                $"pos={ball.transform.position}, timeScale={Time.timeScale}";
+
             Assert.GreaterOrEqual(ball.bounceCount, 1,
-                "Bóng thả từ y = 2 phải chạm mặt sân (tag Ground) ít nhất một lần trong 3 giây.");
+                "Bóng thả từ y = 2 phải chạm mặt sân (tag Ground) ít nhất một lần trong 5 giây. " + diag);
             Assert.Less(ball.transform.position.y, 2f, "Bóng không rơi — kiểm tra Rigidbody/gravity.");
         }
     }

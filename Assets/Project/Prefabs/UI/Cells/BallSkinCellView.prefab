@@ -161,6 +161,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2598762357297661958}
+  - component: {fileID: 2421049181506526117}
   m_Layer: 0
   m_Name: BallSkinCellView
   m_TagString: Untagged
@@ -189,6 +190,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2421049181506526117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3964340001092800301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0aef5a81648f804abd542bed2509373, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.BallSkinCellView
+  ballImage: {fileID: 0}
+  selectButton: {fileID: 0}
+  bgImage: {fileID: 0}
+  selectedSprite: {fileID: 0}
+  unSelectedSprite: {fileID: 0}
+  bgGlow: {fileID: 0}
+  greyscaleUIHierarchy: {fileID: 0}
 --- !u!1 &5521954698851314004
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,6 +417,7 @@ GameObject:
   - component: {fileID: 5525067006407989088}
   - component: {fileID: 995603229980637975}
   - component: {fileID: 8603271774559906115}
+  - component: {fileID: 455013667208604583}
   m_Layer: 0
   m_Name: Image - BGglow
   m_TagString: Untagged
@@ -475,3 +496,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.SpritePlaceholder
   originalSpriteName: Round-Glow
   fallbackColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &455013667208604583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8578344311445497187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6463f5f035205943b83adc5cf3bad12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.RotateAndScaleEffect
+  rotateSpeed: 45
+  rotationAxis: {x: 0, y: 0, z: 1}
+  scaleAmount: 0.1
+  scaleSpeed: 2
+  useUnscaledTime: 1

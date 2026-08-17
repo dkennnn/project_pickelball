@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3565689286214876450}
   - component: {fileID: 8596256792137898404}
   - component: {fileID: 145034712945590466}
+  - component: {fileID: 7508733790837949154}
   m_Layer: 0
   m_Name: LoadingPopup
   m_TagString: Untagged
@@ -104,6 +105,24 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &7508733790837949154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417456402383968820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28f71f50bdd28e24eadd3e32055859a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.LoadingPopupUI
+  screenType: 0
+  canvas: {fileID: 0}
+  loaderImg: {fileID: 0}
+  loadingTxt: {fileID: 0}
+  rotateSpeed: -180
+  defaultMessage: LOADING...
 --- !u!1 &482462295077786541
 GameObject:
   m_ObjectHideFlags: 0

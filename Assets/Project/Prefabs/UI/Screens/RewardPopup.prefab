@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4913790387949301643}
   - component: {fileID: 2469859756946260743}
   - component: {fileID: 4574853157933161190}
+  - component: {fileID: 6353827112141648438}
   m_Layer: 0
   m_Name: Glow
   m_TagString: Untagged
@@ -119,6 +120,23 @@ MonoBehaviour:
   duration: 0.25
   delay: 0
   targetCanvasGroup: {fileID: 0}
+--- !u!114 &6353827112141648438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146714767678889580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6463f5f035205943b83adc5cf3bad12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.RotateAndScaleEffect
+  rotateSpeed: 45
+  rotationAxis: {x: 0, y: 0, z: 1}
+  scaleAmount: 0.1
+  scaleSpeed: 2
+  useUnscaledTime: 1
 --- !u!1 &2048360824488675825
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,6 +149,7 @@ GameObject:
   - component: {fileID: 4362801578990909514}
   - component: {fileID: 4143107653735371401}
   - component: {fileID: 6752893728040807557}
+  - component: {fileID: 3794097016052784789}
   m_Layer: 0
   m_Name: RewardPopup
   m_TagString: Untagged
@@ -223,6 +242,25 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &3794097016052784789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048360824488675825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5a19bd26be0203488006ad865d78c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.RewardPopup
+  screenType: 0
+  canvas: {fileID: 0}
+  titleText: {fileID: 0}
+  rewardImage: {fileID: 0}
+  glow: {fileID: 0}
+  tapButton: {fileID: 0}
+  rewardSpritesByType: []
 --- !u!1 &2212032142740671880
 GameObject:
   m_ObjectHideFlags: 0

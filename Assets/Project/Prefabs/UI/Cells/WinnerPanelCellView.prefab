@@ -99,6 +99,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3732615360955791520}
+  - component: {fileID: 3132964161962969898}
   m_Layer: 0
   m_Name: WinnerPanelCellView
   m_TagString: Untagged
@@ -128,6 +129,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3132964161962969898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 904678614210982804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9429c0c77de386458ec906f0f895cbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.ResultWinnerCard
+  playerIcon: {fileID: 0}
+  playerNamePanel: {fileID: 0}
+  scoreTxt: {fileID: 0}
+  winnerTxt: {fileID: 0}
+  crownImg: {fileID: 0}
+  trophyText: {fileID: 0}
+  winnerLabel: WINNER
 --- !u!1 &2672607666848617746
 GameObject:
   m_ObjectHideFlags: 0

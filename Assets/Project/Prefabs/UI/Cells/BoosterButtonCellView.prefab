@@ -151,6 +151,7 @@ GameObject:
   - component: {fileID: 3809415104215260070}
   - component: {fileID: 8120456099420436032}
   - component: {fileID: 4470424110382252103}
+  - component: {fileID: 1005556664489439362}
   - component: {fileID: 8925932809525987412}
   m_Layer: 0
   m_Name: BoosterButtonCellView
@@ -291,6 +292,31 @@ MonoBehaviour:
   clickClip: {fileID: 0}
   volume: 1
   audioSource: {fileID: 0}
+--- !u!114 &1005556664489439362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2981779067700378097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c055919f66568a438674ddf3b283d84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.UIButtonEventTrigger
+  onPointerDown:
+    m_PersistentCalls:
+      m_Calls: []
+  onPointerUp:
+    m_PersistentCalls:
+      m_Calls: []
+  onPointerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onPointerExit:
+    m_PersistentCalls:
+      m_Calls: []
+  interactable: 1
 --- !u!114 &8925932809525987412
 MonoBehaviour:
   m_ObjectHideFlags: 0
