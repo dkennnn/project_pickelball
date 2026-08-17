@@ -29,8 +29,8 @@
 | 10b | P09 | League UI (GameData hub + PlayerProfileData đã xong ở P10a) | ⬜ Chưa | làm cùng P12 |
 | 11a | P10 | Item/Character/Grip/Paddle/Workout, PlayerLoadout, TazoData, **GameData hub**, PlayerProfileData | ✅ Xong | `feat(p10): item, loadout & gamedata hub` |
 | 11b | P10 | Rewards, Kitbag, DynamicKitbag, RewardsCollection, RewardManager, **SlotsData (Locker)** | ✅ Xong | `feat(p10): rewards, kitbag & locker` |
-| 11c | P10 | `Shop.cs` aggregator + luồng mua/nâng cấp nối vào UI | ⬜ Chưa | làm cùng P12 |
-| 12 | P11 | Daily Challenge, Daily Reward, Tournament | ⬜ Chưa | |
+| 11c | P10 | `Shop.cs` aggregator + `MatchRewardHandler` + `GameBootstrap` | ✅ Xong | `feat(p10): shop aggregator & match reward loop` |
+| 12 | P11 | Daily Challenge (tự cắm event), Daily Reward, Tournament 3 vòng | ✅ Xong | `feat(p11): daily challenge, daily reward & tournament` |
 | 13 | P12 | UI framework + 29 màn + 21 cell prefab, **dựng theo `../ui_layout/`** | ⬜ Chưa | |
 | 14 | P14 | Tutorial 11 bước | ⬜ Chưa | |
 | 15 | — | Effect / Managers / Misc / ReplaySystem / ProfanityFilter | ⬜ Chưa | |
