@@ -3,8 +3,13 @@
 - **Unity**: 6000.4.12f1
 - **Đặc tả nguồn**: `../00_NGHIEN_CUU_TOAN_BO_GAME.md`
 - **Bộ prompt**: `../01_PROMPTS_DUNG_LAI_UNITY.md`
-- **Chiến lược**: Phase 1 dựng lõi offline single-player (không phụ thuộc package bên thứ ba)
-  → compile được ngay. Phase 2 mới bọc Mirror/backend/ads lên trên.
+- **Mục tiêu**: bản build **chơi thử được trọn vòng lặp** (menu → đấu AI → kết quả → thưởng →
+  nâng cấp → chơi tiếp), để đánh giá gameplay và cân bằng trước khi dựng lại bản chính thức.
+- **UI phải dựng đúng cấu trúc + bố cục của bản gốc** (không phải UI tạm bợ), để chỉ việc thay art.
+  Bản vẽ layout đã trích sẵn: `../ui_layout/` — 29 màn hình + 21 cell prefab, kèm RectTransform,
+  tên sprite, nội dung text, và cấu hình CanvasScaler (1080x1920, match 0.5).
+- **Hoãn tới cuối cùng**: P13 (Mirror multiplayer) và P15 (ads/IAP/analytics/remote config).
+  Backend cũng bỏ — chỉ save cục bộ.
 
 ## Bảng tiến trình
 
@@ -24,10 +29,12 @@
 | 10b | P09 | League UI, GameData hub, PlayerProfileData (còn lại của P09) | ⬜ Chưa | |
 | 11 | P10 | Shop, Item/Character/Grip/Paddle/Workout, PlayerLoadout, Tazo, Kitbag, Locker | ⬜ Chưa | |
 | 12 | P11 | Daily Challenge, Daily Reward, Tournament | ⬜ Chưa | |
-| 13 | P12 | UI framework + 28 màn hình | ⬜ Chưa | |
-| 14 | P13 | Mirror networking + matchmaking + LAN (Phase 2) | ⬜ Chưa | |
-| 15 | P14 | Tutorial 11 bước | ⬜ Chưa | |
-| 16 | P15 | Ads/IAP/Analytics/RemoteConfig/Localization + ráp scene | ⬜ Chưa | |
+| 13 | P12 | UI framework + 29 màn + 21 cell prefab, **dựng theo `../ui_layout/`** | ⬜ Chưa | |
+| 14 | P14 | Tutorial 11 bước | ⬜ Chưa | |
+| 15 | — | Effect / Managers / Misc / ReplaySystem / ProfanityFilter | ⬜ Chưa | |
+| — | P13 | Mirror multiplayer + LAN | ⏸ **hoãn cuối** | cần cài package Mirror |
+| — | P15 | Ads / IAP / Analytics / RemoteConfig / Localization | ⏸ **hoãn cuối** | cần tài khoản thật |
+
 | 17 | — | **Scene greybox chạy được** + 4 PlayMode smoke test | ✅ Xong | `feat(scene): greybox playable match scene` |
 
 Chú thích: ✅ Xong · 🔄 Đang làm · ⬜ Chưa · ⚠️ Có vấn đề
