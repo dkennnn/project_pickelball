@@ -808,6 +808,7 @@ namespace Pickleball.EditorTools
             {
                 case RawImage rawImage:
                     rawImage.color = ReadColor(component["color"], Color.white);
+                    AssignRawImageTexture(rawImage, component, path, ctx);
                     break;
                 case CanvasScaler scaler:
                     // Cấu hình chuẩn 1080x1920 áp cho mọi CanvasScaler, kể cả canvas lồng nhau.
@@ -817,6 +818,67 @@ namespace Pickleball.EditorTools
                     canvas.renderMode = RenderMode.ScreenSpaceOverlay;
                     break;
             }
+        }
+
+        /// <summary>
+        /// Gán <see cref="Texture"/> cho <see cref="RawImage"/> theo field <c>texture</c> trong layout.
+        /// <para>
+        /// RawImage dùng <b>Texture2D</b> chứ không phải Sprite, nên nó KHÔNG đi qua đường gắn
+        /// sprite thông thường. RawImage thiếu texture được Unity vẽ thành một mảng
+        /// <b>TRẮNG ĐỤC phủ kín</b> — đây chính là thứ che hết màn hình khi chạy thử.
+        /// Cả 8 node nền parallax của game đều thuộc dạng này.
+        /// </para>
+        /// </summary>
+        private static void AssignRawImageTexture(RawImage rawImage, JObject component, string path, BuildContext ctx)
+        {
+            string textureName = (string)component["texture"];
+            if (string.IsNullOrEmpty(textureName))
+            {
+                // Không có dữ liệu texture: để trong suốt thay vì trắng đục phủ màn.
+                Color c = rawImage.color;
+                rawImage.color = new Color(c.r, c.g, c.b, 0f);
+                ctx.Stats.Warnings.Add($"{ctx.Screen}/{path}: RawImage không có texture → đặt alpha = 0 " +
+                                       "để không che màn hình.");
+                return;
+            }
+
+            Texture2D texture = FindTextureByName(textureName);
+            if (texture == null)
+            {
+                Color c = rawImage.color;
+                rawImage.color = new Color(c.r, c.g, c.b, 0f);
+                ctx.Stats.Warnings.Add($"{ctx.Screen}/{path}: không tìm thấy texture '{textureName}' " +
+                                       "→ đặt alpha = 0. Chạy Pickleball/Art/Import Original UI Art trước.");
+                return;
+            }
+
+            rawImage.texture = texture;
+        }
+
+        /// <summary>Tìm Texture2D theo tên trong các thư mục art của project.</summary>
+        private static Texture2D FindTextureByName(string textureName)
+        {
+            string[] folders =
+            {
+                "Assets/Project/Textures/UI",
+                "Assets/Project/ArtFromOriginal/UI"
+            };
+
+            foreach (string folder in folders)
+            {
+                if (!AssetDatabase.IsValidFolder(folder)) continue;
+
+                foreach (string guid in AssetDatabase.FindAssets("t:Texture2D", new[] { folder }))
+                {
+                    string assetPath = AssetDatabase.GUIDToAssetPath(guid);
+                    if (!string.Equals(Path.GetFileNameWithoutExtension(assetPath), textureName,
+                                       StringComparison.OrdinalIgnoreCase)) continue;
+
+                    Texture2D texture = AssetDatabase.LoadAssetAtPath<Texture2D>(assetPath);
+                    if (texture != null) return texture;
+                }
+            }
+            return null;
         }
 
         private static void ApplyCanvasScaler(CanvasScaler scaler, CanvasConfig config)
