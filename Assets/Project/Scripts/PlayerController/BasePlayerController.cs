@@ -286,6 +286,10 @@ namespace Pickleball
         protected virtual void OnDestroy()
         {
             Unsubscribe();
+
+            // Rút tên khỏi bảng participant của trận. Không làm thì các callback hẹn giờ
+            // (đổi lượt giao sau 1.5s chẳng hạn) vẫn gọi vào đối tượng đã chết.
+            if (GameManager.HasInstance) GameManager.Instance.UnregisterParticipant(this);
         }
 
         protected virtual void Update()
