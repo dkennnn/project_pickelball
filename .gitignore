@@ -55,3 +55,6 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 
+
+# FBX xuat ra tu art goc — cung rang buoc ban quyen nhu ArtFromOriginal/.
+Assets/Project/ExportedFBX/
