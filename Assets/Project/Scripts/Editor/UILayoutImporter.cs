@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -659,6 +659,8 @@ namespace Pickleball.EditorTools
             string prefabPath = ResolvePrefabPath(jsonPath, screenName);
             string prefabName = Path.GetFileNameWithoutExtension(prefabPath);
 
+            canvas = ApplyPerScreenCanvasOverride(canvas, screenName);
+
             var ctx = new BuildContext { Sprites = sprites, Stats = stats, Font = font, Screen = prefabName, Canvas = canvas };
             GameObject root = null;
             try
@@ -1148,6 +1150,54 @@ namespace Pickleball.EditorTools
             {
                 return null;
             }
+        }
+
+        /// <summary>
+        /// Bảng CanvasScaler riêng của từng màn, trích thẳng từ bundle gốc
+        /// (<c>ui_layout/canvas_scaler_per_screen.json</c>).
+        /// <para>
+        /// Không phải màn nào cũng dùng chung một cấu hình: 30 màn dùng
+        /// <c>matchWidthOrHeight = 0.5</c> nhưng <c>MainMenuUI</c> dùng <c>1.0</c> (co theo chiều
+        /// cao). Chênh lệch chỉ lộ ra trên máy có tỉ lệ khác 9:16 — đúng lúc đó mà sai thì menu
+        /// chính co giãn lệch hẳn so với bản gốc.
+        /// </para>
+        /// </summary>
+        private static Dictionary<string, CanvasConfig> perScreenCanvas;
+
+        /// <summary>Nạp bảng cấu hình canvas theo màn một lần rồi dùng lại.</summary>
+        private static Dictionary<string, CanvasConfig> LoadPerScreenCanvas()
+        {
+            if (perScreenCanvas != null) return perScreenCanvas;
+
+            perScreenCanvas = new Dictionary<string, CanvasConfig>(StringComparer.OrdinalIgnoreCase);
+
+            string layoutRoot = UILayoutPaths.FindLayoutRoot(false);
+            if (string.IsNullOrEmpty(layoutRoot)) return perScreenCanvas;
+
+            string path = Path.Combine(layoutRoot, "canvas_scaler_per_screen.json");
+            if (!File.Exists(path)) return perScreenCanvas;
+
+            try
+            {
+                foreach (KeyValuePair<string, JToken> pair in JObject.Parse(File.ReadAllText(path)))
+                {
+                    perScreenCanvas[pair.Key] = ReadCanvasConfig(pair.Value);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"[UILayoutImporter] Không đọc được canvas_scaler_per_screen.json: {e.Message}");
+            }
+
+            return perScreenCanvas;
+        }
+
+        /// <summary>Áp cấu hình canvas riêng của màn nếu bản gốc có, không thì giữ cấu hình chung.</summary>
+        private static CanvasConfig ApplyPerScreenCanvasOverride(CanvasConfig fallback, string screenName)
+        {
+            return LoadPerScreenCanvas().TryGetValue(screenName ?? string.Empty, out CanvasConfig config)
+                ? config
+                : fallback;
         }
 
         private static CanvasConfig ReadCanvasConfig(JToken token)

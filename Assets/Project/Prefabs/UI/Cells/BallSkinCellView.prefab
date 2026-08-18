@@ -187,13 +187,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0aef5a81648f804abd542bed2509373, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.BallSkinCellView
-  ballImage: {fileID: 0}
+  ballImage: {fileID: 2955380185423741539}
   selectButton: {fileID: 0}
-  bgImage: {fileID: 0}
+  bgImage: {fileID: 6959556599433559191}
   selectedSprite: {fileID: 0}
   unSelectedSprite: {fileID: 0}
   bgGlow: {fileID: 0}
-  greyscaleUIHierarchy: {fileID: 0}
+  greyscaleUIHierarchy: {fileID: 7406130959389656661}
 --- !u!1 &5521954698851314004
 GameObject:
   m_ObjectHideFlags: 0

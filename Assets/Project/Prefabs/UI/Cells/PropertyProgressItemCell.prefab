@@ -54,12 +54,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ebb5a28341094c42af6f9861d8430ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.ProfilePropertyCellView
-  propertyName: {fileID: 0}
-  icon: {fileID: 0}
-  currentProgress: {fileID: 0}
-  upgradeProgress: {fileID: 0}
-  progressBG: {fileID: 0}
-  upgradeAmountTxt: {fileID: 0}
+  propertyName: {fileID: 5126155699553638751}
+  icon: {fileID: 2103913775221479286}
+  currentProgress: {fileID: 5844122802897798419}
+  upgradeProgress: {fileID: 2891884114083900326}
+  progressBG: {fileID: 5170475204235833131}
+  upgradeAmountTxt: {fileID: 7708579061033574267}
   button: {fileID: 0}
 --- !u!222 &1286960325714338951
 CanvasRenderer:

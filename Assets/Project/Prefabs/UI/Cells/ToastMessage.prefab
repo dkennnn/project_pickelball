@@ -239,6 +239,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d872bad3875d21e498cb5dd5bfc21b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.ToastMessage
-  toastMessage: {fileID: 0}
-  canvasGroup: {fileID: 0}
+  toastMessage: {fileID: 1483015572291738574}
+  canvasGroup: {fileID: 1906116767408670963}
   fadeDuration: 0.2

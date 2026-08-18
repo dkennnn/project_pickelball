@@ -1,4 +1,4 @@
-using StarterKit.Utilities;
+﻿using StarterKit.Utilities;
 using UnityEngine;
 
 namespace Pickleball
@@ -116,22 +116,26 @@ namespace Pickleball
             HitBall(pendingSwipe);
         }
 
-        /// <summary>Gọi <see cref="BasePlayerController.HitBall(string, SwipeData, float, float, float, float)"/> rồi báo cú giao đã xong.</summary>
+        /// <summary>Gọi <see cref="BasePlayerController.HitServe"/> rồi báo cú giao đã xong.</summary>
         private void HitBall(SwipeData swipeData)
         {
             PlayerProfileProperties profile = playerController.profile;
 
-            float halfLength = playerController.MatchCourt != null ? playerController.MatchCourt.HalfLength : 6.7056f;
-            float playerDepth = halfLength > 0f
-                ? Mathf.Clamp01(Mathf.Abs(playerController.transform.position.z) / halfLength)
-                : 1f;
+            // playerDepth là TOẠ ĐỘ Z CÓ DẤU trong world space (mét), KHÔNG phải giá trị chuẩn hoá 0..1.
+            // BallController.HitBallServer dùng nó để phân biệt cú dink sát lưới với cú đánh xa
+            // (|z| < kitchenDepth * 1.5). Truyền nhầm giá trị 0..1 khiến MỌI cú giao bị coi là dink,
+            // bị kẹp tốc độ ở 9 m/s và không bao giờ bay tới được ô giao chéo sân -> lỗi luật ngay.
+            float playerDepth = playerController.transform.position.z;
 
             float swingAbility = profile != null ? profile.swingAbility : 0f;
             float spinAbility = profile != null ? profile.spinAbility : 0f;
-            float shotPowerFactor = profile != null ? profile.shotPower : 0.5f; // TODO P05: nhân thêm hệ số booster.
+            // Hệ số lực phải quanh 1.0, KHÔNG phải chỉ số shotPower thô (0..1) — xem ShotPowerFactor.
+            float shotPowerFactor = playerController.ShotPowerFactor; // TODO P05: nhân thêm hệ số booster.
 
-            playerController.HitBall(playerController.teamID, swipeData, playerDepth, swingAbility, spinAbility,
-                                     shotPowerFactor);
+            // Cú GIAO phải rơi vào ô giao chéo sân, nên dùng HitServe (kẹp điểm rơi vào ô giao)
+            // thay cho HitBall (chỉ kẹp vào nửa sân đối phương).
+            playerController.HitServe(playerController.teamID, swipeData, playerDepth, swingAbility, spinAbility,
+                                      shotPowerFactor);
 
             playerController.isSwipeUpdated = false;
             playerController.OnServe();

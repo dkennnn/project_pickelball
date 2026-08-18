@@ -313,11 +313,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c94df86261ffd544ac1c32b636b6373, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.ModeSelectionCellView
-  button: {fileID: 0}
+  button: {fileID: 3695593376177201351}
   icon: {fileID: 0}
-  lockedTxt: {fileID: 0}
-  comingSoonBanner: {fileID: 0}
-  infoBtn: {fileID: 0}
+  lockedTxt: {fileID: 2944961069294660860}
+  comingSoonBanner: {fileID: 3271165559727199108}
+  infoBtn: {fileID: 8315769822967729842}
 --- !u!222 &361840403015617058
 CanvasRenderer:
   m_ObjectHideFlags: 0

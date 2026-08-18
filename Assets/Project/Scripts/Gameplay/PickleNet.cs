@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Pickleball
 {
@@ -162,12 +162,17 @@ namespace Pickleball
         {
             if (!collision.gameObject.CompareTag(StringConstants.BallTag)) return;
 
+            // Bóng chưa vào cuộc (đang trong tay người giao / pha bóng đã khép lại) thì chỉ gợn lưới,
+            // không báo lỗi luật. Cùng điều kiện với BallController.OnCollisionEnter.
+            bool ballIsLive = !BallController.HasInstance
+                              || (BallController.Instance.IsInPlay && !BallController.Instance.isBallHeld);
+
             float ballSpeed = collision.relativeVelocity.magnitude;
             StartRipple(
                 collision.contactCount > 0 ? collision.GetContact(0).point : transform.position,
                 ballSpeed);
 
-            if (GameManager.HasInstance) GameManager.Instance.OnBallHitNet();
+            if (ballIsLive && GameManager.HasInstance) GameManager.Instance.OnBallHitNet();
         }
     }
 }

@@ -126,11 +126,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9429c0c77de386458ec906f0f895cbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.ResultWinnerCard
-  playerIcon: {fileID: 0}
-  playerNamePanel: {fileID: 0}
-  scoreTxt: {fileID: 0}
-  winnerTxt: {fileID: 0}
-  crownImg: {fileID: 0}
+  playerIcon: {fileID: 8109509627571956685}
+  playerNamePanel: {fileID: 7726258762778341312}
+  scoreTxt: {fileID: 2159332370921571691}
+  winnerTxt: {fileID: 6859749880688116035}
+  crownImg: {fileID: 650724588647398594}
   trophyText: {fileID: 0}
   winnerLabel: WINNER
 --- !u!1 &2672607666848617746

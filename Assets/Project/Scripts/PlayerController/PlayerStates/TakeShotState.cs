@@ -1,4 +1,4 @@
-using StarterKit.Utilities;
+﻿using StarterKit.Utilities;
 using UnityEngine;
 
 namespace Pickleball
@@ -198,19 +198,20 @@ namespace Pickleball
 
             PlayerProfileProperties profile = playerController.profile;
 
-            float halfLength = playerController.MatchCourt != null ? playerController.MatchCourt.HalfLength : 6.7056f;
-            float playerDepth = halfLength > 0f
-                ? Mathf.Clamp01(Mathf.Abs(playerController.transform.position.z) / halfLength)
-                : 1f;
+            // playerDepth là TOẠ ĐỘ Z CÓ DẤU trong world space (mét) — xem BallController.HitBallServer.
+            // Trước đây truyền giá trị chuẩn hoá 0..1 nên mọi cú đánh đều bị xếp loại "dink sát lưới".
+            float playerDepth = playerController.transform.position.z;
 
             float swingAbility = profile != null ? profile.swingAbility : 0f;
             float spinAbility = profile != null ? profile.spinAbility : 0f;
-            float shotPowerFactor = profile != null ? profile.shotPower : 0.5f; // TODO P05: nhân thêm hệ số booster.
+            // Chỉ số thô (0..1) chỉ dùng cho tốc độ animation; lực đánh phải là hệ số quanh 1.0.
+            float shotPowerStat = profile != null ? Mathf.Clamp01(profile.shotPower) : 0.5f;
+            float shotPowerFactor = playerController.ShotPowerFactor; // TODO P05: nhân thêm hệ số booster.
 
             // Thoát slow-motion ngay khi vung vợt.
             LerpTimeScale(1f, SlowMotionBlendDuration);
 
-            playerController.HitBallAnimation(shotPowerFactor, () =>
+            playerController.HitBallAnimation(shotPowerStat, () =>
             {
                 playerController.HitBall(playerController.teamID, swipeData, playerDepth, swingAbility, spinAbility,
                                          shotPowerFactor);

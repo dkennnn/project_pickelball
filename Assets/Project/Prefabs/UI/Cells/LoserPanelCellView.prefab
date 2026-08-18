@@ -478,10 +478,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4c5ec01d9fe20d43819c12a11543f3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.ResultLoserCard
-  playerIcon: {fileID: 0}
-  playerNamePanel: {fileID: 0}
-  scoreTxt: {fileID: 0}
-  defeatTxt: {fileID: 0}
+  playerIcon: {fileID: 8476174500494968373}
+  playerNamePanel: {fileID: 1885963814414843773}
+  scoreTxt: {fileID: 6692952377018800737}
+  defeatTxt: {fileID: 9048587817438781563}
   trophyText: {fileID: 0}
   defeatLabel: DEFEAT
 --- !u!1 &4943026650923390894

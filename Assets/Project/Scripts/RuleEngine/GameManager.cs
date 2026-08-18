@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Pickleball.Network;
 using StarterKit.Utilities;
@@ -79,6 +79,23 @@ namespace Pickleball
 
         /// <summary>Bật khi scene hiện tại là màn tutorial gameplay.</summary>
         public bool isTutorial;
+
+        /// <summary>
+        /// Tự gọi <see cref="StartMatch"/> ngay khi scene load xong.
+        /// <para>
+        /// MẶC ĐỊNH TẮT. Game dùng MỘT scene duy nhất cho cả menu lẫn trận đấu, nên nếu bật cờ này
+        /// thì trận đấu đã chạy ngầm (đồng hồ giao bóng đếm, AI tự giao, tỉ số tự tăng, thậm chí
+        /// tự kết thúc và phát thưởng) trong lúc người chơi vẫn còn ở Main Menu / Matchmaking.
+        /// Điểm vào đúng của trận là <c>MatchmakingUI.StartMatch()</c> (hoặc tutorial state).
+        /// </para>
+        /// </summary>
+        public bool autoStartOnLoad;
+
+        /// <summary>
+        /// Bật để in log chẩn đoán mỗi lần thổi lỗi luật (loại lỗi, đội phạm lỗi, trạng thái trận,
+        /// bộ đếm nảy hai bên, vị trí + IsInPlay của bóng). Tắt mặc định để không spam Console.
+        /// </summary>
+        public bool logRuleDecisions;
 
         /// <summary>TeamID của người chơi 1. Phase 2 sẽ thành [SyncVar].</summary>
         public string player1TeamID = "P1";
@@ -169,7 +186,7 @@ namespace Pickleball
         public override void OnStartServer()
         {
             base.OnStartServer();
-            StartMatch();
+            if (autoStartOnLoad) StartMatch();
         }
 
         /// <summary>
@@ -180,6 +197,10 @@ namespace Pickleball
         {
             if (!IsServer) return;
             if (currentState != GameState.Serving) return;
+
+            // Chưa có participant nào cầm quyền giao (chưa Register kịp, hoặc PrepareServe chưa chạy)
+            // thì KHÔNG được đếm giờ: người chơi không có cách nào giao bóng mà vẫn bị thổi ServeTimeout.
+            if (GetParticipant(GetCurrentServerTeamID()) == null) return;
 
             float timeout = settings != null ? settings.serveTimeout : 10f;
             serveTimer += Time.deltaTime;
@@ -208,11 +229,47 @@ namespace Pickleball
             OnPlayerControllerAdded?.Invoke();
         }
 
-        /// <summary>Lấy participant theo teamID; null nếu chưa đăng ký.</summary>
+        /// <summary>
+        /// Huỷ đăng ký participant khi nó bị destroy. Không gọi thì bảng participant còn giữ
+        /// tham chiếu tới đối tượng đã chết và các callback hẹn giờ sẽ ném
+        /// <see cref="MissingReferenceException"/>.
+        /// </summary>
+        public void UnregisterParticipant(IMatchParticipant p)
+        {
+            if (p == null || string.IsNullOrEmpty(p.TeamID)) return;
+
+            if (participants.TryGetValue(p.TeamID, out IMatchParticipant existing)
+                && ReferenceEquals(existing, p))
+            {
+                participants.Remove(p.TeamID);
+            }
+        }
+
+        /// <summary>
+        /// Participant còn sống hay đã bị <c>Destroy</c>?
+        /// <para>
+        /// BẮT BUỘC phải ép về <see cref="UnityEngine.Object"/> mới kiểm tra được. Bảng
+        /// participant giữ tham chiếu qua INTERFACE, mà toán tử <c>?.</c> và <c>!= null</c> của C#
+        /// chỉ so sánh tham chiếu thuần — chúng KHÔNG gọi toán tử <c>==</c> đã nạp chồng của Unity,
+        /// nên đối tượng đã bị destroy vẫn được coi là khác null rồi ném
+        /// <see cref="MissingReferenceException"/> khi đụng vào.
+        /// </para>
+        /// </summary>
+        private static bool IsAlive(IMatchParticipant p)
+        {
+            if (p == null) return false;
+            return !(p is UnityEngine.Object unityObject) || unityObject != null;
+        }
+
+        /// <summary>Lấy participant theo teamID; null nếu chưa đăng ký hoặc đã bị destroy.</summary>
         public IMatchParticipant GetParticipant(string teamID)
         {
             if (string.IsNullOrEmpty(teamID)) return null;
-            return participants.TryGetValue(teamID, out IMatchParticipant p) ? p : null;
+            if (!participants.TryGetValue(teamID, out IMatchParticipant p)) return null;
+            if (IsAlive(p)) return p;
+
+            participants.Remove(teamID);
+            return null;
         }
 
         // ------------------------------------------------------------------
@@ -231,7 +288,7 @@ namespace Pickleball
 
             foreach (IMatchParticipant participant in participants.Values)
             {
-                participant?.OnMatchStateChanged(newState);
+                if (IsAlive(participant)) participant.OnMatchStateChanged(newState);
             }
 
             switch (newState)
@@ -313,6 +370,19 @@ namespace Pickleball
             if (ScoreManager.HasInstance) ScoreManager.Instance.AddScore(scoringTeam);
 
             string message = gameMessages != null ? gameMessages.GetRuleMessage(ruleViolated) : ruleViolated.ToString();
+
+            if (logRuleDecisions)
+            {
+                BallController ball = BallController.HasInstance ? BallController.Instance : null;
+                Debug.Log($"[GameManager] LOI LUAT {ruleViolated} | pham loi={teamFault} | state={currentState}" +
+                          $" | server={GetCurrentServerTeamID()} serveSide={currentServeSide}" +
+                          $" | serverBounce={serverBounceCount} receiverBounce={receiverBounceCount}" +
+                          $" | lastHitBy={lastHitByTeamID ?? "null"} canVolley={canServeTakeVolley}" +
+                          (ball != null
+                              ? $" | ball pos={ball.transform.position} InPlay={ball.IsInPlay} held={ball.isBallHeld}"
+                              : " | ball=null"));
+            }
+
             OnRuleViolated?.Invoke(ruleViolated, teamFault, message); // [ClientRpc] RpcOnRuleViolated
 
             SetGameState(GameState.PointScored);
@@ -467,8 +537,12 @@ namespace Pickleball
 
             if (currentState != GameState.InPlay) return;
 
-            // Người vừa đánh đứng ở nửa sân đối diện điểm rơi.
-            bool hitterIsPositive = !bouncedOnPositiveCourt;
+            // Nửa sân của người vừa đánh. Phải tra từ lastHitByTeamID; suy ngược
+            // "hitterIsPositive = !bouncedOnPositiveCourt" là lập luận vòng tròn khiến
+            // EvaluateBounce không bao giờ phát hiện được bóng rơi lại chính nửa sân người đánh.
+            bool hitterIsPositive = !string.IsNullOrEmpty(lastHitByTeamID)
+                ? IsTeamOnPositiveCourt(lastHitByTeamID)
+                : !bouncedOnPositiveCourt;
             RuleType violation = ruleEngine.EvaluateBounce(position, hitterIsPositive, bounceCountOnThisSide);
             if (violation == RuleType.None) return;
 
@@ -489,7 +563,11 @@ namespace Pickleball
             if (!IsServer) return;
             if (currentState == GameState.GameOver || currentState == GameState.PointScored) return;
 
-            if (currentState == GameState.WaitingForServeResult || currentState == GameState.Serving)
+            // PreServe cũng phải nằm trong nhánh này: trước đây PreServe rơi xuống nhánh dưới và bị
+            // quy BounceOutOfCourt cho đội đang tới lượt dù chưa ai đánh quả nào.
+            if (currentState == GameState.WaitingForServeResult
+                || currentState == GameState.Serving
+                || currentState == GameState.PreServe)
             {
                 HandlePointAndServeChange(GetCurrentServerTeamID(), RuleType.ServeInNet);
                 return;
@@ -579,13 +657,23 @@ namespace Pickleball
 
         /// <summary>
         /// Nửa sân của một đội. Ưu tiên hỏi participant đã đăng ký;
-        /// nếu chưa có thì mặc định player1 ở nửa sân dương.
+        /// nếu chưa có thì suy ra từ marker <see cref="player1Location"/> / <see cref="player2Location"/>.
         /// </summary>
         private bool IsTeamOnPositiveCourt(string teamID)
         {
             IMatchParticipant participant = GetParticipant(teamID);
             if (participant != null) return participant.IsPositiveCourt;
-            return teamID == player1TeamID;
+
+            // Chưa đăng ký participant: suy ra từ marker spawn trong scene.
+            // KHÔNG được mặc định "player1 luôn ở nửa sân dương" — scene GreyboxMatch đặt P1 tại
+            // z = -6 (nửa sân ÂM), giả định sai làm đảo dấu ô giao chéo và thổi ServeNotInArea oan.
+            bool player1IsPositive = player1Location != null
+                ? player1Location.position.z >= 0f
+                : (player2Location != null ? player2Location.position.z < 0f : true);
+
+            if (teamID == player1TeamID) return player1IsPositive;
+            if (teamID == player2TeamID) return !player1IsPositive;
+            return player1IsPositive;
         }
 
         /// <summary>TeamID của đội đang đứng ở nửa sân chỉ định.</summary>

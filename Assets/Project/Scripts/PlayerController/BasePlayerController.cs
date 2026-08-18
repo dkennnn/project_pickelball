@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using StarterKit.Utilities;
 using UnityEngine;
@@ -147,6 +147,9 @@ namespace Pickleball
 
         private Vector3 targetPosition;
         private bool isPositiveCourt;
+
+        /// <summary>Ô giao mà GameManager vừa chỉ định cho tay vợt này (dùng để kẹp điểm rơi cú giao).</summary>
+        private ServeSide activeServeSide = ServeSide.Right;
         private Vector3 targetBallHitPoint;
         private float targetBallHitTime;
         private Vector3 targetHitStandPoint;
@@ -163,6 +166,9 @@ namespace Pickleball
 
         /// <summary>Khoảng cách tối thiểu tới lưới mà người chơi được phép tiến lại.</summary>
         protected const float ValidZDistanceFromNet = 1f;
+
+        /// <summary>Đệm (mét) để điểm rơi cú giao không nằm sát vạch ô giao / vạch kitchen.</summary>
+        private const float ServeBoxMargin = 0.35f;
 
         /// <summary>Đệm chống kẹt ở mép vùng di chuyển.</summary>
         protected const float EdgeBugOffset = 1f;
@@ -187,6 +193,12 @@ namespace Pickleball
 
         /// <summary>Độ trễ (giây) của cú đánh khi shotPower = 1.</summary>
         private const float MinShotAnimationDelay = 0.12f;
+
+        /// <summary>Hệ số nhân lực ứng với <c>shotPower = 0</c> (đánh nhẹ hơn lời giải ném xiên một chút).</summary>
+        private const float MinShotPowerFactor = 0.92f;
+
+        /// <summary>Hệ số nhân lực ứng với <c>shotPower = 1</c>.</summary>
+        private const float MaxShotPowerFactor = 1.12f;
 
         // ------------------------------------------------------------------
         // Sự kiện animation (do PlayerAnimationEventReceiver bắn lên)
@@ -792,6 +804,7 @@ namespace Pickleball
         {
             shotCount = 0;
             isAttemptingVolley = false;
+            activeServeSide = side;
 
             if (MatchCourt != null)
             {
@@ -853,21 +866,70 @@ namespace Pickleball
         // ------------------------------------------------------------------
 
         /// <summary>
+        /// Quy đổi chỉ số <c>profile.shotPower</c> (thang 0..1) thành HỆ SỐ NHÂN LỰC quanh 1.0 để
+        /// truyền cho <see cref="BallController.HitBallServer"/>.
+        /// <para>
+        /// BẮT BUỘC phải quy đổi: <c>HitBallServer</c> nhân thẳng hệ số này vào vận tốc đã giải từ
+        /// bài toán ném xiên. Truyền nguyên chỉ số 0..1 (ví dụ 0.3) làm tầm bay co lại còn ~9%
+        /// (tầm ném xiên tỉ lệ v²) nên mọi cú đánh — nhất là cú giao từ cuối sân — đều rúc lưới
+        /// và bị thổi lỗi ngay. Đường đánh của AI không đi qua chỗ này nên AI không dính lỗi.
+        /// </para>
+        /// </summary>
+        public float ShotPowerFactor
+        {
+            get
+            {
+                float power = profile != null ? Mathf.Clamp01(profile.shotPower) : 0.5f;
+                return Mathf.Lerp(MinShotPowerFactor, MaxShotPowerFactor, power);
+            }
+        }
+
+        /// <summary>
         /// Đánh bóng theo cú vuốt của NGƯỜI CHƠI — uỷ quyền toàn bộ tính toán lực/xoáy cho
         /// <see cref="BallController.HitBallServer"/>.
         /// </summary>
         /// <param name="teamID">Đội thực hiện cú đánh.</param>
         /// <param name="swipeData">Dữ liệu cú vuốt đã phân tích.</param>
-        /// <param name="playerDepth">Độ sâu chuẩn hoá của tay vợt so với lưới (0 = sát lưới, 1 = cuối sân).</param>
+        /// <param name="playerDepth">
+        /// Toạ độ Z CÓ DẤU của tay vợt trong world space (mét) — KHÔNG chuẩn hoá.
+        /// <see cref="BallController.HitBallServer"/> so nó với <c>kitchenDepth * 1.5</c> để phân biệt
+        /// cú dink sát lưới với cú đánh xa; truyền giá trị chuẩn hoá 0..1 sẽ khiến mọi cú đánh thành dink.
+        /// </param>
         /// <param name="swingAbility">Khả năng vung vợt (0..1).</param>
         /// <param name="spinAbility">Khả năng tạo xoáy (0..1).</param>
-        /// <param name="shotPowerFactor">Hệ số lực đánh (0..1), đã tính cả booster.</param>
+        /// <param name="shotPowerFactor">HỆ SỐ nhân lực quanh 1.0 (1 = đúng lời giải ném xiên) — dùng <see cref="ShotPowerFactor"/>, KHÔNG truyền chỉ số shotPower thô 0..1.</param>
         public void HitBall(string teamID, SwipeData swipeData, float playerDepth, float swingAbility,
                             float spinAbility, float shotPowerFactor) // [Server]
         {
             if (ballController == null || swipeData == null) return;
 
             Vector3 destination = ClampDestinationToOpponentCourt(swipeData.DestinationPoint);
+
+            ballController.HitBallServer(teamID, swipeData, destination, playerDepth, swingAbility, spinAbility,
+                                         shotPowerFactor);
+
+            OnBallHitPerformed();
+        }
+
+        /// <summary>
+        /// Cú GIAO BÓNG của người chơi. Khác <see cref="HitBall(string, SwipeData, float, float, float, float)"/>
+        /// ở chỗ điểm rơi bị ép vào ĐÚNG Ô GIAO CHÉO SÂN (cùng <see cref="ServeSide"/>, nửa sân đối diện —
+        /// xem quy ước tại <see cref="Court.GetServeBoxBounds"/>), vì luật pickleball bắt buộc giao chéo.
+        /// Không có bước kẹp này thì một cú vuốt thẳng lên sẽ rơi vào ô giao SAI hoặc vào kitchen và
+        /// bị thổi <see cref="RuleType.ServeNotInArea"/> ngay lập tức.
+        /// </summary>
+        /// <param name="teamID">Đội thực hiện cú giao.</param>
+        /// <param name="swipeData">Dữ liệu cú vuốt đã phân tích.</param>
+        /// <param name="playerDepth">Toạ độ Z có dấu của người giao trong world space (mét).</param>
+        /// <param name="swingAbility">Khả năng vung vợt (0..1).</param>
+        /// <param name="spinAbility">Khả năng tạo xoáy (0..1).</param>
+        /// <param name="shotPowerFactor">Hệ số nhân lực quanh 1.0 — xem <see cref="ShotPowerFactor"/>.</param>
+        public void HitServe(string teamID, SwipeData swipeData, float playerDepth, float swingAbility,
+                             float spinAbility, float shotPowerFactor) // [Server]
+        {
+            if (ballController == null || swipeData == null) return;
+
+            Vector3 destination = ClampDestinationToServeBox(swipeData.DestinationPoint);
 
             ballController.HitBallServer(teamID, swipeData, destination, playerDepth, swingAbility, spinAbility,
                                          shotPowerFactor);
@@ -923,6 +985,28 @@ namespace Pickleball
 
             CourtBounds opponent = court.GetHalfCourtBounds(!isPositiveCourt);
             Vector3 clamped = Utilities.ClampToBounds(destination, opponent.center, opponent.extends);
+            clamped.y = 0f;
+            return clamped;
+        }
+
+        /// <summary>
+        /// Ép điểm rơi của cú giao vào ô giao CHÉO SÂN tương ứng với <see cref="activeServeSide"/>,
+        /// chừa một khoảng đệm để không rơi đúng vạch. Trả về nguyên vẹn nếu scene chưa có <see cref="Court"/>.
+        /// </summary>
+        /// <param name="destination">Điểm ngắm thô suy ra từ cú vuốt.</param>
+        private Vector3 ClampDestinationToServeBox(Vector3 destination)
+        {
+            Court court = MatchCourt;
+            if (court == null) return destination;
+
+            // Ô giao chéo sân = CÙNG ServeSide nhưng ở nửa sân đối diện người giao.
+            CourtBounds box = court.GetServeBoxBounds(!isPositiveCourt, activeServeSide);
+
+            Vector2 extents = new Vector2(
+                Mathf.Max(0f, box.extends.x - ServeBoxMargin),
+                Mathf.Max(0f, box.extends.y - ServeBoxMargin));
+
+            Vector3 clamped = Utilities.ClampToBounds(destination, box.center, extents);
             clamped.y = 0f;
             return clamped;
         }

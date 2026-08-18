@@ -2056,14 +2056,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0df7a11a2e24a8a4e8eacfce4e1e01fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.DailyChallengeCellView
-  description: {fileID: 0}
-  progressCount: {fileID: 0}
-  currentProgress: {fileID: 0}
-  progressBG: {fileID: 0}
-  icon: {fileID: 0}
-  rewardAmountText: {fileID: 0}
-  claimButton: {fileID: 0}
-  goButton: {fileID: 0}
+  description: {fileID: 5797763875188829401}
+  progressCount: {fileID: 1035158700056802303}
+  currentProgress: {fileID: 9166061214433742237}
+  progressBG: {fileID: 1821115312537163067}
+  icon: {fileID: 5316639492383051835}
+  rewardAmountText: {fileID: 7459850777508179681}
+  claimButton: {fileID: 4175917358087125280}
+  goButton: {fileID: 3054871650867726440}
 --- !u!1 &9073524315584117252
 GameObject:
   m_ObjectHideFlags: 0

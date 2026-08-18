@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using Pickleball.Network;
@@ -787,6 +787,12 @@ namespace Pickleball
         {
             if (!IsServer) return;
 
+            // Bóng đang trong tay người giao, hoặc pha bóng đã khép lại (IsInPlay = false):
+            // va chạm lúc này chỉ là vật lý thuần tuý (bóng rơi/lăn lúc chuẩn bị giao). Vẫn đếm
+            // bounceCount và phát hiệu ứng, nhưng TUYỆT ĐỐI không báo cho rule engine —
+            // nếu không, quả bóng chưa vào cuộc cũng bị thổi phạt.
+            bool ballIsLive = IsInPlay && !isBallHeld;
+
             GameObject other = collision.gameObject;
             Vector3 contactPoint = collision.contactCount > 0
                 ? collision.GetContact(0).point
@@ -806,7 +812,7 @@ namespace Pickleball
 
                 SpawnBounceVisual(contactPoint);
 
-                if (GameManager.HasInstance)
+                if (ballIsLive && GameManager.HasInstance)
                 {
                     GameManager.Instance.OnBallBounced(contactPoint, contactPoint.z > 0f);
                 }
@@ -820,7 +826,7 @@ namespace Pickleball
 
             // PickleNet cũng báo cho GameManager; GameManager tự bỏ qua lời gọi thứ hai
             // vì trạng thái đã chuyển sang PointScored.
-            if (GameManager.HasInstance) GameManager.Instance.OnBallHitNet();
+            if (ballIsLive && GameManager.HasInstance) GameManager.Instance.OnBallHitNet();
         }
 
         private void SpawnBounceVisual(Vector3 contactPoint)

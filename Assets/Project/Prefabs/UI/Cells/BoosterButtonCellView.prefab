@@ -314,10 +314,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2add3c70a712dff4ab734348300b7199, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.BoosterButtonCell
-  button: {fileID: 0}
+  button: {fileID: 8120456099420436032}
   icon: {fileID: 0}
-  count: {fileID: 0}
-  progressImg: {fileID: 0}
+  count: {fileID: 5676879949771222392}
+  progressImg: {fileID: 1570493032480027035}
 --- !u!1 &3400333432632503204
 GameObject:
   m_ObjectHideFlags: 0

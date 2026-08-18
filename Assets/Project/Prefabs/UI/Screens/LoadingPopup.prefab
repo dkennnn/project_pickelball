@@ -118,9 +118,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.LoadingPopupUI
   screenType: 0
-  canvas: {fileID: 0}
-  loaderImg: {fileID: 0}
-  loadingTxt: {fileID: 0}
+  canvas: {fileID: 3565689286214876450}
+  loaderImg: {fileID: 4465917702046289401}
+  loadingTxt: {fileID: 7744063775113178930}
   rotateSpeed: -180
   defaultMessage: LOADING...
 --- !u!1 &482462295077786541

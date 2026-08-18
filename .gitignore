@@ -54,14 +54,4 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
-# Art trích từ bản gốc — KHÔNG commit.
-# ~136 MB, là tài sản của Zudo Labs, phải thay trước khi phát hành.
-# Dựng lại bất cứ lúc nào bằng:
-#   Pickleball/Art/Import Original UI Art
-#   Pickleball/Art/Import Original Fonts
-#   Pickleball/Art/Import Original Character Art
-#   Pickleball/Art/Build Playable Character Prefabs
-/[Aa]ssets/Project/ArtFromOriginal/
-/[Aa]ssets/Project/ArtFromOriginal.meta
-/[Aa]ssets/Project/Prefabs/Characters/
-/[Aa]ssets/Project/Prefabs/Characters.meta
+

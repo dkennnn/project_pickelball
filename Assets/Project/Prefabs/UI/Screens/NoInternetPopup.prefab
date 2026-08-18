@@ -465,10 +465,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.NoInternetPopup
   screenType: 0
-  canvas: {fileID: 0}
-  titleText: {fileID: 0}
-  text: {fileID: 0}
-  icon: {fileID: 0}
+  canvas: {fileID: 8835525100761321777}
+  titleText: {fileID: 9102611124203398455}
+  text: {fileID: 8600300248446674235}
+  icon: {fileID: 3942994590365975965}
   retryButton: {fileID: 0}
   quitButton: {fileID: 0}
   defaultTitle: NO INTERNET

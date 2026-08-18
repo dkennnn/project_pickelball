@@ -285,11 +285,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.LoadingUI
   screenType: 0
-  canvas: {fileID: 0}
-  progressBar: {fileID: 0}
-  filler: {fileID: 0}
-  textTMPLoading: {fileID: 0}
-  icon: {fileID: 0}
+  canvas: {fileID: 4849599565697543905}
+  progressBar: {fileID: 8183321654317006538}
+  filler: {fileID: 6934177282747512403}
+  textTMPLoading: {fileID: 4573442414084802859}
+  icon: {fileID: 6251302516858337694}
   minimumDuration: 1
   nextScreen: 3
 --- !u!1 &1958497149157635235

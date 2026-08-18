@@ -309,13 +309,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c190153b430cb44cbe9bb57b4b6de05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.PaddleSkinCellView
-  paddleImage: {fileID: 0}
+  paddleImage: {fileID: 7528570772695876753}
   selectButton: {fileID: 0}
-  bgImage: {fileID: 0}
+  bgImage: {fileID: 6992445168021199460}
   selectedSprite: {fileID: 0}
   unSelectedSprite: {fileID: 0}
   bgGlow: {fileID: 0}
-  greyscaleUIHierarchy: {fileID: 0}
+  greyscaleUIHierarchy: {fileID: 7274049902100145368}
 --- !u!1 &8224965122890114615
 GameObject:
   m_ObjectHideFlags: 0

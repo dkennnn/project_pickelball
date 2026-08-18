@@ -29,14 +29,32 @@ namespace StarterKit.UIKit
         private Vector2Int lastScreenSize = Vector2Int.zero;
         private ScreenOrientation lastOrientation = ScreenOrientation.AutoRotation;
 
+        // Offset do bố cục gốc quy định (lề thiết kế), KHÔNG phải do vùng an toàn.
+        // Phải giữ nguyên: ví dụ MainMenuUI/Parent thụt 200px từ mép trên để TopPanel bên trong
+        // vươn ngược lên đúng 200px đó mà chạm mép màn hình. Xoá offset này là thanh trên bay ra ngoài.
+        private Vector2 designOffsetMin;
+        private Vector2 designOffsetMax;
+        private bool designOffsetCaptured;
+
         private void Awake()
         {
             rectTransform = GetComponent<RectTransform>();
+            CaptureDesignOffsets();
+        }
+
+        /// <summary>Ghi lại offset gốc của prefab, chỉ một lần và trước khi component sửa gì.</summary>
+        private void CaptureDesignOffsets()
+        {
+            if (designOffsetCaptured || rectTransform == null) return;
+            designOffsetMin = rectTransform.offsetMin;
+            designOffsetMax = rectTransform.offsetMax;
+            designOffsetCaptured = true;
         }
 
         private void OnEnable()
         {
             if (rectTransform == null) rectTransform = GetComponent<RectTransform>();
+            CaptureDesignOffsets();
             Refresh(true);
         }
 
@@ -115,8 +133,10 @@ namespace StarterKit.UIKit
 
             rectTransform.anchorMin = min;
             rectTransform.anchorMax = max;
-            rectTransform.offsetMin = Vector2.zero;
-            rectTransform.offsetMax = Vector2.zero;
+
+            // Giữ lề thiết kế của prefab. Đặt về 0 sẽ phá bố cục gốc — xem ghi chú ở phần khai báo.
+            rectTransform.offsetMin = designOffsetMin;
+            rectTransform.offsetMax = designOffsetMax;
         }
     }
 }

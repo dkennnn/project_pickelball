@@ -557,8 +557,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.GemsProductCell
   gemPack: {fileID: 0}
   gemsCountText: {fileID: 0}
-  gemsImage: {fileID: 0}
-  buyButton: {fileID: 0}
+  gemsImage: {fileID: 3112959464020867026}
+  buyButton: {fileID: 706655164158413292}
   currencyButtonContent: {fileID: 0}
   adsButtonContent: {fileID: 0}
   gemsPriceText: {fileID: 0}

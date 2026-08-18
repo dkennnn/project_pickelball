@@ -118,7 +118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.EmptyUI
   screenType: 0
-  canvas: {fileID: 0}
+  canvas: {fileID: 6741205491974213068}
 --- !u!1 &7018014156424105440
 GameObject:
   m_ObjectHideFlags: 0

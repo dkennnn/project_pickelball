@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8c4c5f25dc209c41898ed62b35eaadd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Pickleball.Runtime::Pickleball.TutorialSuccessBallCellView
-  successTick: {fileID: 0}
+  successTick: {fileID: 420474205134308144}
   fadeDuration: 0.2
 --- !u!222 &6014529013450323881
 CanvasRenderer:
