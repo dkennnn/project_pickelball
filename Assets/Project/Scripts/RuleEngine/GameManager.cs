@@ -115,7 +115,6 @@ namespace Pickleball
         private int serverBounceCount;
         private int receiverBounceCount;
         private bool canServeTakeVolley;
-        private bool isServerTurn;
         private float serveTimer;
         private bool isServerLocked;
         private string lockedServerTeamID;
@@ -310,7 +309,6 @@ namespace Pickleball
 
                 case GameState.Serving:
                     serveTimer = 0f;
-                    isServerTurn = true;
                     break;
 
                 case GameState.GameOver:
@@ -330,9 +328,9 @@ namespace Pickleball
             if (settings != null) settings.ApplySelectedModeSettings();
             Time.timeScale = defaultGameplayTimeScale;
 
-            if (ScoreManager.HasInstance)
+            if (Score != null)
             {
-                ScoreManager score = ScoreManager.Instance;
+                ScoreManager score = Score;
                 score.player1TeamID = player1TeamID;
                 score.player2TeamID = player2TeamID;
                 if (score.Settings == null) score.Settings = settings;
@@ -367,7 +365,7 @@ namespace Pickleball
             lastFaultbyTeamID = teamFault;
             string scoringTeam = GetOpponentTeamID(teamFault);
 
-            if (ScoreManager.HasInstance) ScoreManager.Instance.AddScore(scoringTeam);
+            if (Score != null) Score.AddScore(scoringTeam);
 
             string message = gameMessages != null ? gameMessages.GetRuleMessage(ruleViolated) : ruleViolated.ToString();
 
@@ -387,17 +385,21 @@ namespace Pickleball
 
             SetGameState(GameState.PointScored);
 
-            if (ScoreManager.HasInstance && ScoreManager.Instance.CheckForGameComplete())
+            if (Score != null && Score.CheckForGameComplete())
             {
                 SetGameState(GameState.GameOver);
                 return;
             }
 
             // Người thắng pha bóng cầm quyền giao — trừ khi quyền giao đang bị khoá (tutorial).
-            if (!isServerLocked)
+            //
+            // KHÔNG đổi ô giao ở đây. Ô giao chỉ có MỘT nguồn sự thật là chẵn/lẻ điểm của
+            // người giao (xem GetPlayerSideForServe), và SetGameState(PreServe) sẽ tính lại
+            // theo nguồn đó. Người giao giữ quyền giao thì điểm của họ vừa +1 nên chẵn/lẻ tự
+            // đảo, ô giao tự đổi bên — không cần và KHÔNG ĐƯỢC đổi tay ở đây.
+            if (!isServerLocked && scoringTeam != currentServerTeamID)
             {
-                if (scoringTeam != currentServerTeamID) currentServerTeamID = scoringTeam;
-                else SwitchSide();
+                currentServerTeamID = scoringTeam;
             }
 
             ResetRallyData();
@@ -407,12 +409,6 @@ namespace Pickleball
             {
                 if (currentState == GameState.PointScored) SetGameState(GameState.PreServe);
             });
-        }
-
-        /// <summary>Đổi ô giao bóng hiện tại (Left ⇄ Right).</summary>
-        public void SwitchSide() // [Server]
-        {
-            currentServeSide = currentServeSide == ServeSide.Right ? ServeSide.Left : ServeSide.Right;
         }
 
         /// <summary>Hoán đổi lượt đánh giữa hai đội.</summary>
@@ -429,7 +425,6 @@ namespace Pickleball
             serverBounceCount = 0;
             receiverBounceCount = 0;
             canServeTakeVolley = false;
-            isServerTurn = true;
             serveTimer = 0f;
             lastHitByTeamID = null;
         }
@@ -444,9 +439,31 @@ namespace Pickleball
         /// </summary>
         public ServeSide GetPlayerSideForServe(string teamID)
         {
-            if (string.IsNullOrEmpty(teamID) || !ScoreManager.HasInstance) return currentServeSide;
-            int score = ScoreManager.Instance.GetScore(teamID);
+            if (string.IsNullOrEmpty(teamID) || Score == null) return currentServeSide;
+            int score = Score.GetScore(teamID);
             return (score % 2 == 0) ? ServeSide.Right : ServeSide.Left;
+        }
+
+        private ScoreManager scoreManagerCache;
+
+        /// <summary>
+        /// Nguồn điểm số đang dùng.
+        /// <para>
+        /// KHÔNG đi thẳng qua <c>ScoreManager.Instance</c>: singleton chỉ được gán trong
+        /// <c>Awake</c>, mà EditMode test thì <c>Awake</c> không chạy. Đi thẳng qua singleton
+        /// khiến các hàm phía dưới ÂM THẦM rơi vào nhánh dự phòng và trả về giá trị cũ thay vì
+        /// giá trị đúng — sai lặng lẽ, không có thông báo nào.
+        /// </para>
+        /// </summary>
+        private ScoreManager Score
+        {
+            get
+            {
+                if (scoreManagerCache != null) return scoreManagerCache;
+                if (ScoreManager.HasInstance) scoreManagerCache = ScoreManager.Instance;
+                else scoreManagerCache = GetComponent<ScoreManager>();
+                return scoreManagerCache;
+            }
         }
 
         /// <summary>TeamID của đội đang cầm quyền giao bóng (ưu tiên đội bị khoá quyền giao nếu có).</summary>
@@ -600,7 +617,6 @@ namespace Pickleball
             if (currentState == GameState.Serving || currentState == GameState.PreServe)
             {
                 serveTimer = 0f;
-                isServerTurn = false;
                 SetCurrentPlayer(GetOpponentTeamID(teamID));
                 SetGameState(GameState.WaitingForServeResult);
                 return;
@@ -641,7 +657,7 @@ namespace Pickleball
 
             if (endSequenceObject != null) endSequenceObject.SetActive(true);
 
-            string winnerTeamID = ScoreManager.HasInstance ? ScoreManager.Instance.GetWinner() : string.Empty;
+            string winnerTeamID = Score != null ? Score.GetWinner() : string.Empty;
 
             // [ClientRpc] RpcOnGameOver(winnerTeamID, winnerPosition)
             DelayedAction.Run(ResultScreenShowingTimeDelay, () => OnMatchEnded?.Invoke(winnerTeamID));
